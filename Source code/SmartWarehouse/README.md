@@ -1,2 +1,0 @@
-# CRUDdemo
-About CRUD Demo

@@ -13,7 +13,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import bom.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,41 +20,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="product")
+@Table(name="travel")
 @Data
 
-public class ProductEntity {
+public class TravelEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="name", nullable=true)
-	private String name;
+	@ManyToOne
+	@JoinColumn(name="bot")
+	private BotEntity bot;
+
+	@ManyToOne
+	@JoinColumn(name="order_detail")
+	private OrderDetailEntity orderDetail;
 	
 	@ManyToOne
-	@JoinColumn(name="type_product")
-	private TypeProductEntity typeProduct;
+	@JoinColumn(name="location")
+	private LocationEntity from;
 	
-	@Column(name="image")
-	private String image;
+	@ManyToOne
+	@JoinColumn(name="location")
+	private LocationEntity to;
 	
-	@Column(name="weight")
-	private int weight;
+	@Column(name="start", nullable=true)
+	private Date start;
 	
-	@Column(name="amount")
-	private int amount;
+	@Column(name="end", nullable=true)
+	private Date end;
 	
-	@Column(name="status")
-	private ProductStatus status;
-	
-	@Column(name="in_date")
-	private Date inDate;
-	
-	
-	@Column(name="out_date")
-	private Date outDate;
-	
-	
-	@Column(name="expiry_date")
-	private Date expiryDate;
 }

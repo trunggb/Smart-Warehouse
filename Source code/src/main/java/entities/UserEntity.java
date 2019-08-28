@@ -1,0 +1,64 @@
+package entities;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import bom.Active;
+import bom.Role;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name="user")
+@Data
+
+public class UserEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
+	
+	@Column(name="user_name", nullable=true)
+	private String userName;
+	
+	@Column(name="email")
+	private String email;
+
+	@Column(name="phone")
+	private String phone;
+
+	@Column(name="password")
+	private String password;
+
+	@Column(name="address")
+	private String address;
+
+	@Column(name="avatar")
+	private String avatar;
+
+	@Column(name="create_date")
+	private Date createDate;
+	
+	@Column(name="last_access_date")
+	private Date lastAccessDate;
+	
+	@Column(name="last_logout_date")
+	private Date lastLogoutDate;
+	
+	@Column(name="role")
+	private Role role;
+	
+	@Column(name="active")
+	private Active active;
+
+}

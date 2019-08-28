@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -10,6 +11,60 @@
 </h:head>
 
 <h:body>
-	This is a smart warehouse
+	<h:form id="listProductForm">
+		<div class="container">
+			<div class="row">
+				<div>
+					<p:commandButton value="New Product"
+						onclick="PF('addProduct').show();" />
+				</div>
+				<p:dataTable value="#{webHandler.products}" var="product"
+					reflow="true" rows="10" paginatorPosition="bottom" paginator="true">
+
+					<p:column>
+						<f:facet name="header">ID</f:facet>
+			#{product.id}
+			</p:column>
+					<p:column>
+						<f:facet name="header">Name</f:facet>
+			#{product.name}
+			</p:column>
+			<p:column>
+				<f:facet name="header">Action</f:facet>
+				<p:commandButton icon="fa fa-edit orange-icon" title="Edit"
+						update=":updateForm" style="width: 60px"
+						action="#{webHandler.viewProduct(product)}">
+				</p:commandButton>
+			</p:column>
+				</p:dataTable>
+			</div>
+		</div>
+	</h:form>
+	<p:dialog width="400px" header="Add New Product" widgetVar="addProduct">
+		<h:form id="addForm">
+			<p:outputLabel for="name" value="Name:" />
+			<p:inputText value="#{webHandler.product.name}" required="true"
+				id="name" requiredMessage="Name is required" />
+			<h:message for="name" style="color:red" />
+			<div>
+				<p:commandButton value="Save" action="#{webHandler.addProduct}"
+					update="addForm :listProductForm" process="@form" />
+				<p:commandButton value="Cancel" onclick="PF('addProduct').hide()" />	
+			</div>
+		</h:form>
+	</p:dialog>
+	<p:dialog width="400px" header="Update Product" widgetVar="updateProduct">
+		<h:form id="updateForm">
+			<p:outputLabel for="name" value="Name:" />
+			<p:inputText value="#{webHandler.product.name}" required="true"
+				id="name" requiredMessage="Name is required" />
+			<h:message for="name" style="color:red" />
+			<div>
+				<p:commandButton value="Update" action="#{webHandler.updateProduct}"
+					update="updateForm :listProductForm" process="@form" />
+				<p:commandButton value="Cancel" onclick="PF('updateProduct').hide()" />	
+			</div>
+		</h:form>
+	</p:dialog>
 </h:body>
 </html>

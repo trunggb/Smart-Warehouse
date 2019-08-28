@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +11,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import bom.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,41 +18,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="product")
+@Table(name="cluster")
 @Data
 
-public class ProductEntity {
+public class ClusterEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="name", nullable=true)
+	@Column(name="name")
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name="type_product")
-	private TypeProductEntity typeProduct;
-	
-	@Column(name="image")
-	private String image;
-	
-	@Column(name="weight")
-	private int weight;
-	
-	@Column(name="amount")
-	private int amount;
-	
-	@Column(name="status")
-	private ProductStatus status;
-	
-	@Column(name="in_date")
-	private Date inDate;
-	
-	
-	@Column(name="out_date")
-	private Date outDate;
-	
-	
-	@Column(name="expiry_date")
-	private Date expiryDate;
+	@JoinColumn(name="location")
+	private LocationEntity location;
 }

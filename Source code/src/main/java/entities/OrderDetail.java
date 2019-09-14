@@ -22,9 +22,9 @@ import lombok.NoArgsConstructor;
 @Table(name="order_detail")
 @Data
 
-public class OrderDetailEntity {
+public class OrderDetail {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name="date_created", nullable=true)
@@ -32,16 +32,16 @@ public class OrderDetailEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="product")
-	private ProductEntity product;
+	private Product product;
 	
 	@OneToOne
-	private OrderEntity order;
+	private Order order;
 	
 	@OneToOne
-	private BotEntity bot;
+	private Bot bot;
 	
 	@OneToOne
-	private ClusterEntity cluster;
+	private Cluster cluster;
 	
 	@Column(name="date_start")
 	private Date dateStart;

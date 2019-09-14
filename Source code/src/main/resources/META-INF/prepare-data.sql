@@ -1,6 +1,0 @@
---insert into product(id,name) values (0,'Winner V1');
---insert into product(name) values ('Ducati Panigale 1199');
---insert into product(name) values ('BMW S1000RR');
---insert into product(name) values ('Yamaha R1');
---insert into product(name) values ('CBR 1000R');
---insert into product(name) values ('Kawasaki Z1000');

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Product</title>
+	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
+	<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+	<h:outputStylesheet name="components.css" library="primefaces" />
+</h:head>
+
+<h:body>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Name:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{productBean.productViewed.name}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Image:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{productBean.productViewed.image}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Weight:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{productBean.productViewed.weight}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Amount:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{productBean.productViewed.amount}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Status:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{productBean.productViewed.status}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="In date:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{productBean.productViewed.inDate}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Out date:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{productBean.productViewed.outDate}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Expiry date:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{productBean.productViewed.expiryDate}" />
+		</div>
+	</div>
+</h:body>
+
+</html>

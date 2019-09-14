@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -23,31 +21,31 @@ import lombok.NoArgsConstructor;
 @Table(name="travel")
 @Data
 
-public class TravelEntity {
+public class Travel {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@ManyToOne
 	@JoinColumn(name="bot")
-	private BotEntity bot;
+	private Bot bot;
 
 	@ManyToOne
 	@JoinColumn(name="order_detail")
-	private OrderDetailEntity orderDetail;
+	private OrderDetail orderDetail;
 	
 	@ManyToOne
-	@JoinColumn(name="location")
-	private LocationEntity from;
+	@JoinColumn(name="from_loc")
+	private Location from;
 	
 	@ManyToOne
-	@JoinColumn(name="location")
-	private LocationEntity to;
+	@JoinColumn(name="to_loc")
+	private Location to;
 	
-	@Column(name="start", nullable=true)
+	@Column(name="start_date")
 	private Date start;
 	
-	@Column(name="end", nullable=true)
+	@Column(name="end_date")
 	private Date end;
 	
 }

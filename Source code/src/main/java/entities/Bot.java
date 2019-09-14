@@ -19,20 +19,20 @@ import lombok.NoArgsConstructor;
 @Table(name="bot")
 @Data
 
-public class BotEntity {
+public class Bot {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name="name", nullable=true)
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name="location")
-	private LocationEntity currentLocation;
+	@JoinColumn(name="current_location")
+	private Location currentLocation;
 	
 	@ManyToOne
-	@JoinColumn(name="location")
-	private LocationEntity initLocation;
+	@JoinColumn(name="init_location")
+	private Location initLocation;
 	
 }

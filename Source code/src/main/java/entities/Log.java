@@ -7,12 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import bom.Action;
-import bom.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,21 +18,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="product")
+@Table(name="log")
 @Data
 
-public class LogEntity {
+public class Log {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name="action")
 	private Action action;
 	
-	@Column(name="by_user")
+	@ManyToOne
+	@JoinColumn(name="end_user")
 	private User user;
 	
-	@Column(name="create")
+	@Column(name="create_date")
 	private Date createDate;
 	
 	@Column(name="old_data")
@@ -43,21 +42,21 @@ public class LogEntity {
 	@Column(name="new_data")
 	private String newData;
 	
-	@Column(name="is_product")
-	private boolean isProduct;
+	@Column(name="be_product")
+	private boolean beProduct;
 	
-	@Column(name="is_user")
-	private boolean isUser;
+	@Column(name="be_user")
+	private boolean beUser;
 	
-	@Column(name="is_type_product")
-	private boolean isTypeProduct;
+	@Column(name="be_type_product")
+	private boolean beTypeProduct;
 	
-	@Column(name="is_order")
-	private boolean isOrder;
+	@Column(name="be_order")
+	private boolean beOrder;
 	
-	@Column(name="is_order_detail")
-	private boolean isOrderDetail;
+	@Column(name="be_order_detail")
+	private boolean beOrderDetail;
 	
-	@Column(name="is_bot")
-	private boolean isBot;
+	@Column(name="be_bot")
+	private boolean beBot;
 }

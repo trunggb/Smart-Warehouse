@@ -1,12 +1,9 @@
 package services;
 
-import java.util.List;
-import java.util.Optional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public abstract class GenericService <E,B>{
+public abstract class GenericService <E>{
 
 	@PersistenceContext(name="SmartWarehouse")
 	EntityManager em;
@@ -18,27 +15,27 @@ public abstract class GenericService <E,B>{
 	public EntityManager getEm() {
 		return this.em;
 	}
-	public void save(E entity) {
+	public boolean create(E entity) {
 		if(entity != null) {
 			em.persist(entity);
+			return true;
 		}
+		return false;
 	}
 	
-	public void update (E entity){
+	public boolean update (E entity){
 		if(entity != null) {
 			em.merge(entity);
+			return true;
 		}
+		return false;
 	}
-	public void remove(E entity) {
+	public boolean delete(E entity) {
 		if(entity != null) {
 			em.remove(entity);
+			return true;
 		}
+		return false;
 	}
-	public abstract Optional<E> toEntity(B bom);
 	
-	public abstract Optional<B> toBom(E entity);
-	
-	public abstract List<B> toBoms(List<E> entities);
-	
-	public abstract List<E> toEntities(List<B> boms);
 }

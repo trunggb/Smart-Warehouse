@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,9 +19,9 @@ import lombok.NoArgsConstructor;
 @Table(name="cluster")
 @Data
 
-public class ClusterEntity {
+public class Cluster {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name="name")
@@ -31,5 +29,5 @@ public class ClusterEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="location")
-	private LocationEntity location;
+	private Location location;
 }

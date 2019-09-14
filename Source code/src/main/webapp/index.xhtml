@@ -8,63 +8,36 @@
 
 <h:head>
 	<title>Smart Warehouse</title>
+	<h:outputStylesheet
+		name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
 </h:head>
 
 <h:body>
-	<h:form id="listProductForm">
+	<h:form>
 		<div class="container">
-			<div class="row">
-				<div>
-					<p:commandButton value="New Product"
-						onclick="PF('addProduct').show();" />
-				</div>
-				<p:dataTable value="#{webHandler.products}" var="product"
-					reflow="true" rows="10" paginatorPosition="bottom" paginator="true">
-
-					<p:column>
-						<f:facet name="header">ID</f:facet>
-			#{product.id}
-			</p:column>
-					<p:column>
-						<f:facet name="header">Name</f:facet>
-			#{product.name}
-			</p:column>
-			<p:column>
-				<f:facet name="header">Action</f:facet>
-				<p:commandButton icon="fa fa-edit orange-icon" title="Edit"
-						update=":updateForm" style="width: 60px"
-						action="#{webHandler.viewProduct(product)}">
-				</p:commandButton>
-			</p:column>
-				</p:dataTable>
-			</div>
+			<p:outputLabel value="Wellcome to my smart Warehouse" />
+			<p:dataTable reflow="true" rows="10" paginatorPosition="bottom"
+				paginator="true" rowsPerPageTemplate="5,10,15"
+				value="#{productBean.products}"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				var="product">
+				<p:column headerText="Product">
+					<h:outputText value="#{product.name}" />
+				</p:column>
+				<p:column headerText="Action">
+					<p:commandButton icon="fa fa-search fa-xs"
+						action="#{productBean.chooseProduct(product)}" />
+					<p:commandButton icon="fa fa-fw fa-edit"
+						action="#{productBean.chooseProduct(product)}" />
+					<p:commandButton icon="fa fa-fw fa-remove" />
+				</p:column>
+			</p:dataTable>
+			<p:outputLabel value="Created by B" />
+			<p:dialog widgetVar="abc">
+			
+			Hello
+			</p:dialog>
 		</div>
 	</h:form>
-	<p:dialog width="400px" header="Add New Product" widgetVar="addProduct">
-		<h:form id="addForm">
-			<p:outputLabel for="name" value="Name:" />
-			<p:inputText value="#{webHandler.product.name}" required="true"
-				id="name" requiredMessage="Name is required" />
-			<h:message for="name" style="color:red" />
-			<div>
-				<p:commandButton value="Save" action="#{webHandler.addProduct}"
-					update="addForm :listProductForm" process="@form" />
-				<p:commandButton value="Cancel" onclick="PF('addProduct').hide()" />	
-			</div>
-		</h:form>
-	</p:dialog>
-	<p:dialog width="400px" header="Update Product" widgetVar="updateProduct">
-		<h:form id="updateForm">
-			<p:outputLabel for="name" value="Name:" />
-			<p:inputText value="#{webHandler.product.name}" required="true"
-				id="name" requiredMessage="Name is required" />
-			<h:message for="name" style="color:red" />
-			<div>
-				<p:commandButton value="Update" action="#{webHandler.updateProduct}"
-					update="updateForm :listProductForm" process="@form" />
-				<p:commandButton value="Cancel" onclick="PF('updateProduct').hide()" />	
-			</div>
-		</h:form>
-	</p:dialog>
 </h:body>
 </html>

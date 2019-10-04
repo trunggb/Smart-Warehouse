@@ -6,4 +6,5 @@ public class BotService extends GenericService<Bot>{
 	public BotService() {
 		super();
 	}
+
 }

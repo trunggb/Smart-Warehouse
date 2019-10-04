@@ -13,9 +13,23 @@
 		<log4j-version>1.2.17</log4j-version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- activate this to see the scripts build step -->
+<!--		<docker.verbose>true</docker.verbose>-->
+<!--		<db.docker.host>smart-warehouse-postgres-database</db.docker.host>-->
+<!--		<db.port>5433</db.port>-->
+<!--		<db.name>smart-warehouse</db.name>-->
+<!--		<db.user>postgres</db.user>-->
+<!--		<db.password>123</db.password>-->
+<!--		<ds.name>SmartWarehouseDS</ds.name>-->
+<!--		<ds.jndi>java:/SmartWarehouseDS</ds.jndi>-->
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+		<dependency>
+			<groupId>com.github.docker-java</groupId>
+			<artifactId>docker-java</artifactId>
+			<version>3.1.5</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>javax.persistence-api</artifactId>
@@ -89,6 +103,12 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

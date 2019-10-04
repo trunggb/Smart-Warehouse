@@ -12,7 +12,7 @@ import com.lin.faker.Faker;
 import entities.Product;
 
 @Stateless
-public class ProductService extends GenericService<Product> {
+public class 	ProductService extends GenericService<Product> {
 	@EJB
 	TypeProductService typeProductService;
 

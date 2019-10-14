@@ -29,10 +29,5 @@ public class Bot {
 	
 	@ManyToOne
 	@JoinColumn(name="current_location")
-	private Location currentLocation;
-	
-	@ManyToOne
-	@JoinColumn(name="init_location")
-	private Location initLocation;
-	
+	private Location currentLocation;	
 }

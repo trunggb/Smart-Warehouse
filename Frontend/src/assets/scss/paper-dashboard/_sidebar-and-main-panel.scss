@@ -1,0 +1,364 @@
+.wrapper {
+  height: 100vh;
+  position: relative;
+  top: 0;
+
+  &.wrapper-full-page {
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+.sidebar,
+.off-canvas-sidebar {
+  border-right: 1px solid #ddd;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 260px;
+  z-index: 1030;
+
+  .sidebar-wrapper {
+    height: calc(100vh - 75px);
+    overflow: auto;
+    padding-bottom: 100px;
+    position: relative;
+    width: 260px;
+    z-index: 4;
+
+    .dropdown .dropdown-backdrop {
+      display: none !important;
+    }
+
+    .navbar-form {
+      border: none;
+    }
+  }
+
+  .navbar-minimize {
+    opacity: 1;
+    position: absolute;
+    right: 20px;
+    top: 2px;
+
+    @extend .animation-transition-general;
+  }
+
+  .logo-tim {
+    border: 1px solid #333;
+    border-radius: 50%;
+    display: block;
+    float: left;
+    height: 61px;
+    overflow: hidden;
+    width: 61px;
+
+    img {
+      height: 60px;
+      width: 60px;
+    }
+  }
+
+  .nav {
+    display: block;
+    margin-top: 20px;
+
+    .caret {
+      position: absolute;
+      right: 10px;
+      top: 14px;
+    }
+
+    li {
+      > a + div .nav li > a {
+        margin-top: 7px;
+      }
+
+      > a {
+        color: $white-color;
+        cursor: pointer;
+        display: block;
+        font-size: 12px;
+        line-height: 30px;
+        margin: 10px 15px 0;
+        opacity: .7;
+        padding: 10px 8px;
+        position: relative;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .nav > li > a {
+        padding: 5px 8px;
+      }
+
+      &.active > a,
+      &.active > a > i {
+        opacity: 1;
+      }
+
+      &:hover:not(.active) > a,
+      &:focus:not(.active) > a {
+        opacity: 1;
+      }
+    }
+
+    i {
+      color: $opacity-5;
+      float: left;
+      font-size: 24px;
+      line-height: 30px;
+      margin-right: 12px;
+      position: relative;
+      text-align: center;
+      width: 34px;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    .collapse,
+    .collapsing {
+      .nav {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .sidebar-background {
+    background-position: center center;
+    background-size: cover;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    &:after {
+      background: #ffffff;
+      content: "";
+      display: block;
+      height: 100%;
+      opacity: 1;
+      position: absolute;
+      width: 100%;
+      z-index: 3;
+    }
+  }
+
+  .logo {
+    padding: 7px $padding-base-horizontal;
+    position: relative;
+    z-index: 4;
+
+    a.logo-mini,
+    a.logo-normal {
+      @extend .animation-transition-general;
+    }
+
+    a.logo-mini {
+      float: left;
+      margin-left: 10px;
+      margin-right: 12px;
+      opacity: 1;
+      text-align: center;
+      width: 34px;
+    }
+
+    a.logo-normal {
+      display: block;
+      opacity: 1;
+      padding: 11px 0 8px;
+      @include transform-translate-x(0px);
+    }
+
+    &:after {
+      background-color: $opacity-5;
+      bottom: 0;
+      content: '';
+      height: 1px;
+      position: absolute;
+      right: 15px;
+      width: calc(100% - 30px);
+
+    }
+
+    p {
+      color: $white-color;
+      float: left;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      line-height: 20px;
+      margin: 10px 10px;
+    }
+
+    .simple-text {
+      color: $white-color;
+      display: block;
+      font-size: $font-size-large;
+      font-weight: $font-weight-normal;
+      line-height: 30px;
+      overflow: hidden;
+      padding: $padding-base-vertical 0;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+  }
+
+  .logo-tim {
+    border: 1px solid #333;
+    border-radius: 50%;
+    display: block;
+    float: left;
+    height: 61px;
+    overflow: hidden;
+    width: 61px;
+
+    img {
+      height: 60px;
+      width: 60px;
+    }
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  &:after {
+    @include icon-gradient($default-color);
+    z-index: 3;
+  }
+
+  &[data-color="white"] {
+    @include sidebar-color($white-color);
+    @include sidebar-text-color($default-color);
+  }
+
+  &[data-color="black"] {
+    @include sidebar-color($dark-color);
+  }
+
+
+  // Active color changing
+
+  &[data-active-color="primary"] {
+    @include sidebar-active-color($primary-color);
+  }
+
+  &[data-active-color="info"] {
+    @include sidebar-active-color($info-color);
+  }
+
+  &[data-active-color="success"] {
+    @include sidebar-active-color($success-color);
+  }
+
+  &[data-active-color="warning"] {
+    @include sidebar-active-color($warning-color);
+  }
+
+  &[data-active-color="danger"] {
+    @include sidebar-active-color($danger-color);
+  }
+}
+
+.visible-on-sidebar-regular {
+  display: inline-block !important;
+}
+
+.visible-on-sidebar-mini {
+  display: none !important;
+}
+
+.off-canvas-sidebar {
+  .nav {
+    > li > a,
+    > li > a:hover {
+      color: $white-color;
+    }
+
+    > li > a:focus {
+      background: rgba(200, 200, 200, 0.2);
+    }
+  }
+}
+
+
+.main-panel {
+  background-color: #f4f3ef;;
+  float: right;
+  position: relative;
+  transition: 0.50s, cubic-bezier(0.685, 0.0473, 0.346, 1);
+
+
+  width: $sidebar-width;
+
+  .content {
+    margin-top: 93px;
+    min-height: calc(100vh - 163px);
+    padding: 0 30px 30px;
+  }
+
+  .header {
+    margin-bottom: 50px;
+  }
+}
+
+
+.perfect-scrollbar-on {
+  .sidebar,
+  .main-panel {
+    height: 100%;
+    max-height: 100%;
+  }
+}
+
+.panel-header {
+  background: #141e30; /* fallback for old browsers */
+  background: -webkit-gradient(linear, left top, right top, from(#0c2646), color-stop(60%, #204065), to(#2a5788));
+  background: linear-gradient(to right, #0c2646 0%, #204065 60%, #2a5788 100%);
+  height: 260px;
+  overflow: hidden;
+  padding-bottom: 45px;
+  padding-top: 80px;
+  position: relative;
+
+  .header {
+    .title {
+      color: $white-color;
+    }
+
+    .category {
+      color: $opacity-5;
+      font-size: 13px;
+      margin: 0 auto;
+      max-width: 600px;
+
+      a {
+        color: $white-color;
+      }
+    }
+  }
+}
+
+.panel-header-sm {
+  height: 135px;
+}
+
+.panel-header-lg {
+  height: 380px
+}

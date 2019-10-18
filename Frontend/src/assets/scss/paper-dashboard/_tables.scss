@@ -1,0 +1,181 @@
+.table {
+
+  .img-wrapper {
+    border-radius: 50%;
+    height: 40px;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 40px;
+  }
+
+  .img-row {
+    max-width: 60px;
+    width: 60px;
+  }
+
+  .form-check {
+    margin: 0;
+
+    & label .form-check-sign::before,
+    & label .form-check-sign::after {
+      left: 4px;
+      top: -17px;
+    }
+  }
+
+  .btn {
+    margin: 0;
+  }
+
+  small, .small {
+    font-weight: 300;
+  }
+
+  .card-tasks .card-body & {
+    margin-bottom: 0;
+
+    > thead > tr > th,
+    > tbody > tr > th,
+    > tfoot > tr > th,
+    > thead > tr > td,
+    > tbody > tr > td,
+    > tfoot > tr > td {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+  }
+
+  > thead > tr > th {
+    border: 0;
+    font-size: 14px;
+    font-weight: $font-weight-bold;
+    padding-bottom: 0;
+    text-transform: uppercase;
+  }
+
+  .radio,
+  .checkbox {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0;
+    width: 15px;
+
+    .icons {
+      position: relative;
+    }
+
+    label {
+      &:after,
+      &:before {
+        left: -3px;
+        top: -17px;
+      }
+    }
+  }
+
+  > thead > tr > th,
+  > tbody > tr > th,
+  > tfoot > tr > th,
+  > thead > tr > td,
+  > tbody > tr > td,
+  > tfoot > tr > td {
+    padding: 12px 7px;
+    vertical-align: middle;
+  }
+
+  .th-description {
+    max-width: 150px;
+  }
+
+  .td-price {
+    font-size: 26px;
+    font-weight: $font-weight-light;
+    margin-top: 5px;
+    position: relative;
+    text-align: right;
+    top: 4px;
+  }
+
+  .td-total {
+    font-size: $font-size-h5;
+    font-weight: $font-weight-bold;
+    padding-top: 20px;
+    text-align: right;
+  }
+
+  .td-actions .btn {
+    margin: 0px;
+  }
+
+  > tbody > tr {
+    position: relative;
+  }
+}
+
+.table-shopping {
+  > thead > tr > th {
+    font-size: $font-size-h6;
+    text-transform: uppercase;
+  }
+
+  > tbody > tr > td {
+    font-size: $font-paragraph;
+
+    b {
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+
+  .td-name {
+    font-size: 1.5em;
+    font-weight: $font-weight-normal;
+
+    small {
+      color: $dark-gray;
+      font-size: 0.75em;
+      font-weight: $font-weight-light;
+    }
+  }
+
+  .td-number {
+    font-size: $font-size-h4;
+    font-weight: $font-weight-light;
+  }
+
+  .td-name {
+    min-width: 200px;
+  }
+
+  .td-number {
+    min-width: 170px;
+    text-align: right;
+
+    small {
+      margin-right: 3px;
+    }
+  }
+
+  .img-container {
+    display: block;
+    max-height: 160px;
+    overflow: hidden;
+    width: 120px;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.table-responsive {
+  padding-bottom: 10px;
+}
+
+#tables .table-responsive {
+  margin-bottom: 30px;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: #f5f5f5;
+}

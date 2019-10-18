@@ -1,0 +1,87 @@
+table {
+  background-color: #fff;
+  border-collapse: collapse;
+  box-shadow: 0 2px 18px 0 rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+thead {
+  box-shadow: 0 2px 18px 0 rgba(0, 0, 0, 0.5);
+}
+
+th {
+  background-color: #403d39;
+  border-left: 1px solid dimgray;
+  color: #fff;
+  font-size: 12px;
+  font-weight: unset;
+  line-height: 1.4;
+  padding: 24px 10px 20px 25px;
+  text-transform: uppercase;
+  width: 130px;
+
+  &:first-child {
+    border-left: none;
+    padding-left: 42px;
+    width: 265px;
+  }
+}
+
+td {
+  border-left: 1px solid gainsboro;
+  font-weight: unset;
+  padding: 25px 15px;
+  width: 130px;
+
+  &:first-child {
+    padding-left: 42px;
+    width: 265px;
+  }
+}
+
+tr {
+  color: gray;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+tr:hover {
+  background-color: bisque;
+  box-shadow: 0 2px 18px 0 rgba(0, 0, 0, 0.5);
+  color: #fa4251;
+}
+
+.pagination {
+  display: block;
+  float: right;
+  margin-top: 30px;
+
+  a {
+    background-color: white;
+    border: 1px solid #ddd;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+
+    &.active {
+      background-color: #ef8157;
+      border: 1px solid #ef8157;
+      color: white;
+    }
+
+    &:hover:not(.active) {
+      background-color: #ddd;
+    }
+
+    &:first-child {
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+  }
+}

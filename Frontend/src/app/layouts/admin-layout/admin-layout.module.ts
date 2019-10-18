@@ -8,6 +8,7 @@ import {UserComponent} from '../../pages/user/user.component';
 import {TableComponent} from '../../pages/table/table.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {OrdersComponent} from "../../pages/orders/orders.component";
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     UserComponent,
     TableComponent,
+    OrdersComponent,
   ]
 })
 

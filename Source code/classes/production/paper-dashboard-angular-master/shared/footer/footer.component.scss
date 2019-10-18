@@ -1,0 +1,48 @@
+
+.footer {
+  border-top: 1px solid burlywood;
+  padding: 24px 0;
+
+  &.footer-default {
+    background-color: #f2f2f2;
+  }
+
+  nav {
+    display: inline-block;
+    float: left;
+    padding-left: 0;
+  }
+
+  ul {
+    list-style: none;
+    margin-bottom: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+
+      a {
+        color: inherit;
+        font-size: 0.8571em;
+        padding: .5rem;
+        text-decoration: none;
+        text-transform: uppercase;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .copyright {
+    font-size: 0.8571em;
+    line-height: 1.8;
+  }
+
+  &:after {
+    clear: both;
+    content: " ";
+    display: table;
+  }
+}

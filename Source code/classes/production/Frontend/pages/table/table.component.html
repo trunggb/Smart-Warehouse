@@ -1,0 +1,37 @@
+<table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Status</th>
+    <th>Amount</th>
+    <th>Weight</th>
+    <th>Date of manufacture</th>
+    <th>Date of origin</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products$ | async">
+    <td>{{product.id}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.type?.name}}</td>
+    <td>{{product.status}}</td>
+    <td>{{product.amount}}</td>
+    <td>{{product.weight}}</td>
+    <td>{{product.inDate | date: 'dd-MMM-yyyy'}}</td>
+    <td>{{product.outDate | date: 'dd-MMM-yyyy'}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <a href="#">&laquo;</a>
+  <a href="#">1</a>
+  <a class="active" href="#">2</a>
+  <a href="#">3</a>
+  <a href="#">4</a>
+  <a href="#">5</a>
+  <a href="#">6</a>
+  <a href="#">&raquo;</a>
+</div>

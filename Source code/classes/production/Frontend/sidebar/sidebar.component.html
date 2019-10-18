@@ -1,0 +1,20 @@
+<div class="sidebar-wrapper">
+  <div class="logo">
+    <a class="simple-text logo-mini" href="http://www.creative-tim.com">
+      <div class="logo-image-small">
+        <img alt="logo" src="assets/img/angular2-logo.png">
+      </div>
+    </a>
+    <a class="simple-text logo-normal" routerLink="/">
+      Warehouse
+    </a>
+  </div>
+  <ul class="nav">
+    <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}}" routerLinkActive="active">
+      <a [routerLink]="[menuItem.path]">
+        <i class="nc-icon {{menuItem.icon}}"></i>
+        <p>{{menuItem.title}}</p>
+      </a>
+    </li>
+  </ul>
+</div>

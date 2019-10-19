@@ -1,13 +1,16 @@
 package beans;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
@@ -20,7 +23,7 @@ import services.ProductService;
 
 @SuppressWarnings("deprecation")
 @ManagedBean(name="productBean")
-@SessionScoped
+@ViewScoped
 public class ProductBean implements Serializable{
 	/**
 	 * 
@@ -34,6 +37,10 @@ public class ProductBean implements Serializable{
 	@Getter
 	private Product productViewed;
 	
+	@Getter
+	@Setter
+	private Product productRemoved;
+	
 	
 	@Inject
 	ProductService productService;
@@ -43,14 +50,39 @@ public class ProductBean implements Serializable{
 	@PostConstruct
 	public void init() {
 		products = productService.findAll();
+		for (Product product : products) {
+			DateFormat inputFormatter = new SimpleDateFormat("dd/MMM/yyyy");
+			try {
+				product.setInDate(inputFormatter.parse(product.getInDate().toString()));
+				product.setOutDate(inputFormatter.parse(product.getOutDate().toString()));
+				product.setExpiryDate(inputFormatter.parse(product.getExpiryDate().toString()));
+			} catch (ParseException e) {
+				logger.error(e);
+			}
+
+		}
 		logger.debug("Get " + products.size() + " product from database");
 	}
-	public void chooseProduct(Product product) {
+	private void chooseProduct(Product product) {
 		this.productViewed = product;
 		logger.debug(productViewed);
-		viewProduct();
 	}
-	private void viewProduct() {
+	
+	public void onclickRemoveButton(Product product) {
+//		this.productRemoved = product;
+//		PrimeFaces.current().executeScript("PF('remove-dialog').show();");
+		productService.remove(product);
+		PrimeFaces.current().executeScript("location.reload();");
+	}
+	
+	public void removeProduct() {
+		productService.remove(this.productRemoved);
+		PrimeFaces.current().executeScript("PF('remove-dialog').hide();");
+		PrimeFaces.current().executeScript("top.showSuccessMessage(\" Product removed successfully\");");
+	}
+	
+	public void viewProduct(Product product) {
+		chooseProduct(product);
 		Map<String,Object> options = new HashMap<String, Object>();
         options.put("modal", true);
         options.put("width", 640);

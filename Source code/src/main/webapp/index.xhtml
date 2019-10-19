@@ -1,42 +1,29 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Smart Warehouse</title>
+	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	<h:outputScript library="js" name="script.js"></h:outputScript>
 	<h:outputStylesheet
 		name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
 </h:head>
-
 <h:body>
 	<h:form>
-		<div class="container">
-			<p:outputLabel value="Wellcome to our smart Warehouse" />
-			<p:dataTable reflow="true" rows="10" paginatorPosition="bottom"
-				paginator="true" rowsPerPageTemplate="5,10,15"
-				value="#{productBean.products}"
-				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				var="product">
-				<p:column headerText="Product">
-					<h:outputText value="#{product.name}" />
-				</p:column>
-				<p:column headerText="Action">
-					<p:commandButton icon="fa fa-search fa-xs"
-						action="#{productBean.chooseProduct(product)}" />
-					<p:commandButton icon="fa fa-fw fa-edit"
-						action="#{productBean.chooseProduct(product)}" />
-					<p:commandButton icon="fa fa-fw fa-remove" />
-				</p:column>
-			</p:dataTable>
-			<p:outputLabel value="Created by B" />
-			<p:dialog widgetVar="abc">
-			
-			Hello
-			</p:dialog>
+		<div class="flex-container space-around height-80vh black-border">
+			<div class="page-title white-text">
+				<p:outputLabel>SMART WAREHOUSE</p:outputLabel>
+			</div>
+			<i class="fa fa-sign-in fa-3x" aria-hidden="true"></i>
+			<div class="ui-g-12 flex-container space-around input-container">
+				<p:inputText placeholder="Username" />
+				<p:password placeholder="Password" />
+			</div>
+			<p:commandButton styleClass="function-button" value="Sign in"
+				action="#{loginBean.onClickLoginButton}"></p:commandButton>
 		</div>
 	</h:form>
 </h:body>

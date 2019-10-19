@@ -13,15 +13,6 @@
 		<log4j-version>1.2.17</log4j-version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<!-- activate this to see the scripts build step -->
-<!--		<docker.verbose>true</docker.verbose>-->
-<!--		<db.docker.host>smart-warehouse-postgres-database</db.docker.host>-->
-<!--		<db.port>5433</db.port>-->
-<!--		<db.name>smart-warehouse</db.name>-->
-<!--		<db.user>postgres</db.user>-->
-<!--		<db.password>123</db.password>-->
-<!--		<ds.name>SmartWarehouseDS</ds.name>-->
-<!--		<ds.jndi>java:/SmartWarehouseDS</ds.jndi>-->
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
@@ -51,6 +42,11 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.8</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -110,5 +106,23 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jasypt/jasypt -->
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.9.0</version>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<configuration>
+					<filename>SmartWarehouse-0.0.1-SNAPSHOT.war</filename>
+					<skip>false</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

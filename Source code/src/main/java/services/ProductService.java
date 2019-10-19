@@ -3,18 +3,14 @@ package services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
-
-import com.lin.faker.Faker;
 
 import entities.Product;
 
 @Stateless
-public class 	ProductService extends GenericService<Product> {
-	@EJB
-	TypeProductService typeProductService;
+public class ProductService extends GenericService<Product> {
 
 	public ProductService() {
 		super();
@@ -28,8 +24,13 @@ public class 	ProductService extends GenericService<Product> {
 		return this.update(product);
 	}
 	
-	public boolean remove(Product product) {
-		return this.delete(product);
+	public void remove(Product product) {
+		Optional<Product> removedProduct = this.find(product.getId());
+		if(removedProduct.isPresent()) {
+			this.em.remove(removedProduct.get());
+		}else {
+			throw new EntityNotFoundException("Can not find product with id :" + product.getId());
+		}
 	}
 	
 	

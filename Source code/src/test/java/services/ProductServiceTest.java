@@ -69,20 +69,20 @@ public class ProductServiceTest {
 		assertFalse(actual);
 	}
 	
-	@Test
-	public void testRemove_shouldReturnTrue_whenProductIsGiven() {
-		Mockito.doReturn(true).when((GenericService<Product>) productService).delete(product);
-		boolean actual = productService.remove(product);
-		assertTrue(actual);
-	}
-	
-	@Test
-	public void testRemove_shouldReturnFalse_whenProductIsNull() {
-		Mockito.doReturn(false).when((GenericService<Product>) productService).delete(null);
-		boolean actual = productService.remove(null);
-		assertFalse(actual);
-	
-	}
+//	@Test
+//	public void testRemove_shouldReturnTrue_whenProductIsGiven() {
+//		Mockito.doReturn(true).when((GenericService<Product>) productService).delete(product);
+//		boolean actual = productService.remove(product);
+//		assertTrue(actual);
+//	}
+//	
+//	@Test
+//	public void testRemove_shouldReturnFalse_whenProductIsNull() {
+//		Mockito.doReturn(false).when((GenericService<Product>) productService).delete(null);
+//		boolean actual = productService.remove(null);
+//		assertFalse(actual);
+//	
+//	}
 	@Ignore
 	@Test
 	public void testFind_shouldReturnOptionalOfProduct_whenIdIsValid() {

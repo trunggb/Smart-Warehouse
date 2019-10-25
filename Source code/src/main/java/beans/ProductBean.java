@@ -46,17 +46,6 @@ public class ProductBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		products = productService.findAll();
-		for (Product product : products) {
-			DateFormat inputFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-			try {
-				product.setInDate(inputFormatter.parse(product.getInDate().toString()));
-				product.setOutDate(inputFormatter.parse(product.getOutDate().toString()));
-				product.setExpiryDate(inputFormatter.parse(product.getExpiryDate().toString()));
-			} catch (ParseException e) {
-				logger.error(e);
-			}
-
-		}
 		logger.debug("Get " + products.size() + " product from database");
 	}
 

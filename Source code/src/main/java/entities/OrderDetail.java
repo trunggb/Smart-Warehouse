@@ -1,15 +1,11 @@
 package entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -19,31 +15,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="order_detail")
 @Data
-
+@Table(name = "order_detail")
 public class OrderDetail {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	private int id;
-	
-	@Column(name="date_created", nullable=true)
-	private Date dateCreated;
+
 	
 	@ManyToOne
-	@JoinColumn(name="product")
-	private Product product;
+	@JoinColumn(name = "order_id")
+	Order order;
 	
-	@OneToOne
-	private Order order;
+	@ManyToOne
+	@Column(name = "product_id")
+	Product product;
 	
-	@OneToOne
-	private Bot bot;
+	@Column(name = "total")
+	private int total;
 	
-	@OneToOne
-	private Cluster cluster;
-	
-	@Column(name="date_start")
-	private Date dateStart;
-
 }

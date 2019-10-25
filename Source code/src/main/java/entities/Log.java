@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +34,7 @@ public class Log {
 	private User user;
 	
 	@Column(name="create_date")
-	private Date createDate;
+	private LocalDate createDate;
 	
 	@Column(name="old_data")
 	private String oldData;

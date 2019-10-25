@@ -2,7 +2,6 @@ package entities;
 
 import java.util.Date;
 
-import javax.net.ssl.SSLEngineResult.Status;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

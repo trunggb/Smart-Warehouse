@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Smart Warehouse</title>
+	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	<h:outputScript library="js" name="script.js"></h:outputScript>
+	<h:outputStylesheet name="components.css" library="primefaces" />
+	<h:outputStylesheet
+		name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
+</h:head>
+<h:body>
+	<h:form>
+		<div class="ui-g">
+			<div
+				class="ui-g-3 menu-container height-100vh flex-container space-around">
+				<div class="ava-container">
+					<div class="user-icon">
+						<i class="fa fa-user fa-3x" aria-hidden="true"></i>
+					</div>
+				</div>
+				<div class="tab-container flex-container space-between">
+					<p:commandButton styleClass="function-button" value="Trucks" />
+					<p:commandButton styleClass="function-button" value="Products" />
+					<p:commandButton styleClass="function-button" value="Orders" />
+				</div>
+
+				<div class="sign-out-container">
+					<p:commandButton styleClass="function-button" value="Sign out" />
+				</div>
+			</div>
+			<div class="ui-g-9 flex-container height-100vh">
+				<div class="page-title product-title">
+					<p:outputLabel>ORDER</p:outputLabel>
+				</div>
+				<div class="flex-container space-around">
+					<p:dataTable reflow="true" rows="10" paginatorPosition="bottom"
+						paginator="true" rowsPerPageTemplate="5,10,15"
+						value="#{orderBean.orders}"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						var="order">
+						<p:column headerText="By user">
+							<h:outputText value="#{order.user.name}" />
+						</p:column>
+						<p:column>
+							<p:commandButton icon="fa fa-search fa-xs" />
+							<p:commandButton icon="fa fa-fw fa-edit" />
+							<p:commandButton icon="fa fa-fw fa-trash" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>

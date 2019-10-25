@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,10 +31,6 @@ public class Travel {
 	private Bot bot;
 
 	@ManyToOne
-	@JoinColumn(name="order_detail")
-	private OrderDetail orderDetail;
-	
-	@ManyToOne
 	@JoinColumn(name="from_loc")
 	private Location from;
 	
@@ -43,9 +39,9 @@ public class Travel {
 	private Location to;
 	
 	@Column(name="start_date")
-	private Date start;
+	private LocalDate start;
 	
 	@Column(name="end_date")
-	private Date end;
+	private LocalDate end;
 	
 }

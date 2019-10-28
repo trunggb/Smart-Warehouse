@@ -20,7 +20,7 @@ public class ProductService extends GenericService<Product> {
 		return this.create(product);
 	}
 
-	public boolean update(Product product) {
+	public boolean updateProduct(Product product) {
 		return this.update(product);
 	}
 	

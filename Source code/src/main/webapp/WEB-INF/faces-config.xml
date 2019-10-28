@@ -23,5 +23,10 @@
 			<from-outcome>updateProduct</from-outcome>
 			<to-view-id>updateProduct.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{productBean.addProduct}</from-action>
+			<from-outcome>addProduct</from-outcome>
+			<to-view-id>addProduct.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 </faces-config>

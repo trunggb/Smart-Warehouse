@@ -56,9 +56,7 @@ public class ProductBean implements Serializable {
 
 	public void removeProduct() {
 		productService.remove(this.productRemoved);
-//		FacesContext context = FacesContext.getCurrentInstance();
-//        
-//        context.addMessage(null, new FacesMessage("Successful",  "Product removed!") );
+		
 		PrimeFaces.current().executeScript("reloadPage()");
 	}
 
@@ -92,5 +90,17 @@ public class ProductBean implements Serializable {
 		productId.add(String.valueOf(product.getId()));
 		params.put("productId", productId);
 		PrimeFaces.current().dialog().openDynamic("updateProduct", options, params);
+	}
+	
+	public void addProduct() {
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("modal", true);
+		options.put("width", 600);
+		options.put("height", 500);
+		options.put("contentWidth", "100%");
+		options.put("contentHeight", "100%");
+		options.put("headerElement", "customheader");
+		
+		PrimeFaces.current().dialog().openDynamic("addProduct", options, null);
 	}
 }

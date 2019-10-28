@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.primefaces.PrimeFaces;
 
 import entities.Product;
 import entities.ProductStatus;
@@ -45,12 +46,24 @@ public class ProductUpdateBean implements Serializable{
 			}else {
 				logger.info("Can not find product with id: " + productIdAsString);
 			}
+		}else {
+			logger.error("Can not get id of product from list product");
 		}
-		logger.error("Can not get id of product from list product");
 		
 	}
 	
 	public ProductStatus[] getProductStatus() {
 		return ProductStatus.values();
+	}
+	
+	public void update() {
+		if(this.productService.updateProduct(product)) {
+			logger.info("Update product succesfully");
+		}else {
+			logger.info("Can not update products");
+		}
+		
+//		PrimeFaces.current().dialog().closeDynamic("updateProduct");
+		PrimeFaces.current().executeScript("parent.reloadPage();");
 	}
 }

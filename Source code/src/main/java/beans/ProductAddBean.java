@@ -13,14 +13,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import entities.Product;
+import entities.ProductStatus;
 import lombok.Getter;
 import lombok.Setter;
 import services.ProductService;
 
 @SuppressWarnings("deprecation")
-@ManagedBean(name="productViewBean")
+@ManagedBean(name="productAddBean")
 @ViewScoped
-public class ProductViewBean implements Serializable{
+public class ProductAddBean implements Serializable{
 	/**
 	 * 
 	 */
@@ -36,17 +37,14 @@ public class ProductViewBean implements Serializable{
 	
 	@PostConstruct
 	public void init() {
-		String productIdAsString = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("productId");
-		if(StringUtils.isNotBlank(productIdAsString)) {
-			Optional<Product> optionalProduct = productService.find(Integer.valueOf(productIdAsString));
-			if(optionalProduct.isPresent()) {
-				this.product = optionalProduct.get();
-			}else {
-				logger.info("Can not find product with id: " + productIdAsString);
-			}
-		}else {
-			logger.error("Can not get id of product from list product");
-		}
-		
+		this.product = new Product();
+	}
+	
+	public ProductStatus[] getProductStatus() {
+		return ProductStatus.values();
+	}
+	
+	public void addProduct() {
+		System.out.println(product);
 	}
 }

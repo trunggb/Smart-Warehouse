@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQueries({ @NamedQuery(name = "findAllProduct", query = "SELECT p FROM Product p") })
+@NamedQueries({ @NamedQuery(name = "findAllProduct", query = "SELECT p FROM Product p order by p.id desc") })
 @Entity
 @Table(name = "product")
 @Data

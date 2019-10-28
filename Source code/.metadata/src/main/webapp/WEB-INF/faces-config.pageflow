@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15632129150670" configfile="/SmartWarehouse/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="view-product.xhtml" x="122" y="562" id="pf15718416589252" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="view-product.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="view-product.xhtml" x="122" y="178" id="pf15718416589252" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="view-product.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="562" id="pf15722553530970" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15722553530971 pf15722553530972 pf15722553584576" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="viewProduct.xhtml" x="338" y="370" id="pf15722553530974" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15722553530971" path="viewProduct.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="updateProduct.xhtml" x="338" y="754" id="pf15722553530985" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf15722553530972" path="updateProduct.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="addProduct.xhtml" id="pf15722553584577" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf15722553584576" path="addProduct.xhtml"/>
+  <links id="pf15722553530971" target="pf15722553530974" source="pf15722553530970" outcome="viewProduct" fromaction="#{productBean.viewProduct}"/>
+  <links id="pf15722553530972" target="pf15722553530985" source="pf15722553530970" outcome="updateProduct" fromaction="#{productBean.updateProduct}"/>
+  <links id="pf15722553584576" target="pf15722553584577" source="pf15722553530970" outcome="addProduct" fromaction="#{productBean.addProduct}"/>
 </pageflow:Pageflow>

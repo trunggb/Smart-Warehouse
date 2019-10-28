@@ -1,8 +1,6 @@
 package entities;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -54,12 +51,12 @@ public class Product {
 	private ProductStatus status;
 
 	@Column(name = "in_date")
-	private LocalDate inDate;
+	private Date inDate;
 
 	@Column(name = "out_date")
-	private LocalDate outDate;
+	private Date outDate;
 
 	@Column(name = "expiry_date")
-	private LocalDate expiryDate;
+	private Date expiryDate;
 	
 }

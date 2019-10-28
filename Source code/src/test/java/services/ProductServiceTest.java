@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 
@@ -33,7 +34,7 @@ public class ProductServiceTest {
 				.name("Winner V1")
 				.weight(50)
 				.status(ProductStatus.AVAILABLE)
-				.inDate(LocalDate.now())
+				.inDate(new Date())
 				.build();
 	}
 

@@ -82,7 +82,7 @@ public class ProductBean implements Serializable {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("modal", true);
 		options.put("width", 600);
-		options.put("height", 400);
+		options.put("height", 500);
 		options.put("contentWidth", "100%");
 		options.put("contentHeight", "100%");
 		options.put("headerElement", "customheader");

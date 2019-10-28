@@ -37,9 +37,6 @@ public class Order {
 	@JoinColumn(name = "by_user")
 	User user;
 	
-	@OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	List<OrderDetail> details;
-	
 	@Column(name = "created_date")
 	LocalDate createdDate;
 	

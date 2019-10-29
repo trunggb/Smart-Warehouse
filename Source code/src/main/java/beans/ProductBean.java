@@ -1,9 +1,6 @@
 package beans;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -102,5 +99,9 @@ public class ProductBean implements Serializable {
 		options.put("headerElement", "customheader");
 		
 		PrimeFaces.current().dialog().openDynamic("addProduct", options, null);
+	}
+	
+	public void onClickOrderButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('order.xhtml')");
 	}
 }

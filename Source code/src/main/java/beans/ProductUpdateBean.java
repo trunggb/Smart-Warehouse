@@ -63,7 +63,6 @@ public class ProductUpdateBean implements Serializable{
 			logger.info("Can not update products");
 		}
 		
-//		PrimeFaces.current().dialog().closeDynamic("updateProduct");
 		PrimeFaces.current().executeScript("parent.reloadPage();");
 	}
 }

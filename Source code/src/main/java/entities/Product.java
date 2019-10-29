@@ -42,7 +42,7 @@ public class Product {
 	private String image;
 
 	@Column(name = "weight")
-	private int weight;
+	private double weight;
 
 	@Column(name = "amount")
 	private int amount;

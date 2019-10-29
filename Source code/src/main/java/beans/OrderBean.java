@@ -1,49 +1,40 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
-import entities.Product;
-import entities.ProductStatus;
+import entities.Order;
 import lombok.Getter;
 import lombok.Setter;
 import services.ProductService;
 
 @SuppressWarnings("deprecation")
-@ManagedBean(name="productAddBean")
+@ManagedBean(name = "orderBean")
 @ViewScoped
-public class ProductAddBean implements Serializable{
+public class OrderBean implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4098294323352760786L;
-	@Setter
 	@Getter
-	private Product product;
-	
-	@EJB
-	ProductService productService;
-	
+	@Setter
+	private List<Order> orders;
+
 	final static Logger logger = Logger.getLogger(ProductService.class);
-	
+
 	@PostConstruct
 	public void init() {
-		this.product = new Product();
 	}
+
 	
-	public ProductStatus[] getProductStatus() {
-		return ProductStatus.values();
-	}
-	
-	public void addProduct() {
-		this.productService.create(product);
-		PrimeFaces.current().executeScript("parent.reloadPage();");
+	public void onClickProductButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('product.xhtml')");
 	}
 }

@@ -9,6 +9,7 @@
 	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
 	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
 	<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+	<h:outputScript library="js" name="script.js"></h:outputScript>
 	<h:outputStylesheet name="components.css" library="primefaces" />
 </h:head>
 
@@ -35,7 +36,7 @@
 				<p:outputLabel value="Weight:" />
 			</div>
 			<div class="ui-g-8">
-				<p:inputNumber value="#{productAddBean.product.weight}" />
+				<p:inputNumber id ="product-weight-input" value="#{productAddBean.product.weight}" />
 			</div>
 		</div>
 		<div class="ui-g">
@@ -63,7 +64,7 @@
 				<p:outputLabel value="In date:" />
 			</div>
 			<div class="ui-g-8">
-				<p:calendar value="#{productAddBean.product.inDate}"
+				<p:calendar id="indate-calendar" value="#{productAddBean.product.inDate}"
 					pattern="yyyy-MMM-dd" />
 			</div>
 		</div>
@@ -86,7 +87,7 @@
 			</div>
 		</div>
 		<div class="center-but">
-			<p:commandButton value="Add" action="#{productAddBean.addProduct}" />
+			<p:commandButton value="Add" type="submit" action="#{productAddBean.addProduct}" />
 		</div>
 	</h:form>
 </h:body>

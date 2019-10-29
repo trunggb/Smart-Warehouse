@@ -3,7 +3,6 @@ package services;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.EntityManager;

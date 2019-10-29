@@ -17,8 +17,8 @@
 	height: 20%;
 }
 
-.height-80vh {
-	height: 80vh;
+.height-70vh {
+	height: 70vh;
 }
 
 .height-100vh {
@@ -27,15 +27,18 @@
 
 .black-border {
 	border: none;
-	margin-left: 30%;
-	margin-right: 30%;
-	margin-top: 50px;
-	border-radius: 2%;
-	background-color: #597eaa;
+	margin-left: 35%;
+	margin-right: 35%;
+	background-color: #06305fcc;
 }
 
-.page-title {
-	font-size: 25px;
+.big-title {
+	font-size: 80px;
+    font-weight: 800;
+}
+
+.smal-title{
+	font-size: 40px;
 }
 
 .white-text{
@@ -55,7 +58,7 @@
 }
 
 .menu-container {
-	background-color: #597eaa;
+	background-color: #06305fcc;
 }
 
 .content-container {

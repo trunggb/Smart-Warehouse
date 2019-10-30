@@ -8,8 +8,9 @@
 	<title>Add product</title>
 	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
 	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="jquery.toast.css"></h:outputStylesheet>
 	<h:outputStylesheet name="grid/grid.css" library="primefaces" />
-	<h:outputScript library="js" name="script.js"></h:outputScript>
+	
 	<h:outputStylesheet name="components.css" library="primefaces" />
 </h:head>
 
@@ -19,7 +20,7 @@
 			<div class="ui-g-4">
 				<p:outputLabel value="Name:" />
 			</div>
-			<div class="ui-g-8">
+			<div class="ui-g-8 width-80">
 				<p:inputText value="#{productAddBean.product.name}" />
 			</div>
 		</div>
@@ -27,7 +28,7 @@
 			<div class="ui-g-4">
 				<p:outputLabel value="Image:" />
 			</div>
-			<div class="ui-g-8">
+			<div class="ui-g-8 width-80">
 				<p:inputText value="#{productAddBean.product.image}" />
 			</div>
 		</div>
@@ -35,7 +36,7 @@
 			<div class="ui-g-4">
 				<p:outputLabel value="Weight:" />
 			</div>
-			<div class="ui-g-8">
+			<div class="ui-g-8 width-80">
 				<p:inputNumber id ="product-weight-input" value="#{productAddBean.product.weight}" />
 			</div>
 		</div>
@@ -43,7 +44,7 @@
 			<div class="ui-g-4">
 				<p:outputLabel value="Amount:" />
 			</div>
-			<div class="ui-g-8">
+			<div class="ui-g-8 width-80">
 				<p:inputNumber value="#{productAddBean.product.amount}" />
 			</div>
 		</div>
@@ -63,7 +64,7 @@
 			<div class="ui-g-4">
 				<p:outputLabel value="In date:" />
 			</div>
-			<div class="ui-g-8">
+			<div class="ui-g-8 width-80">
 				<p:calendar id="indate-calendar" value="#{productAddBean.product.inDate}"
 					pattern="yyyy-MMM-dd" />
 			</div>
@@ -72,7 +73,7 @@
 			<div class="ui-g-4">
 				<p:outputLabel value="Out date:" />
 			</div>
-			<div class="ui-g-8">
+			<div class="ui-g-8 width-80">
 				<p:calendar value="#{productAddBean.product.outDate}"
 					pattern="yyyy-MMM-dd" />
 			</div>
@@ -81,7 +82,7 @@
 			<div class="ui-g-4">
 				<p:outputLabel value="Expiry date:" />
 			</div>
-			<div class="ui-g-8">
+			<div class="ui-g-8 width-80">
 				<p:calendar value="#{productAddBean.product.expiryDate}"
 					pattern="yyyy-MMM-dd" />
 			</div>
@@ -90,6 +91,8 @@
 			<p:commandButton value="Add" type="submit" action="#{productAddBean.addProduct}" />
 		</div>
 	</h:form>
+	<h:outputScript library="js" name="jquery.toast.js"></h:outputScript>
+	<h:outputScript library="js" name="script.js"></h:outputScript>
 </h:body>
 
 </html>

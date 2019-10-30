@@ -10,7 +10,7 @@
 <h:head>
 	<title>Smart Warehouse</title>
 	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
-	<h:outputScript library="js" name="script.js"></h:outputScript>
+	<h:outputStylesheet library="css" name="jquery.toast.css"></h:outputStylesheet>
 	<h:outputStylesheet name="components.css" library="primefaces" />
 </h:head>
 <h:body>
@@ -37,7 +37,7 @@
 			</div>
 			<div class="ui-g-9 flex-container height-100vh">
 				<div class="page-title product-title">
-					<p:outputLabel>PRODUCT</p:outputLabel>
+					<p:outputLabel >PRODUCT</p:outputLabel>
 				</div>
 				<div class="ui-g-12 add-product-button">
 					<p:commandButton action="#{productBean.addProduct()}" value="Add" />
@@ -55,7 +55,9 @@
 							<h:outputText value="#{product.amount}" />
 						</p:column>
 						<p:column headerText="Expiry date">
-							<h:outputText value="#{product.expiryDate}" />
+							<h:outputText value="#{product.expiryDate}" >
+								<f:convertDateTime pattern="yyyy-MMM-dd"/>
+							</h:outputText>
 						</p:column>
 						<p:column>
 							<p:commandButton icon="fa fa-search fa-xs"
@@ -83,5 +85,7 @@
 		</h:form>
 	</p:confirmDialog>
 	<p:growl id="growl" showDetail="true" sticky="true" />
+	<h:outputScript library="js" name="script.js"></h:outputScript>
+	<h:outputScript library="js" name="jquery.toast.js"></h:outputScript>
 </h:body>
 </html>

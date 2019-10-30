@@ -44,6 +44,8 @@ public class ProductAddBean implements Serializable{
 	
 	public void addProduct() {
 		this.productService.create(product);
+		
+		PrimeFaces.current().executeScript("parent.showSuccessMessage('Product added succesfully!')");
 		PrimeFaces.current().executeScript("parent.reloadPage();");
 	}
 }

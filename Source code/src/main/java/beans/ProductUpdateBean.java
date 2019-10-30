@@ -59,8 +59,10 @@ public class ProductUpdateBean implements Serializable{
 	public void update() {
 		if(this.productService.updateProduct(product)) {
 			logger.info("Update product succesfully");
+			PrimeFaces.current().executeScript("parent.showSuccessMessage('Product updated succesfully!')");
 		}else {
 			logger.info("Can not update products");
+			PrimeFaces.current().executeScript("parent.showErrorMessage('Product remove failed!')");
 		}
 		
 		PrimeFaces.current().executeScript("parent.reloadPage();");

@@ -24,12 +24,14 @@
 				</div>
 				<div class="tab-container flex-container space-between">
 					<p:commandButton styleClass="function-button" value="Trucks" />
-					<p:commandButton styleClass="function-button" value="Products" action="#{orderBean.onClickProductButton}"/>
+					<p:commandButton styleClass="function-button" value="Products"
+						action="#{orderBean.onClickProductButton}" />
 					<p:commandButton styleClass="function-button" value="Orders" />
 				</div>
 
 				<div class="sign-out-container">
-					<p:commandButton styleClass="function-button" value="Sign out" />
+					<p:commandButton styleClass="function-button" value="Sign out"
+						action="index" />
 				</div>
 			</div>
 			<div class="ui-g-9 flex-container height-100vh">
@@ -42,10 +44,15 @@
 						value="#{orderBean.orders}"
 						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						var="order">
-						<p:column headerText="By user">
-							<h:outputText value="#{order.user.name}" />
+						<p:column>
+							<f:facet name="header">Created date</f:facet>
+							<h:outputText value="#{order.createdDate}" />
 						</p:column>
 						<p:column>
+							<f:facet name="header">
+								<p:commandButton onclick="PF('create-order-dialog').show();"
+									value="Create" />
+							</f:facet>
 							<p:commandButton icon="fa fa-search fa-xs" />
 							<p:commandButton icon="fa fa-fw fa-edit" />
 							<p:commandButton icon="fa fa-fw fa-trash" />
@@ -55,5 +62,44 @@
 			</div>
 		</div>
 	</h:form>
+	<p:dialog widgetVar="create-order-dialog" header="Create Order"
+		closable="true" resizable="false" width="600px" modal="true">
+		<h:form>
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:outputLabel value="Product" />
+				</div>
+				<div class="ui-g-9">
+					<p:autoComplete multiple="true"
+						value="#{orderBean.selectedProducts}"
+						completeMethod="#{orderBean.completeProduct}" var="product"
+						itemLabel="#{product.name}" itemValue="#{product}"
+						converter="productConverter" forceSelection="true"
+						scrollHeight="110">
+						<p:column>
+							<h:outputText value="#{product.name}" />
+						</p:column>
+					</p:autoComplete>
+				</div>
+			</div>
+
+			<div class="ui-g">
+				<div class="ui-g-3">
+					<p:outputLabel value="Note" />
+				</div>
+				<div class="ui-g-9">
+					<p:inputTextarea rows="5" cols="30" counter="display"
+						maxlength="1000" counterTemplate="{0} characters remaining."
+						autoResize="false" value="#{orderBean.note}" />
+					<br />
+					<h:outputText id="display" />
+				</div>
+			</div>
+			<div class="center-but">
+				<p:commandButton value="Create" type="submit"
+					action="#{orderBean.onClickCreateOrder}" />
+			</div>
+		</h:form>
+	</p:dialog>
 </h:body>
 </html>

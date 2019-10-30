@@ -17,6 +17,7 @@ import org.primefaces.PrimeFaces;
 import entities.Product;
 import lombok.Getter;
 import lombok.Setter;
+import services.DialogService;
 import services.ProductService;
 
 @SuppressWarnings("deprecation")
@@ -29,7 +30,7 @@ public class ProductBean implements Serializable {
 	private static final long serialVersionUID = 4098294323352760786L;
 	@Getter
 	@Setter
-	private List<Product> products;
+	private transient List<Product> products;
 
 	@Getter
 	@Setter
@@ -37,8 +38,11 @@ public class ProductBean implements Serializable {
 
 	@Inject
 	ProductService productService;
+	
+	@Inject
+	DialogService dialogService;
 
-	final static Logger logger = Logger.getLogger(ProductService.class);
+	Logger logger = Logger.getLogger(ProductService.class);
 
 	@PostConstruct
 	public void init() {
@@ -59,13 +63,7 @@ public class ProductBean implements Serializable {
 	}
 
 	public void viewProduct(Product product) {
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("modal", true);
-		options.put("width", 600);
-		options.put("height", 400);
-		options.put("contentWidth", "100%");
-		options.put("contentHeight", "100%");
-		options.put("headerElement", "customheader");
+		Map<String, Object> options = dialogService.createDialogOption();
 
 		Map<String, List<String>> params = new HashMap<>();
 		List<String> productId = new ArrayList<>(); // just send one id
@@ -75,13 +73,7 @@ public class ProductBean implements Serializable {
 	}
 	
 	public void updateProduct(Product product) {
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("modal", true);
-		options.put("width", 600);
-		options.put("height", 500);
-		options.put("contentWidth", "100%");
-		options.put("contentHeight", "100%");
-		options.put("headerElement", "customheader");
+		Map<String, Object> options = dialogService.createDialogOption();
 
 		Map<String, List<String>> params = new HashMap<>();
 		List<String> productId = new ArrayList<>(); // just send one id
@@ -91,17 +83,11 @@ public class ProductBean implements Serializable {
 	}
 	
 	public void addProduct() {
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("modal", true);
-		options.put("width", 600);
-		options.put("height", 500);
-		options.put("contentWidth", "100%");
-		options.put("contentHeight", "100%");
-		options.put("headerElement", "customheader");
+		Map<String, Object> options = dialogService.createDialogOption();
 		
 		PrimeFaces.current().dialog().openDynamic("addProduct", options, null);
 	}
-	
+
 	public void onClickOrderButton() {
 		PrimeFaces.current().executeScript("top.redirectTo('order.xhtml')");
 	}

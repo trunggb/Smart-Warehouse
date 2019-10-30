@@ -12,10 +12,6 @@ import entities.Product;
 @Stateless
 public class ProductService extends GenericService<Product> {
 
-	public ProductService() {
-		super();
-	}
-
 	public boolean add(Product product) {
 		return this.create(product);
 	}

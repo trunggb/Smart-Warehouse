@@ -32,15 +32,12 @@
 				</div>
 
 				<div class="sign-out-container">
-					<p:commandButton styleClass="function-button" value="Sign out" />
+					<p:commandButton styleClass="function-button" value="Sign out" action="index" />
 				</div>
 			</div>
 			<div class="ui-g-9 flex-container height-100vh">
 				<div class="page-title product-title">
 					<p:outputLabel >PRODUCT</p:outputLabel>
-				</div>
-				<div class="ui-g-12 add-product-button">
-					<p:commandButton action="#{productBean.addProduct()}" value="Add" />
 				</div>
 				<div class="flex-container space-around">
 					<p:dataTable reflow="true" rows="10" paginatorPosition="bottom"
@@ -48,18 +45,24 @@
 						value="#{productBean.products}"
 						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						var="product">
-						<p:column headerText="Name">
+						<p:column>
+							<f:facet name="header">Name</f:facet>
 							<h:outputText value="#{product.name}" />
 						</p:column>
-						<p:column headerText="Amount">
+						<p:column>
+							<f:facet name="header">Amount</f:facet>
 							<h:outputText value="#{product.amount}" />
 						</p:column>
-						<p:column headerText="Expiry date">
+						<p:column>
+							<f:facet name="header">Expiry date</f:facet>
 							<h:outputText value="#{product.expiryDate}" >
 								<f:convertDateTime pattern="yyyy-MMM-dd"/>
 							</h:outputText>
 						</p:column>
 						<p:column>
+							<f:facet name="header">
+								<p:commandButton action="#{productBean.addProduct()}" value="Add" />
+							</f:facet>
 							<p:commandButton icon="fa fa-search fa-xs"
 								action="#{productBean.viewProduct(product)}" />
 							<p:commandButton icon="fa fa-fw fa-edit"

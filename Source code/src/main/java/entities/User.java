@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NamedQueries({@NamedQuery(name = "findAllUser", query = "SELECT u FROM User u")})
 @Entity
+@Builder
 @Data
 @Table(name="end_user")
 

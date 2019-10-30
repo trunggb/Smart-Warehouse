@@ -49,4 +49,8 @@ public class OrderService extends GenericService<Order> {
 		TypedQuery<Order> q = em.createNamedQuery("findAllOrder", Order.class);
 		return q.getResultList();
 	}
+	
+	public boolean createOrder(Order order) {
+		return this.create(order);
+	}
 }

@@ -60,7 +60,4 @@ public class Product {
 
 	@Column(name = "expiry_date")
 	private Date expiryDate;
-	
-	@OneToMany(mappedBy="product")
-	private List<OrderDetail> orderDeatail;
 }

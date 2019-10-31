@@ -7,7 +7,7 @@
 <h:head>
 	<title>Smart Warehouse</title>
 	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
-	<h:outputScript library="js" name="script.js"></h:outputScript>
+	<h:outputStylesheet library="css" name="jquery.toast.css"></h:outputStylesheet>
 	<h:outputStylesheet name="components.css" library="primefaces" />
 	<h:outputStylesheet
 		name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
@@ -46,7 +46,10 @@
 						var="order">
 						<p:column>
 							<f:facet name="header">Created date</f:facet>
-							<h:outputText value="#{order.createdDate}" />
+							<h:outputText value="#{order.createdDate}">
+								<f:convertDateTime pattern="yyyy-MMM-dd hh:mm a"
+									timeZone="Asia/Ho_Chi_Minh" />
+							</h:outputText>
 						</p:column>
 						<p:column>
 							<f:facet name="header">
@@ -65,23 +68,21 @@
 	<p:dialog widgetVar="create-order-dialog" header="Create Order"
 		closable="true" resizable="false" width="600px" modal="true">
 		<h:form>
-			<div class="ui-g">
-				<div class="ui-g-3">
-					<p:outputLabel value="Product" />
+			<p:repeat value="#{orderBean.orderDetails}" var="detail">
+				<div class="ui-g">
+					<div class="ui-g-6">
+						<p:selectOneMenu value="#{detail.product}">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{orderBean.products}" var="p" itemLabel="#{p.name}" />
+						</p:selectOneMenu>
+					</div>
+					<div class="ui-g-6">
+						<p:inputNumber value="#{detail.amount}">
+							<f:convertNumber pattern="00"></f:convertNumber>
+						</p:inputNumber>
+					</div>
 				</div>
-				<div class="ui-g-9">
-					<p:autoComplete multiple="true"
-						value="#{orderBean.selectedProducts}"
-						completeMethod="#{orderBean.completeProduct}" var="product"
-						itemLabel="#{product.name}" itemValue="#{product}"
-						converter="productConverter" forceSelection="true"
-						scrollHeight="110">
-						<p:column>
-							<h:outputText value="#{product.name}" />
-						</p:column>
-					</p:autoComplete>
-				</div>
-			</div>
+			</p:repeat>
 
 			<div class="ui-g">
 				<div class="ui-g-3">
@@ -101,5 +102,7 @@
 			</div>
 		</h:form>
 	</p:dialog>
+	<h:outputScript library="js" name="script.js"></h:outputScript>
+	<h:outputScript library="js" name="jquery.toast.js"></h:outputScript>
 </h:body>
 </html>

@@ -1,14 +1,16 @@
 package beans;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
@@ -17,7 +19,6 @@ import org.primefaces.PrimeFaces;
 
 import entities.Order;
 import entities.OrderDetail;
-import entities.OrderStatus;
 import entities.Product;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ import services.ProductService;
 @ManagedBean(name="orderBean")
 @ViewScoped
 public class OrderBean implements Serializable {
+	private static final int NUM_PROD = 5;
 	/**
 	 * 
 	 */
@@ -40,6 +42,10 @@ public class OrderBean implements Serializable {
 	@Getter
 	@Setter
 	private List<Product> products;
+	
+	@Getter
+	@Setter
+	private List<OrderDetail> orderDetails;
 	
 	@Getter
 	@Setter
@@ -64,6 +70,10 @@ public class OrderBean implements Serializable {
 	public void init() {
 		this.orders = orderService.findAll();
 		this.products = productService.findAll();
+		this.orderDetails = new ArrayList<>();
+		for(int i = 0; i < NUM_PROD; i++) {
+			this.orderDetails.add(new OrderDetail());
+		}
 	}
 
 	
@@ -72,28 +82,14 @@ public class OrderBean implements Serializable {
 		logger.debug("Get " + orders.size() + " orders from database");
 	}
 	
-	public List<Product> completeProduct(String query) {
-        List<Product> filteredProducts = new ArrayList<>();
-         
-        for (int i = 0; i < products.size(); i++) {
-        	Product skin = products.get(i);
-            if(skin.getName().toLowerCase().contains(query)) {
-            	filteredProducts.add(skin);
-            }
-        }
-         
-        return filteredProducts;
-    }
 	
-	public void onClickCreateOrder() {
-		this.selectedProducts = selectedProducts.stream().distinct().collect(Collectors.toList());
-		List<OrderDetail> orderDetails = this.selectedProducts.stream().map(x -> OrderDetail.builder().product(x).build()).collect(Collectors.toList());
-		Order order = Order.builder().createdDate(LocalDateTime.now()).orderDeatail(orderDetails).status(OrderStatus.IN_CREATED).note(note).build();
-		if(this.orderService.createOrder(order)){
-			PrimeFaces.current().executeScript("parent.showSuccessMessage('Order created succesfully!')");			
-		}else {
-			PrimeFaces.current().executeScript("parent.showErrorMessage('Order create failed!')");			
-		}
-		PrimeFaces.current().executeScript("parent.reloadPage()");
+	public void onClickCreateOrder() throws ParseException {
+//		OrderDetail orderDetail1 = OrderDetail.builder().product(products.get(0)).build();
+//		OrderDetail orderDetail2 = OrderDetail.builder().product(products.get(1)).build();
+//		Order order = Order.builder().createdDate(new Date()).orderDeatail(Arrays.asList(orderDetail1,orderDetail2)).build();
+//		this.orderService.createOrder(order);
+//		PrimeFaces.current().executeScript("showSuccessMessage('Product added succesfully!')");
+//		PrimeFaces.current().executeScript("reloadPage();");
+		
 	}
 }

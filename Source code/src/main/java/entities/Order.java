@@ -1,11 +1,14 @@
 package entities;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,7 +30,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "product_order")
 public class Order {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne
@@ -35,7 +38,7 @@ public class Order {
 	User user;
 	
 	@Column(name = "created_date")
-	LocalDateTime createdDate;
+	Date createdDate;
 	
 	@Column(name = "note")
 	private String note;
@@ -43,7 +46,8 @@ public class Order {
 	@Column(name = "status")
 	private OrderStatus status;
 	
-	@OneToMany(mappedBy="order")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "order_id")
 	private List<OrderDetail> orderDeatail;
 	
 }

@@ -7,11 +7,11 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class DialogService{
-	public Map<String, Object> createDialogOption() {
+	public Map<String, Object> createDialogOption(int width, int height) {
 		Map<String, Object> options = new HashMap<>();
 		options.put("modal", true);
-		options.put("width", 600);
-		options.put("height", 500);
+		options.put("width", width);
+		options.put("height", height);
 		options.put("contentWidth", "100%");
 		options.put("contentHeight", "100%");
 		options.put("headerElement", "customheader");

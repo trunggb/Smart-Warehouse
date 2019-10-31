@@ -84,6 +84,12 @@ public class OrderBean implements Serializable {
 	
 	
 	public void onClickCreateOrder() throws ParseException {
+//		System.out.println("OKKKKKKKKKKKKKKKKKKKKKKKKKK");
+			Order order = Order.builder().createdDate(new Date()).orderDeatail(orderDetails).build();
+			System.out.println(order);
+//			this.orderService.createOrder(order);
+//			PrimeFaces.current().executeScript("showSuccessMessage('Order created succesfully!')");
+//			PrimeFaces.current().executeScript("reloadPage();");
 //		OrderDetail orderDetail1 = OrderDetail.builder().product(products.get(0)).build();
 //		OrderDetail orderDetail2 = OrderDetail.builder().product(products.get(1)).build();
 //		Order order = Order.builder().createdDate(new Date()).orderDeatail(Arrays.asList(orderDetail1,orderDetail2)).build();

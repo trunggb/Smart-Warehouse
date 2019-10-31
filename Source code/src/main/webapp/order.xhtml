@@ -66,39 +66,36 @@
 		</div>
 	</h:form>
 	<p:dialog widgetVar="create-order-dialog" header="Create Order"
-		closable="true" resizable="false" width="600px" modal="true">
-		<h:form>
+		closable="true" resizable="false" width="650px" modal="true">
+		<h:form id="create-order-form">
 			<p:repeat value="#{orderBean.orderDetails}" var="detail">
 				<div class="ui-g">
-					<div class="ui-g-6">
+					<div class="ui-g-8">
 						<p:selectOneMenu value="#{detail.product}">
 							<f:selectItem itemLabel="" itemValue="" />
 							<f:selectItems value="#{orderBean.products}" var="p" itemLabel="#{p.name}" />
 						</p:selectOneMenu>
 					</div>
-					<div class="ui-g-6">
-						<p:inputNumber value="#{detail.amount}">
-							<f:convertNumber pattern="00"></f:convertNumber>
-						</p:inputNumber>
+					<div class="ui-g-4 width-69">
+						<p:inputText type="number" value="#{detail.amount}">
+							<f:convertNumber maxFractionDigits="0"></f:convertNumber>
+							<p:ajax event="blur" update="@this" />
+						</p:inputText>
 					</div>
 				</div>
 			</p:repeat>
 
 			<div class="ui-g">
-				<div class="ui-g-3">
-					<p:outputLabel value="Note" />
-				</div>
-				<div class="ui-g-9">
+				<div class="ui-g-12">
 					<p:inputTextarea rows="5" cols="30" counter="display"
 						maxlength="1000" counterTemplate="{0} characters remaining."
-						autoResize="false" value="#{orderBean.note}" />
+						autoResize="false" value="#{orderBean.note}" placeholder="Note"/>
 					<br />
 					<h:outputText id="display" />
 				</div>
 			</div>
 			<div class="center-but">
-				<p:commandButton value="Create" type="submit"
-					action="#{orderBean.onClickCreateOrder}" />
+				<p:commandButton value="Create" type="submit" action="#{orderBean.onClickCreateOrder}" />
 			</div>
 		</h:form>
 	</p:dialog>

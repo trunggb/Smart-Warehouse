@@ -116,3 +116,24 @@ body {
 .ui-datatable-even {
 	background-color: #38597f38 !important;
 }
+
+.ui-inputtextarea{
+	width: 90%;
+}
+
+.width-100 input{
+	width: 100%;
+}
+.width-69 input{
+	width: 69%;
+}
+
+.error-msg{
+	color: #fc4a1a;
+    font-size: 0.9rem;
+    font-style: italic;
+    font-family: "Roboto Condensed",sans-serif;
+}
+.ui-selectonemenu {
+    width: 90% !important;
+}

@@ -63,7 +63,7 @@ public class ProductBean implements Serializable {
 	}
 
 	public void viewProduct(Product product) {
-		Map<String, Object> options = dialogService.createDialogOption();
+		Map<String, Object> options = dialogService.createDialogOption(600,450);
 
 		Map<String, List<String>> params = new HashMap<>();
 		List<String> productId = new ArrayList<>(); // just send one id
@@ -73,7 +73,7 @@ public class ProductBean implements Serializable {
 	}
 	
 	public void updateProduct(Product product) {
-		Map<String, Object> options = dialogService.createDialogOption();
+		Map<String, Object> options = dialogService.createDialogOption(700,500);
 
 		Map<String, List<String>> params = new HashMap<>();
 		List<String> productId = new ArrayList<>(); // just send one id
@@ -83,7 +83,7 @@ public class ProductBean implements Serializable {
 	}
 	
 	public void addProduct() {
-		Map<String, Object> options = dialogService.createDialogOption();
+		Map<String, Object> options = dialogService.createDialogOption(700,500);
 		
 		PrimeFaces.current().dialog().openDynamic("addProduct", options, null);
 	}

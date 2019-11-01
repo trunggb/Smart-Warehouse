@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +22,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQuery(name = "findAllOrder", query = "SELECT o FROM Order o")
+@NamedQuery(name = "findAllOrder", query = "SELECT o FROM Order o order by o.id desc")
 @Entity
 @Builder
 @Data
@@ -48,6 +47,6 @@ public class Order {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "order_id")
-	private List<OrderDetail> orderDeatail;
+	private List<OrderDetail> orderDetails;
 	
 }

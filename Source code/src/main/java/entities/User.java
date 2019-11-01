@@ -18,7 +18,10 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQueries({@NamedQuery(name = "findAllUser", query = "SELECT u FROM User u")})
+@NamedQueries({
+	@NamedQuery(name = "findAllUser", query = "SELECT u FROM User u"),
+	@NamedQuery(name = "findUserByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName")
+})
 @Entity
 @Builder
 @Data
@@ -69,4 +72,7 @@ public class User {
 	@Column(name="active")
 	private Active active;
 
+	public String buildFullName() {
+		return String.join(" ", this.firstName, this.lastName);
+	}
 }

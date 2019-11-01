@@ -21,15 +21,12 @@
 				</div>
 				<i class="fa fa-sign-in fa-3x" aria-hidden="true"></i>
 				<div class="ui-g-12 flex-container space-around input-container">
-					<p:inputText placeholder="Username" />
-					<p:password placeholder="Password" />
+					<p:inputText placeholder="Username" value="#{loginBean.userName}" />
+					<p:password placeholder="Password" value="#{loginBean.passWord}"/>
 				</div>
 				<p:commandButton styleClass="function-button" value="Sign in"
 					action="#{loginBean.onClickLoginButton}"></p:commandButton>
-
 			</div>
-
-
 		</div>
 	</h:form>
 </h:body>

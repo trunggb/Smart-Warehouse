@@ -6,56 +6,76 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Smart Warehouse</title>
+	<h:outputStylesheet library="css" name="jquery.toast.css"></h:outputStylesheet>
 	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
-	<h:outputScript library="js" name="script.js"></h:outputScript>
+	<h:outputStylesheet library="css" name="product.css"></h:outputStylesheet>
+	<h:outputScript library="js" name="jquery.toast.js"></h:outputScript>	
+	<h:outputScript library="js" name="script.js"></h:outputScript>	
 	<h:outputStylesheet name="components.css" library="primefaces" />
-	<h:outputStylesheet
-		name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
+	<h:outputStylesheet	name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
+
 </h:head>
-<h:body>
-	<h:form>
-		<div class="ui-g">
-			<div
-				class="ui-g-3 menu-container height-100vh flex-container space-around">
-				<div class="ava-container">
+<h:body styleClass="content-all">
+	<h:form >
+		<div class="ui-g content">
+			 <div class="ui-g-3 menu-container height-100vh flex-container space-around left-menu">
+
+				<div class="">
 					<div class="user-icon">
-						<i class="fa fa-user fa-3x" aria-hidden="true"></i>
+						<img src="./resources/images/1.jpg" alt="..." class="ava-container" />
+					</div>
+
+					<div class="profile_info">
+						<h2>1414796</h2>
 					</div>
 				</div>
+
 				<div class="tab-container flex-container space-between">
-					<p:commandButton styleClass="function-button" value="Trucks" />
-					<p:commandButton styleClass="function-button" value="Products" />
-					<p:commandButton styleClass="function-button" value="Orders" />
+					<p:commandButton styleClass="btn btn-info btn-info-format"  value="Trucks" />
+					<p:commandButton styleClass="btn btn-info btn-info-format" value="Products" />
+					<p:commandButton styleClass="btn btn-info btn-info-format" value="Orders" />
 				</div>
 
 				<div class="sign-out-container">
 					<p:commandButton styleClass="function-button" value="Sign out" />
 				</div>
 			</div>
-			<div class="ui-g-9 flex-container height-100vh">
+
+
+
+
+			<div class="ui-g-9 flex-container height-100vh full-right">
+				<div class="row">asfsd</div>
+
 				<div class="page-title product-title">
 					<p:outputLabel>PRODUCT</p:outputLabel>
 				</div>
-				<div class="flex-container space-around">
+				
+<!-- 				<p:commandButton styleClass="" icon="fa fa-search fa-xs"
+				 value="success"
+					onclick="showSuccessMessage('delp')" /> -->
+
+				<div class="x_panel">
+					<div class="flex-container space-around">
 					<p:dataTable reflow="true" rows="10" paginatorPosition="bottom"
 						paginator="true" rowsPerPageTemplate="5,10,15"
 						value="#{productBean.products}"
 						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						var="product">
 						<p:column headerText="Name">
-							<h:outputText value="#{product.name}" />
+							<h:outputText styleClass="" value="#{product.name}" />
 						</p:column>
 						<p:column headerText="Amount">
-							<h:outputText value="#{product.amount}" />
+							<h:outputText styleClass="" value="#{product.amount}" />
 						</p:column>
 						<p:column headerText="Expiry date">
-							<h:outputText value="#{product.expiryDate}" />
+							<h:outputText styleClass="" value="#{product.expiryDate}" />
 						</p:column>
 						<p:column>
-							<p:commandButton icon="fa fa-search fa-xs"
+							<p:commandButton styleClass="" icon="fa fa-search fa-xs"
 								action="#{productBean.viewProduct(product)}" />
-							<p:commandButton icon="fa fa-fw fa-edit" />
-							<p:commandButton icon="fa fa-fw fa-trash"
+							<p:commandButton styleClass="" icon="fa fa-fw fa-edit" />
+							<p:commandButton styleClass="" icon="fa fa-fw fa-trash"
 								action="#{productBean.onclickRemoveButton(product)}" />
 						</p:column>
 					</p:dataTable>
@@ -67,6 +87,11 @@
 							onclick="PF('remove-dialog').hide();" />
 					</p:confirmDialog>
 				</div>
+				</div>
+
+
+
+				
 			</div>
 		</div>
 	</h:form>

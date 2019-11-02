@@ -72,7 +72,7 @@ public class ProductBean implements Serializable{
 //		this.productRemoved = product;
 //		PrimeFaces.current().executeScript("PF('remove-dialog').show();");
 		productService.remove(product);
-		PrimeFaces.current().executeScript("location.reload();");
+		PrimeFaces.current().executeScript("top.showSuccessMessage(\" Product removed successfully\");");
 	}
 	
 	public void removeProduct() {

@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,13 +12,18 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQueries({@NamedQuery(name = "findAllUser", query = "SELECT u FROM User u")})
+@NamedQueries({
+	@NamedQuery(name = "findAllUser", query = "SELECT u FROM User u"),
+	@NamedQuery(name = "findUserByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName")
+})
 @Entity
+@Builder
 @Data
 @Table(name="end_user")
 
@@ -30,6 +35,12 @@ public class User {
 	
 	@Column(name="user_name")
 	private String userName;
+	
+	@Column(name="first_name")
+	private String firstName;
+	
+	@Column(name="last_name")
+	private String lastName;
 	
 	@Column(name="email")
 	private String email;
@@ -47,13 +58,13 @@ public class User {
 	private String avatar;
 
 	@Column(name="create_date")
-	private Date createDate;
+	private LocalDate createDate;
 	
 	@Column(name="last_access_date")
-	private Date lastAccessDate;
+	private LocalDate lastAccessDate;
 	
 	@Column(name="last_logout_date")
-	private Date lastLogoutDate;
+	private LocalDate lastLogoutDate;
 	
 	@Column(name="role")
 	private Role role;
@@ -61,4 +72,7 @@ public class User {
 	@Column(name="active")
 	private Active active;
 
+	public String buildFullName() {
+		return String.join(" ", this.firstName, this.lastName);
+	}
 }

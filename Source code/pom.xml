@@ -9,7 +9,7 @@
 	<properties>
 		<jsf.version>2.2.15</jsf.version>
 		<junit.version>3.8.1</junit.version>
-		<primefaces.version>6.2</primefaces.version>
+		<primefaces.version>7.0</primefaces.version>
 		<log4j-version>1.2.17</log4j-version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -112,6 +112,25 @@
 			<artifactId>jasypt</artifactId>
 			<version>1.9.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

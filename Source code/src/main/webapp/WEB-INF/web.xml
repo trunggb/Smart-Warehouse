@@ -14,7 +14,7 @@
 	</context-param>
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>omega</param-value>
+		<param-value>nova-light</param-value>
 	</context-param>
 	<welcome-file-list>
 		<welcome-file>/index.xhtml</welcome-file>

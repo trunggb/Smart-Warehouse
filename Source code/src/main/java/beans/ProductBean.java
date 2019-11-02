@@ -1,9 +1,7 @@
 package beans;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,77 +17,78 @@ import org.primefaces.PrimeFaces;
 import entities.Product;
 import lombok.Getter;
 import lombok.Setter;
+import services.DialogService;
 import services.ProductService;
 
 @SuppressWarnings("deprecation")
-@ManagedBean(name="productBean")
+@ManagedBean(name = "productBean")
 @ViewScoped
-public class ProductBean implements Serializable{
+public class ProductBean implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4098294323352760786L;
 	@Getter
 	@Setter
-	private List<Product> products;
-	
-	@Setter
-	@Getter
-	private Product productViewed;
-	
+	private transient List<Product> products;
+
 	@Getter
 	@Setter
 	private Product productRemoved;
-	
-	
+
 	@Inject
 	ProductService productService;
 	
-	final static Logger logger = Logger.getLogger(ProductService.class);
-	
+	@Inject
+	DialogService dialogService;
+
+	Logger logger = Logger.getLogger(ProductService.class);
+
 	@PostConstruct
 	public void init() {
 		products = productService.findAll();
-		for (Product product : products) {
-			DateFormat inputFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-			try {
-				product.setInDate(inputFormatter.parse(product.getInDate().toString()));
-				product.setOutDate(inputFormatter.parse(product.getOutDate().toString()));
-				product.setExpiryDate(inputFormatter.parse(product.getExpiryDate().toString()));
-			} catch (ParseException e) {
-				logger.error(e);
-			}
-
-		}
 		logger.debug("Get " + products.size() + " product from database");
 	}
-	private void chooseProduct(Product product) {
-		this.productViewed = product;
-		logger.debug(productViewed);
-	}
-	
+
 	public void onclickRemoveButton(Product product) {
-//		this.productRemoved = product;
-//		PrimeFaces.current().executeScript("PF('remove-dialog').show();");
-		productService.remove(product);
-		PrimeFaces.current().executeScript("top.showSuccessMessage(\" Product removed successfully\");");
+		this.productRemoved = product;
+		PrimeFaces.current().executeScript("PF('remove-dialog').show();");
 	}
-	
+
 	public void removeProduct() {
 		productService.remove(this.productRemoved);
-		PrimeFaces.current().executeScript("PF('remove-dialog').hide();");
-		PrimeFaces.current().executeScript("top.showSuccessMessage(\" Product removed successfully\");");
+		
+		PrimeFaces.current().executeScript("showSuccessMessage('Product removed succesfully!')");
+		PrimeFaces.current().executeScript("reloadPage()");
+	}
+
+	public void viewProduct(Product product) {
+		Map<String, Object> options = dialogService.createDialogOption(600,450);
+
+		Map<String, List<String>> params = new HashMap<>();
+		List<String> productId = new ArrayList<>(); // just send one id
+		productId.add(String.valueOf(product.getId()));
+		params.put("productId", productId);
+		PrimeFaces.current().dialog().openDynamic("viewProduct", options, params);
 	}
 	
-	public void viewProduct(Product product) {
-		chooseProduct(product);
-		Map<String,Object> options = new HashMap<String, Object>();
-        options.put("modal", true);
-        options.put("width", 640);
-        options.put("height", 340);
-        options.put("contentWidth", "100%");
-        options.put("contentHeight", "100%");
-        options.put("headerElement", "customheader");
-        PrimeFaces.current().dialog().openDynamic("viewProduct", options, null);
+	public void updateProduct(Product product) {
+		Map<String, Object> options = dialogService.createDialogOption(700,500);
+
+		Map<String, List<String>> params = new HashMap<>();
+		List<String> productId = new ArrayList<>(); // just send one id
+		productId.add(String.valueOf(product.getId()));
+		params.put("productId", productId);
+		PrimeFaces.current().dialog().openDynamic("updateProduct", options, params);
+	}
+	
+	public void addProduct() {
+		Map<String, Object> options = dialogService.createDialogOption(700,500);
+		
+		PrimeFaces.current().dialog().openDynamic("addProduct", options, null);
+	}
+
+	public void onClickOrderButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('order.xhtml')");
 	}
 }

@@ -27,38 +27,41 @@ html , body{
 	height: 20%;
 }
 
-.height-80vh {
-	height: 80vh;
-}
-
 .height-100vh {
 	min-height: 100vh;
+}
+
+.height-80vh {
+	padding-top: 50px;
+	min-height: 80vh;
 }
 
 .black-border {
 	border: none;
 	margin-left: 30%;
 	margin-right: 30%;
-	margin-top: 50px;
-	border-radius: 2%;
-	background-color: #597eaa;
+	background-color: #06305fcc;
 }
 
-.page-title {
-	font-size: 25px;
+.big-title {
+	font-size: 60px;
+	font-weight: 800;
 }
 
-.white-text{
+.smal-title {
+	font-size: 30px;
+}
+
+.white-text {
 	color: white;
 }
 
-.function-button{
+.function-button {
 	background: white !important;
 	border: none !important;
 	color: black !important;
 	width: 100px;
 }
-
 
 .input-container {
 	height: 20vh;
@@ -94,7 +97,7 @@ html , body{
 	color: white;
 }
 
-.product-title{
+.product-title {
 	padding-top: 10px;
 	padding-bottom: 20px;
 }
@@ -346,4 +349,52 @@ form:after {
     border: 1px solid #E6E9ED;
     opacity: 1;
     transition: all .2s ease;
+.ui-confirm-dialog-severity {
+	display: none !important;
+}
+
+.center-but {
+	display: flex;
+	justify-content: center;
+}
+
+body {
+	margin: 0;
+}
+
+.width-80 input {
+	width: 80%;
+}
+
+.ui-sticky {
+	top: 70px !important;
+}
+
+.add-product-button {
+	text-align: right;
+}
+
+.ui-datatable-even {
+	background-color: #38597f38 !important;
+}
+
+.ui-inputtextarea{
+	width: 100%;
+}
+
+.width-100 input{
+	width: 100%;
+}
+.width-69 input{
+	width: 69%;
+}
+
+.error-msg{
+	color: #fc4a1a;
+    font-size: 0.9rem;
+    font-style: italic;
+    font-family: "Roboto Condensed",sans-serif;
+}
+.ui-selectonemenu {
+    width: 90% !important;
 }

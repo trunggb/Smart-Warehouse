@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Product</title>
+	<title>View product</title>
 	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
 	<h:outputStylesheet name="grid/grid.css" library="primefaces" />
 	<h:outputStylesheet name="components.css" library="primefaces" />
@@ -16,7 +16,7 @@
 			<p:outputLabel value="Name:" />
 		</div>
 		<div class="ui-g-8">
-			<h:outputText value="#{productBean.productViewed.name}" />
+			<h:outputText value="#{productViewBean.product.name}" />
 		</div>
 	</div>
 	<div class="ui-g">
@@ -24,7 +24,7 @@
 			<p:outputLabel value="Image:" />
 		</div>
 		<div class="ui-g-8">
-			<h:outputText value="#{productBean.productViewed.image}" />
+			<h:outputText value="#{productViewBean.product.image}" />
 		</div>
 	</div>
 	<div class="ui-g">
@@ -32,7 +32,7 @@
 			<p:outputLabel value="Weight:" />
 		</div>
 		<div class="ui-g-8">
-			<h:outputText value="#{productBean.productViewed.weight}" />
+			<h:outputText value="#{productViewBean.product.weight}" />
 		</div>
 	</div>
 	<div class="ui-g">
@@ -40,39 +40,42 @@
 			<p:outputLabel value="Amount:" />
 		</div>
 		<div class="ui-g-8">
-			<h:outputText value="#{productBean.productViewed.amount}" />
+			<h:outputText value="#{productViewBean.product.amount}" />
 		</div>
 	</div>
 	<div class="ui-g">
 		<div class="ui-g-4">
 			<p:outputLabel value="Status:" />
 		</div>
-		<div class="ui-g-8">
-			<h:outputText value="#{productBean.productViewed.status}" />
+		<div class="ui-g-8 ">
+			<h:outputText value="#{productViewBean.product.status.toString()}" />
 		</div>
 	</div>
 	<div class="ui-g">
 		<div class="ui-g-4">
 			<p:outputLabel value="In date:" />
 		</div>
-		<div class="ui-g-8">
-			<h:outputText value="#{productBean.productViewed.inDate}" />
+		<div class="ui-g-8 width-80">
+			<p:calendar value="#{productViewBean.product.inDate}"
+				pattern="yyyy-MMM-dd" readonlyInput="true" />
 		</div>
 	</div>
 	<div class="ui-g">
 		<div class="ui-g-4">
 			<p:outputLabel value="Out date:" />
 		</div>
-		<div class="ui-g-8">
-			<h:outputText value="#{productBean.productViewed.outDate}" />
+		<div class="ui-g-8 width-80">
+			<p:calendar value="#{productViewBean.product.outDate}"
+				pattern="yyyy-MMM-dd" readonlyInput="true" />
 		</div>
 	</div>
 	<div class="ui-g">
 		<div class="ui-g-4">
 			<p:outputLabel value="Expiry date:" />
 		</div>
-		<div class="ui-g-8">
-			<h:outputText value="#{productBean.productViewed.expiryDate}" />
+		<div class="ui-g-8 width-80">
+			<p:calendar value="#{productViewBean.product.expiryDate}"
+				pattern="yyyy-MMM-dd" readonlyInput="true" />
 		</div>
 	</div>
 </h:body>

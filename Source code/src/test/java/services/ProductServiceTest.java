@@ -1,16 +1,13 @@
 package services;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -83,14 +80,14 @@ public class ProductServiceTest {
 //		assertFalse(actual);
 //	
 //	}
-	@Ignore
-	@Test
-	public void testFind_shouldReturnOptionalOfProduct_whenIdIsValid() {
-		int id = 1;
-		Mockito.when(entityManager.find(Product.class, id)).thenReturn(product);
-		Optional<Product> actual = productService.find(id);
-		Optional<Product> expected = Optional.of(product);
-		assertEquals(expected, actual);
-	}
+//	@Ignore
+//	@Test
+//	public void testFind_shouldReturnOptionalOfProduct_whenIdIsValid() {
+//		int id = 1;
+//		Mockito.when(entityManager.find(Product.class, id)).thenReturn(product);
+//		Optional<Product> actual = productService.find(id);
+//		Optional<Product> expected = Optional.of(product);
+//		assertEquals(expected, actual);
+//	}
 	
 }

@@ -1,8 +1,8 @@
 package entities;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.net.ssl.SSLEngineResult.Status;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQueries({ @NamedQuery(name = "findAllProduct", query = "SELECT p FROM Product p") })
+@NamedQuery(name = "findAllProduct", query = "SELECT p FROM Product p order by p.id desc")
 @Entity
 @Table(name = "product")
 @Data
@@ -43,7 +44,7 @@ public class Product {
 	private String image;
 
 	@Column(name = "weight")
-	private int weight;
+	private double weight;
 
 	@Column(name = "amount")
 	private int amount;

@@ -2,11 +2,10 @@ package services;
 
 import java.util.Base64;
 
-import javax.ejb.Stateless;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-import org.jasypt.util.text.BasicTextEncryptor;
-
-@Stateless
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EncryptionService{
 	/**
 	 * Encrypt a plain text and then encode using BASE64
@@ -14,11 +13,8 @@ public class EncryptionService{
 	 * @param plainText
 	 * @return
 	 */
-	public static String encrypt(String encryptKey, String plainText) {
-		BasicTextEncryptor encryptor = new BasicTextEncryptor();
-		encryptor.setPassword(encryptKey);
-		String encryptedString = encryptor.encrypt(plainText);
-		return Base64.getEncoder().encodeToString(encryptedString.getBytes());
+	public static String encrypt(String plainText) {
+		return Base64.getEncoder().encodeToString(plainText.getBytes());
 	}
 	
 	/**
@@ -27,10 +23,8 @@ public class EncryptionService{
 	 * @param cipherText
 	 * @return
 	 */
-	public static String decrypt(String encryptKey, String cipherText) {
-		BasicTextEncryptor encryptor = new BasicTextEncryptor();
-		encryptor.setPassword(encryptKey);
+	public static String decrypt(String cipherText) {
 		byte[] decoded = Base64.getDecoder().decode(cipherText);
-		return encryptor.decrypt(new String(decoded));
+		return new String(decoded);
 	}
 }

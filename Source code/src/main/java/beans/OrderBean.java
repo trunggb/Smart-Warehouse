@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -19,14 +22,17 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
+import entities.Location;
 import entities.Order;
 import entities.OrderDetail;
 import entities.OrderStatus;
 import entities.Product;
+import entities.Role;
 import entities.User;
 import lombok.Getter;
 import lombok.Setter;
 import services.DialogService;
+import services.LocationService;
 import services.OrderDetailService;
 import services.OrderService;
 import services.ProductService;
@@ -49,11 +55,14 @@ public class OrderBean implements Serializable {
 	@Getter
 	@Setter
 	private List<Order> orders;
+	@Getter
+	@Setter
+	private List<Order> ordersNotProcessYet;
 
 	@Getter
 	@Setter
 	private User loginUser;
-	
+
 	@Getter
 	@Setter
 	private List<Product> products;
@@ -73,6 +82,10 @@ public class OrderBean implements Serializable {
 	@Getter
 	@Setter
 	private String note;
+	
+	@Getter
+	@Setter
+	private List<Location> availableReception;
 
 	@Getter
 	@Setter
@@ -86,6 +99,10 @@ public class OrderBean implements Serializable {
 
 	@Inject
 	DialogService dialogService;
+	
+	@Inject
+	LocationService locationService;
+	
 
 	@Inject
 	OrderDetailService orderDetailService;
@@ -99,6 +116,16 @@ public class OrderBean implements Serializable {
 		} else {
 			this.loginUser = userBean.getLoginUser();
 			this.orders = orderService.findAll();
+			this.ordersNotProcessYet = orders.stream().filter(o -> !OrderStatus.PROCESSING.equals(o.getStatus())).collect(Collectors.toList());
+			this.availableReception = locationService.findAllReceptionPointAvailable();
+			for (Location location : availableReception) {
+				location.setOrder(new Order());
+			}
+			if (!loginUser.getRole().equals(Role.ADMIN)) {
+				this.orders = orders.stream().filter(order -> order.getUser().getEmail().equals(loginUser.getEmail()))
+						.collect(Collectors.toList());
+			}
+
 			this.products = productService.findAll();
 			this.orderDetails = new ArrayList<>();
 			for (int i = 0; i < NUM_PROD; i++) {
@@ -132,8 +159,8 @@ public class OrderBean implements Serializable {
 
 		orderDetails = orderDetails.stream().filter(detail -> Objects.nonNull(detail.getProduct().getName()))
 				.collect(Collectors.toList());
-		Order order = Order.builder().createdDate(new Date()).user(loginUser).note(note)
-				.status(OrderStatus.IN_CREATED).orderDetails(orderDetails).build();
+		Order order = Order.builder().createdDate(new Date()).user(loginUser).note(note).status(OrderStatus.IN_CREATED)
+				.orderDetails(orderDetails).build();
 
 		this.orderService.createOrder(order);
 		PrimeFaces.current().executeScript("showSuccessMessage('Order created succesfully!')");
@@ -151,7 +178,7 @@ public class OrderBean implements Serializable {
 		params.put("orderId", productId);
 		PrimeFaces.current().dialog().openDynamic("viewOrder", options, params);
 	}
-	
+
 	public void updateOrder(Integer orderId) {
 		Map<String, Object> options = dialogService.createDialogOption(650, 600);
 
@@ -177,8 +204,29 @@ public class OrderBean implements Serializable {
 		PrimeFaces.current().executeScript("showSuccessMessage('Order removed succesfully!')");
 		PrimeFaces.current().executeScript("reloadPage()");
 	}
+
 	public void onClickLogoutButton() {
 		userBean.setLoginUser(null);
 		PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 	}
+	
+	public void processOrder() {
+		availableReception = availableReception.stream().filter(distinctByKey(Location::getOrder)).collect(Collectors.toList());
+		for (Location location : availableReception) {
+			Optional<Order> optionalOrder = orderService.find(location.getOrder().getId());
+			if(optionalOrder.isPresent()) {
+				Order order = optionalOrder.get();
+				order.setStatus(OrderStatus.PROCESSING);
+				order.setReceptionPoint(location);
+				orderService.updateOrder(order);
+			}
+		}
+	}
+	
+	public static <T> Predicate<T> distinctByKey(
+		    Function<? super T, ?> keyExtractor) {
+		   
+		    Map<Object, Boolean> seen = new ConcurrentHashMap<>(); 
+		    return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null; 
+		}
 }

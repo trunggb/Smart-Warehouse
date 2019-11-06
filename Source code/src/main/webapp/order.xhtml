@@ -65,6 +65,8 @@
 								<f:facet name="header">
 									<p:commandButton onclick="PF('create-order-dialog').show();"
 										value="Create" />
+									<p:commandButton onclick="PF('process-order-dialog').show();"
+										value="Process" />
 								</f:facet>
 								<p:commandButton icon="fa fa-search fa-xs"
 									action="#{orderBean.viewOrder(order.id)}" />
@@ -111,6 +113,29 @@
 			<div class="center-but">
 				<p:commandButton value="Create" type="submit"
 					action="#{orderBean.onClickCreateOrder}" />
+			</div>
+		</h:form>
+	</p:dialog>
+
+	<p:dialog widgetVar="process-order-dialog" header="Process Order"
+		closable="true" resizable="false" width="290px" modal="true">
+		<h:form id="process-order-form">
+			<p:repeat value="#{orderBean.availableReception}" var="location">
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<p:selectOneMenu value="#{location.order.id}">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{orderBean.ordersNotProcessYet}" var="o"
+								itemLabel="#{o.createdDate}" itemValue="#{o.id}" />
+						</p:selectOneMenu>
+					</div>
+				</div>
+			</p:repeat>
+
+			<div class="center-but">
+				<p:commandButton value="Process" type="submit"
+					action="#{orderBean.processOrder}"
+					onstart="PF('process-order-dialog').hide();" />
 			</div>
 		</h:form>
 	</p:dialog>

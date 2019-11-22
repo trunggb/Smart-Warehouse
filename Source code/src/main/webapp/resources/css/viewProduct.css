@@ -1,0 +1,32 @@
+html , body{
+    font-size: 13px ;
+    color: #73879c;
+    font-family: Arial, sans-serif ;
+    padding: 10px 20px;
+    line-height: 2em;
+}
+
+.ui-widget{
+    font-size: 13px ;
+    font-weight: bold;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+    border: 1px solid #e5e5e5;
+    background-color: #ffffff !important;
+    color: #333;
+    font-weight: 700;
+    border-bottom: 0 none;
+    padding: 1.2em !important;
+
+}
+
+/* .ui-dialog-title {
+    margin: 0;
+    float: none;
+    color: #73879c !important;
+} */
+
+/* .title-popup{
+    color: #73879c !important;
+} */

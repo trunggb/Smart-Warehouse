@@ -12,48 +12,50 @@
 	<h:outputStylesheet name="grid/grid.css" library="primefaces" />
 
 	<h:outputStylesheet name="components.css" library="primefaces" />
+	<h:outputStylesheet library="css" name="updateProduct.css"></h:outputStylesheet>
 </h:head>
 
 <h:body>
 	<h:form id="update-product-form">
 		<div class="ui-g">
-			<div class="ui-g-3">
+			<div class="ui-g-4">
 				<p:outputLabel for="product-name" value="Name:" />
 			</div>
-			<div class="ui-g-6 width-100">
+			<div class="ui-g-8 width-100">
 				<p:inputText value="#{productUpdateBean.product.name}"
 					id="product-name" required="true"
 					requiredMessage="Name is required">
 					<p:ajax event="blur" update="@this update-product-form:name-err-msg" />
 				</p:inputText>
 			</div>
-			<div class="ui-g-3">
+			<div class="">
 				<h:message for="product-name" styleClass="error-msg"
 					id="name-err-msg" />
 			</div>
 		</div>
 		<div class="ui-g">
-			<div class="ui-g-3">
+			<div class="ui-g-4">
 				<p:outputLabel value="Image:" for="product-img-input" />
 			</div>
-			<div class="ui-g-6 width-100">
+			<div class="ui-g-8 width-100">
 				<p:inputText id="product-img-input"
 					value="#{productUpdateBean.product.image}"
-					validatorMessage="Invalid format">
+					validatorMessage="Invalid format"
+					requiredMessage="Name is required">
 					<p:ajax event="blur" update="@this update-product-form:img-err-msg"></p:ajax>
 					<f:validator validatorId="imgValidator" />
 				</p:inputText>
 			</div>
-			<div class="ui-g-3">
+			<div class="">
 				<h:message for="product-img-input" styleClass="error-msg"
 					id="img-err-msg" />
 			</div>
 		</div>
 		<div class="ui-g">
-			<div class="ui-g-3">
+			<div class="ui-g-4">
 				<p:outputLabel value="Weight:" for="product-weight-input" />
 			</div>
-			<div class="ui-g-6 width-100">
+			<div class="ui-g-8 width-100">
 				<p:inputNumber id="product-weight-input"
 					validatorMessage="Weight must be 1-50"
 					value="#{productUpdateBean.product.weight}">
@@ -62,16 +64,16 @@
 					<f:convertNumber maxFractionDigits="2"></f:convertNumber>
 				</p:inputNumber>
 			</div>
-			<div class="ui-g-3">
+			<div class="">
 				<h:message for="product-weight-input" styleClass="error-msg"
 					id="weight-err-msg" />
 			</div>
 		</div>
 		<div class="ui-g">
-			<div class="ui-g-3">
+			<div class="ui-g-4">
 				<p:outputLabel value="Amount:" for="product-amount-input" />
 			</div>
-			<div class="ui-g-6 width-100">
+			<div class="ui-g-8 width-100">
 				<p:inputNumber id="product-amount-input"
 					value="#{productUpdateBean.product.amount}"
 					validatorMessage="Amount must be 1-100">
@@ -80,16 +82,16 @@
 					<f:convertNumber maxFractionDigits="0"></f:convertNumber>
 				</p:inputNumber>
 			</div>
-			<div class="ui-g-3">
+			<div >
 				<h:message for="product-amount-input" styleClass="error-msg"
 					id="amount-err-msg" />
 			</div>
 		</div>
 		<div class="ui-g">
-			<div class="ui-g-3">
+			<div class="ui-g-4">
 				<p:outputLabel value="Status:" for="product-status-radio" />
 			</div>
-			<div class="ui-g-6">
+			<div class="ui-g-8">
 				<p:selectOneRadio id="product-status-radio" required="true"
 					requiredMessage="Status is required"
 					value="#{productUpdateBean.product.status}">
@@ -100,34 +102,34 @@
 						update="@this update-product-form:status-err-msg" />
 				</p:selectOneRadio>
 			</div>
-			<div class="ui-g-3">
+			<div class="">
 				<h:message for="product-status-radio" styleClass="error-msg"
 					id="status-err-msg" />
 			</div>
 		</div>
 		<div class="ui-g">
-			<div class="ui-g-3">
+			<div class="ui-g-4">
 				<p:outputLabel value="In date:" />
 			</div>
-			<div class="ui-g-6 width-100">
+			<div class="ui-g-8 width-100">
 				<p:calendar value="#{productUpdateBean.product.inDate}"
 					pattern="yyyy-MMM-dd" />
 			</div>
 		</div>
 		<div class="ui-g">
-			<div class="ui-g-3">
+			<div class="ui-g-4">
 				<p:outputLabel value="Out date:" />
 			</div>
-			<div class="ui-g-6 width-100">
+			<div class="ui-g-8 width-100">
 				<p:calendar value="#{productUpdateBean.product.outDate}"
 					pattern="yyyy-MMM-dd" />
 			</div>
 		</div>
 		<div class="ui-g">
-			<div class="ui-g-3">
+			<div class="ui-g-4">
 				<p:outputLabel styleClass="width-80" value="Expiry date:" />
 			</div>
-			<div class="ui-g-6 width-100">
+			<div class="ui-g-8 width-100">
 				<p:calendar value="#{productUpdateBean.product.expiryDate}"
 					pattern="yyyy-MMM-dd" />
 			</div>

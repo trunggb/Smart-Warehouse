@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
@@ -15,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
 import entities.Product;
+import entities.User;
 import lombok.Getter;
 import lombok.Setter;
 import services.DialogService;
@@ -27,6 +30,11 @@ public class ProductBean implements Serializable {
 	/**
 	 * 
 	 */
+	
+	@ManagedProperty(value = "#{userBean}")
+	@Setter
+	private UserBean userBean;
+	
 	private static final long serialVersionUID = 4098294323352760786L;
 	@Getter
 	@Setter
@@ -35,6 +43,10 @@ public class ProductBean implements Serializable {
 	@Getter
 	@Setter
 	private Product productRemoved;
+	
+	@Getter
+	@Setter
+	private User loginUser;
 
 	@Inject
 	ProductService productService;
@@ -46,8 +58,14 @@ public class ProductBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		products = productService.findAll();
-		logger.debug("Get " + products.size() + " product from database");
+		if(Objects.isNull(userBean.getLoginUser())) {
+			PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
+		}else {
+			this.loginUser = userBean.getLoginUser();
+			products = productService.findAll();
+			logger.debug("Get " + products.size() + " product from database");
+		}
+		
 	}
 
 	public void onclickRemoveButton(Product product) {
@@ -73,7 +91,7 @@ public class ProductBean implements Serializable {
 	}
 	
 	public void updateProduct(Product product) {
-		Map<String, Object> options = dialogService.createDialogOption(700,500);
+		Map<String, Object> options = dialogService.createDialogOption(700,550);
 
 		Map<String, List<String>> params = new HashMap<>();
 		List<String> productId = new ArrayList<>(); // just send one id
@@ -83,12 +101,17 @@ public class ProductBean implements Serializable {
 	}
 	
 	public void addProduct() {
-		Map<String, Object> options = dialogService.createDialogOption(700,500);
+		Map<String, Object> options = dialogService.createDialogOption(700,550);
 		
 		PrimeFaces.current().dialog().openDynamic("addProduct", options, null);
 	}
 
 	public void onClickOrderButton() {
 		PrimeFaces.current().executeScript("top.redirectTo('order.xhtml')");
+	}
+	
+	public void onClickLogoutButton() {
+		userBean.setLoginUser(null);
+		PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 	}
 }

@@ -18,7 +18,7 @@ public class UserService extends GenericService<User> {
 		return this.create(user);
 	}
 
-	List<User> findAll() {
+	public List<User> findAll() {
 		TypedQuery<User> q = em.createNamedQuery("findAllUser", User.class);
 		return q.getResultList();
 	}

@@ -34,5 +34,10 @@
 			<from-outcome>viewOrder</from-outcome>
 			<to-view-id>viewOrder.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{orderBean.updateOrder}</from-action>
+			<from-outcome>updateOrder</from-outcome>
+			<to-view-id>updateOrder.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 </faces-config>

@@ -114,4 +114,8 @@ public class ProductBean implements Serializable {
 		userBean.setLoginUser(null);
 		PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 	}
+	
+	public void test() {
+		System.out.println("hello");
+	}
 }

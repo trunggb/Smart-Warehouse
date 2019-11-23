@@ -21,8 +21,8 @@ public class OrderService extends GenericService<Order> {
 		return this.create(product);
 	}
 
-	public boolean updateProduct(Order product) {
-		return this.update(product);
+	public boolean updateOrder(Order order) {
+		return this.update(order);
 	}
 	
 	public void remove(Order product) {

@@ -20,7 +20,7 @@
 			<div class="ui-g content">
 				<div
 					class="ui-g-3 menu-container height-100vh flex-container space-around left-menu">
-					<div class="">
+					<div>
 						<div class="user-icon">
 							<img src="./resources/images/1.jpg" alt="..."
 								class="ava-container" />
@@ -50,7 +50,7 @@
 					<div class="page-title product-title">
 
 						<!-- <p:outputLabel styleClass="big-title">ORDER</p:outputLabel> -->
-						<p:outputLabel styleClass="">Orders</p:outputLabel>
+						<p:outputLabel value="Orders" />
 
 					</div>
 
@@ -163,7 +163,6 @@
 
 			<div class="center-but">
 				<p:commandButton value="Process" type="submit"
-					action="#{orderBean.processOrder}"
 					onstart="PF('process-order-dialog').hide();" />
 			</div>
 		</h:form>

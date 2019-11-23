@@ -22,7 +22,7 @@
 			<div class="ui-g content">
 				<div class="ui-g-3 menu-container height-100vh flex-container space-around left-menu" id="left-menu">
 
-					<div class="">
+					<div>
 						<div class="user-icon">
 							<img src="./resources/images/1.jpg" alt="..."
 								class="ava-container" />
@@ -44,27 +44,6 @@
 
 					</div>
 
-					<!-- <div id="sidebar-menu" class="main_menu_side hidden-print main_menu menu_section">
-
-						<h3>General</h3>
-
-						<ul class="nav side-menu">
-
-							<li><a><i class="fa fa-home" /> User information <span class="fa fa-chevron-down" /></a>
-							</li>
-
-							<li><a href="#"><i class="fa fa-edit" /> PackageList</a>
-							</li>
-
-							<li>
-								<p:commandButton styleClass="" value="Orders" action="#{productBean.onClickOrderButton}" />
-							</li>
-
-							<li><a href="#"><i class="fa fa-automobile" style="font-size: 16px;"/> CarList </a>
-							</li>
-						</ul>
-						
-					</div> -->
 
 					<div class="sign-out-container">
 						<p:commandButton styleClass="function-button" value="Sign out"
@@ -79,7 +58,7 @@
 					<div class="row" id="btn-hide-menu">asfsd</div>
 
 					<div class="page-title product-title">
-						<p:outputLabel>Products</p:outputLabel>
+						<p:outputLabel value="Products" />
 					</div>
 
 					<div class="x_panel">
@@ -94,7 +73,7 @@
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								var="product">
 								<p:column>
-									<f:facet name="header">Name</f:facet>
+									<f:facet name="header" >Name</f:facet>
 									<h:outputText value="#{product.name}" />
 								</p:column>
 								<p:column>

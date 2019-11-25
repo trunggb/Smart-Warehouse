@@ -20,7 +20,9 @@
 	<h:form>
 		<c:if test="#{not empty productBean.loginUser}">
 			<div class="ui-g content">
-				<div class="ui-g-3 menu-container height-100vh flex-container space-around left-menu" id="left-menu">
+				<div
+					class="ui-g-3 menu-container height-100vh flex-container space-around left-menu"
+					id="left-menu">
 
 					<div>
 						<div class="user-icon">
@@ -35,12 +37,17 @@
 
 					<div class="tab-container flex-container space-between">
 
-								<p:commandButton styleClass="function-button btn-info btn-info-format" value="Trucks" />
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Trucks" />
 
-								<p:commandButton styleClass="function-button btn-info btn-info-format" value="Products" />
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Products" />
 
-								<p:commandButton styleClass="function-button btn-info btn-info-format" value="Orders"
-								action="#{productBean.onClickOrderButton}" />
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Orders" action="#{productBean.onClickOrderButton}" />
 
 					</div>
 
@@ -64,32 +71,46 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<p:commandButton action="#{productBean.addProduct()}"
-							value="Add++" />
+								value="Add++" />
 						</div>
 						<div class="flex-container space-around x_content">
 							<p:dataTable reflow="true" rows="10" paginatorPosition="bottom"
+							filteredValue="#{productBean.productFiltered}"
 								paginator="true" rowsPerPageTemplate="5,10,15"
-								value="#{productBean.products}"
+								value="#{productBean.products}" widgetVar="productTable"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								var="product">
-								<p:column>
-									<f:facet name="header" >Name</f:facet>
-									<h:outputText value="#{product.name}" />
+								<p:column filterBy="#{product.name}" headerText="Name"
+									filterMatchMode="contains" sortBy="#{product.name}">
+									<p:commandLink value="#{product.name}" action="#{productBean.viewProduct(product)}"/>
 								</p:column>
-								<p:column>
-									<f:facet name="header">Amount</f:facet>
-									<div class="text-center" >
+								<p:column sortBy="#{product.amount}" headerText="Amount">
+									<div class="text-center">
 										<h:outputText value="#{product.amount}" />
 									</div>
 								</p:column>
-								<p:column>
-									<f:facet name="header">Expiry date</f:facet>
-									<div class="text-center" >
+								<p:column sortBy="#{product.expiryDate}"
+									headerText="Expiry date">
+									<div class="text-center">
 										<h:outputText value="#{product.expiryDate}">
 											<f:convertDateTime pattern="yyyy-MMM-dd" />
 										</h:outputText>
 									</div>
-									
+
+								</p:column>
+
+								<p:column sortBy="#{product.status}" headerText="Status"
+									filterBy="#{product.status.name()}" filterMatchMode="in">
+									<f:facet name="filter">
+										<p:selectCheckboxMenu label="Status" onchange="PF('productTable').filter()"
+											scrollHeight="150" styleClass="custom-filter">
+											<f:selectItems value="#{productBean.allStatus}"/>
+										</p:selectCheckboxMenu>
+									</f:facet>
+									<div class="text-center">
+										<h:outputText value="#{product.status.toString()}" />
+									</div>
+
 								</p:column>
 								<p:column>
 									<f:facet name="header">
@@ -97,15 +118,13 @@
 											value="Add" /> -->
 										Action
 									</f:facet>
-									<div class="text-center" >
-										<p:commandButton icon="fa fa-search fa-xs" class="black"
-										action="#{productBean.viewProduct(product)}" />
+									<div class="text-center">
 										<p:commandButton icon="fa fa-fw fa-edit" class="black"
 											action="#{productBean.updateProduct(product)}" />
 										<p:commandButton icon="fa fa-fw fa-trash" class="red"
 											action="#{productBean.onclickRemoveButton(product)}" />
 									</div>
-									
+
 								</p:column>
 							</p:dataTable>
 						</div>

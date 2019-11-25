@@ -2,6 +2,7 @@ package beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
 import entities.Product;
+import entities.ProductStatus;
 import entities.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +41,10 @@ public class ProductBean implements Serializable {
 	@Getter
 	@Setter
 	private transient List<Product> products;
+	
+	@Getter
+	@Setter
+	private transient List<Product> productFiltered;
 
 	@Getter
 	@Setter
@@ -47,6 +53,10 @@ public class ProductBean implements Serializable {
 	@Getter
 	@Setter
 	private User loginUser;
+	
+	@Getter
+	@Setter
+	private List<String> allStatus = new ArrayList<>();
 
 	@Inject
 	ProductService productService;
@@ -61,6 +71,10 @@ public class ProductBean implements Serializable {
 		if(Objects.isNull(userBean.getLoginUser())) {
 			PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 		}else {
+			ProductStatus[] statuses = ProductStatus.values();
+			for (ProductStatus productStatus : statuses) {
+				allStatus.add(productStatus.name());
+			}
 			this.loginUser = userBean.getLoginUser();
 			products = productService.findAll();
 			logger.debug("Get " + products.size() + " product from database");
@@ -89,7 +103,6 @@ public class ProductBean implements Serializable {
 		params.put("productId", productId);
 		PrimeFaces.current().dialog().openDynamic("viewProduct", options, params);
 	}
-	
 	public void updateProduct(Product product) {
 		Map<String, Object> options = dialogService.createDialogOption(700,550);
 

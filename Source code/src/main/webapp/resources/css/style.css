@@ -41,6 +41,10 @@ html, body {
 	background-color: #06305fcc;
 }
 
+.ui-sidebar-left.ui-sidebar-active{
+	background-color: #2A3F54;
+}
+
 .big-title {
 	font-size: 60px;
 	font-weight: 800;
@@ -473,6 +477,10 @@ body .ui-paginator .ui-paginator-rpp-options {
 .custom-filter {
 	width: 100% !important;
 	box-sizing: border-box;
+}
+
+.width-100pc{
+	width: 100% !important;
 }
 
 /* ///////// */

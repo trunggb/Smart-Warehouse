@@ -19,9 +19,9 @@
 
 	<h:form>
 		<c:if test="#{not empty productBean.loginUser}">
-			<div class="ui-g content">
+			<p:sidebar widgetVar="sidebar1" baseZIndex="10000" >
 				<div
-					class="ui-g-3 menu-container height-100vh flex-container space-around left-menu"
+					class="menu-container height-100vh flex-container space-around left-menu"
 					id="left-menu">
 
 					<div>
@@ -53,18 +53,18 @@
 
 
 					<div class="sign-out-container">
-						<p:commandButton styleClass="function-button" value="Sign out"
+						<p:commandButton styleClass="function-button btn-info btn-info-format" value="Sign out"
 							action="#{productBean.onClickLogoutButton}" />
 					</div>
 				</div>
-
-
-
-
-				<div class="ui-g-9 flex-container height-100vh full-right">
-					<div class="row" id="btn-hide-menu">asfsd</div>
+			</p:sidebar>
+			<div class="ui-g content">
+				<div
+					class="ui-g-12 flex-container height-100vh width-100pc full-right">
 
 					<div class="page-title product-title">
+						<p:commandButton icon="fa fa-fw fa-edit" styleClass="black"
+							oncomplete="PF('sidebar1').show()" />
 						<p:outputLabel value="Products" />
 					</div>
 
@@ -74,15 +74,16 @@
 								value="Add++" />
 						</div>
 						<div class="flex-container space-around x_content">
-							<p:dataTable reflow="true" rows="10" paginatorPosition="bottom"
-							filteredValue="#{productBean.productFiltered}"
-								paginator="true" rowsPerPageTemplate="5,10,15"
-								value="#{productBean.products}" widgetVar="productTable"
+							<p:dataTable reflow="true" rows="15" paginatorPosition="bottom"
+								filteredValue="#{productBean.productFiltered}" paginator="true"
+								rowsPerPageTemplate="10,15,20" value="#{productBean.products}"
+								widgetVar="productTable"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								var="product">
 								<p:column filterBy="#{product.name}" headerText="Name"
 									filterMatchMode="contains" sortBy="#{product.name}">
-									<p:commandLink value="#{product.name}" action="#{productBean.viewProduct(product)}"/>
+									<p:commandLink value="#{product.name}"
+										action="#{productBean.viewProduct(product)}" />
 								</p:column>
 								<p:column sortBy="#{product.amount}" headerText="Amount">
 									<div class="text-center">
@@ -102,9 +103,10 @@
 								<p:column sortBy="#{product.status}" headerText="Status"
 									filterBy="#{product.status.name()}" filterMatchMode="in">
 									<f:facet name="filter">
-										<p:selectCheckboxMenu label="Status" onchange="PF('productTable').filter()"
-											scrollHeight="150" styleClass="custom-filter">
-											<f:selectItems value="#{productBean.allStatus}"/>
+										<p:selectCheckboxMenu label="Status"
+											onchange="PF('productTable').filter()" scrollHeight="150"
+											styleClass="custom-filter">
+											<f:selectItems value="#{productBean.allStatus}" />
 										</p:selectCheckboxMenu>
 									</f:facet>
 									<div class="text-center">
@@ -119,9 +121,9 @@
 										Action
 									</f:facet>
 									<div class="text-center">
-										<p:commandButton icon="fa fa-fw fa-edit" class="black"
+										<p:commandButton icon="fa fa-fw fa-edit" styleClass="black"
 											action="#{productBean.updateProduct(product)}" />
-										<p:commandButton icon="fa fa-fw fa-trash" class="red"
+										<p:commandButton icon="fa fa-fw fa-trash" styleClass="red"
 											action="#{productBean.onclickRemoveButton(product)}" />
 									</div>
 

@@ -3,6 +3,8 @@ html, body {
 	color: #73879c;
 }
 
+
+
 .content-all {
 	margin: 0 !important;
 }
@@ -39,9 +41,10 @@ html, body {
 	margin-left: 30%;
 	margin-right: 30%;
 	background-color: #06305fcc;
+	box-shadow: 6px 6px 5px -1px rgba(0,0,0,0.5);
 }
 
-.ui-sidebar-left.ui-sidebar-active{
+.ui-sidebar-left.ui-sidebar-active {
 	background-color: #2A3F54;
 }
 
@@ -58,11 +61,17 @@ html, body {
 	color: white;
 }
 
-.function-button {
-	background: white !important;
-	border: none !important;
-	color: black !important;
+button.function-button {
+	background: white;
+	border: none;
+	color: black;
 	width: 100px;
+	
+}
+
+button.function-button.ui-state-hover {
+	background: #d2d5d9;
+	color: black;
 }
 
 .input-container {
@@ -430,7 +439,7 @@ body {
 }
 
 tr.ui-widget-content.ui-datatable-even:nth-child(odd) {
-	background: #f9f9f9 !important;
+	background: #38597f38 !important;
 }
 
 .x_title {
@@ -479,10 +488,15 @@ body .ui-paginator .ui-paginator-rpp-options {
 	box-sizing: border-box;
 }
 
-.width-100pc{
+.width-100pc {
 	width: 100% !important;
 }
 
+.ham-but{
+	background: #f7f7f7 !important;
+	border: none !important;
+	color: black !important;
+}
 /* ///////// */
 /* 
 .main_menu_side {
@@ -703,3 +717,32 @@ body .ui-paginator .ui-paginator-rpp-options {
 .nav-sm ul.nav.child_menu li a {
     text-align: left !important
 } */
+
+
+
+/*login form*/
+.login-form {
+	height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form-content {
+	padding: 2rem;
+}
+
+.input-container {
+	justify-content: space-evenly;
+	width: 200px;
+}
+
+.input-container input {
+	width: 300px;
+}
+
+body .ui-button.ui-state-focus {
+	outline: none;
+	color: black;
+	background: #c7c5bf;
+}

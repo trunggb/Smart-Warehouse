@@ -17,9 +17,9 @@
 <h:body>
 	<h:form>
 		<c:if test="#{not empty orderBean.loginUser}">
-			<div class="ui-g content">
+			<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
 				<div
-					class="ui-g-3 menu-container height-100vh flex-container space-around left-menu">
+					class="menu-container height-100vh flex-container space-around left-menu">
 					<div>
 						<div class="user-icon">
 							<img src="./resources/images/1.jpg" alt="..."
@@ -41,20 +41,27 @@
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
 							value="Orders" />
+						<p:commandButton
+							rendered="#{productBean.loginUser.role == 'ADMIN'}"
+							styleClass="function-button btn-info btn-info-format"
+							value="Histories" />
 					</div>
 
 					<div class="sign-out-container">
-						<p:commandButton styleClass="function-button" value="Sign out"
-							action="#{orderBean.onClickLogoutButton}" />
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Sign out" action="#{orderBean.onClickLogoutButton}" />
 					</div>
 				</div>
+			</p:sidebar>
+			<div class="ui-g content">
 
-				<div class="ui-g-9 flex-container height-100vh full-right">
-					<div class="row">asfsd</div>
-
+				<div class="ui-g-12 flex-container height-100vh full-right">
 					<div class="page-title product-title">
-
-						<!-- <p:outputLabel styleClass="big-title">ORDER</p:outputLabel> -->
+						<p:commandButton icon="fa fa-fw fa-bars" styleClass="ham-but"
+							oncomplete="PF('sidebar1').show()" />
+					</div>
+					<div class="page-title product-title">
 						<p:outputLabel value="Orders" />
 
 					</div>

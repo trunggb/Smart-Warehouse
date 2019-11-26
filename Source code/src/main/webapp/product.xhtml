@@ -74,12 +74,16 @@
 								value="Add++" />
 						</div>
 						<div class="flex-container space-around x_content">
-							<p:dataTable reflow="true" rows="15" paginatorPosition="bottom"
+							<p:dataTable reflow="true" rows="15" paginatorPosition="both"
+								rowIndexVar="rowIndex"
 								filteredValue="#{productBean.productFiltered}" paginator="true"
 								rowsPerPageTemplate="10,15,20" value="#{productBean.products}"
 								widgetVar="productTable"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								var="product">
+								<p:column headerText="No.">
+									<h:outputText value="#{rowIndex + 1}" />
+								</p:column>
 								<p:column filterBy="#{product.name}" headerText="Name"
 									filterMatchMode="contains" sortBy="#{product.name}">
 									<p:commandLink value="#{product.name}"

@@ -19,7 +19,7 @@
 
 	<h:form>
 		<c:if test="#{not empty productBean.loginUser}">
-			<p:sidebar widgetVar="sidebar1" baseZIndex="10000" >
+			<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
 				<div
 					class="menu-container height-100vh flex-container space-around left-menu"
 					id="left-menu">
@@ -48,23 +48,27 @@
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
 							value="Orders" action="#{productBean.onClickOrderButton}" />
+							
+						<p:commandButton rendered="#{productBean.loginUser.role == 'ADMIN'}"
+							styleClass="function-button btn-info btn-info-format"
+							value="Histories"/>
 
 					</div>
 
 
 					<div class="sign-out-container">
-						<p:commandButton styleClass="function-button btn-info btn-info-format" value="Sign out"
-							action="#{productBean.onClickLogoutButton}" />
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Sign out" action="#{productBean.onClickLogoutButton}" />
 					</div>
 				</div>
 			</p:sidebar>
 			<div class="ui-g content">
 				<div
 					class="ui-g-12 flex-container height-100vh width-100pc full-right">
-
 					<div class="page-title product-title">
 						<div >
-							<p:commandButton icon="pi pi-bars bar-edit" styleClass="black"
+							<p:commandButton icon="pi pi-bars bar-edit" styleClass="ham-but"
 							oncomplete="PF('sidebar1').show()" />
 							
 						</div>
@@ -80,12 +84,16 @@
 								value="Add++" />
 						</div>
 						<div class="flex-container space-around x_content">
-							<p:dataTable reflow="true" rows="15" paginatorPosition="bottom"
+							<p:dataTable reflow="true" rows="15" paginatorPosition="both"
+								rowIndexVar="rowIndex"
 								filteredValue="#{productBean.productFiltered}" paginator="true"
 								rowsPerPageTemplate="10,15,20" value="#{productBean.products}"
 								widgetVar="productTable"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								var="product">
+								<p:column headerText="No.">
+									<h:outputText value="#{rowIndex + 1}" />
+								</p:column>
 								<p:column filterBy="#{product.name}" headerText="Name"
 									filterMatchMode="contains" sortBy="#{product.name}">
 									<p:commandLink value="#{product.name}"

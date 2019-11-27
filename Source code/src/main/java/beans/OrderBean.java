@@ -81,7 +81,7 @@ public class OrderBean implements Serializable {
 	@Getter
 	@Setter
 	private String note;
-	
+
 	@Getter
 	@Setter
 	private List<Location> availableReception;
@@ -98,7 +98,6 @@ public class OrderBean implements Serializable {
 
 	@Inject
 	DialogService dialogService;
-	
 
 	@Inject
 	OrderDetailService orderDetailService;
@@ -112,7 +111,8 @@ public class OrderBean implements Serializable {
 		} else {
 			this.loginUser = userBean.getLoginUser();
 			this.orders = orderService.findAll();
-			this.ordersNotProcessYet = orders.stream().filter(o -> !OrderStatus.PROCESSING.equals(o.getStatus())).collect(Collectors.toList());
+			this.ordersNotProcessYet = orders.stream().filter(o -> !OrderStatus.PROCESSING.equals(o.getStatus()))
+					.collect(Collectors.toList());
 			if (!loginUser.getRole().equals(Role.ADMIN)) {
 				this.orders = orders.stream().filter(order -> order.getUser().getEmail().equals(loginUser.getEmail()))
 						.collect(Collectors.toList());
@@ -201,24 +201,14 @@ public class OrderBean implements Serializable {
 		userBean.setLoginUser(null);
 		PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 	}
-	
-//	public void processOrder() {
-//		availableReception = availableReception.stream().filter(distinctByKey(Location::getOrder)).collect(Collectors.toList());
-//		for (Location location : availableReception) {
-//			Optional<Order> optionalOrder = orderService.find(location.getOrder().getId());
-//			if(optionalOrder.isPresent()) {
-//				Order order = optionalOrder.get();
-//				order.setStatus(OrderStatus.PROCESSING);
-//				order.setReceptionPoint(location);
-//				orderService.updateOrder(order);
-//			}
-//		}
-//	}
-	
-	public static <T> Predicate<T> distinctByKey(
-		    Function<? super T, ?> keyExtractor) {
-		   
-		    Map<Object, Boolean> seen = new ConcurrentHashMap<>(); 
-		    return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null; 
-		}
+
+	public void onClickHistoryButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('history.xhtml')");
+	}
+
+	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+
+		Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+		return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+	}
 }

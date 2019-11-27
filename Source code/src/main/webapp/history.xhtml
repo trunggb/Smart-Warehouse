@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Smart Warehouse</title>
+	<h:outputStylesheet library="css" name="jquery.toast.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="product.css"></h:outputStylesheet>
+	<h:outputStylesheet name="components.css" library="primefaces" />
+</h:head>
+<h:body styleClass="content-all">
+
+	<h:form>
+		<c:if test="#{not empty logBean.loginUser and logBean.loginUser.role == 'ADMIN'}">
+			<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
+				<div
+					class="menu-container height-100vh flex-container space-around left-menu"
+					id="left-menu">
+
+					<div>
+						<div class="user-icon">
+							<img src="./resources/images/1.jpg" alt="..."
+								class="ava-container" />
+						</div>
+
+						<div class="profile_info">
+							<h2>#{productBean.loginUser.buildFullName()}</h2>
+						</div>
+					</div>
+
+					<div class="tab-container flex-container space-between">
+
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Trucks" />
+
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Products" />
+
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Orders" />
+
+						<p:commandButton
+							rendered="#{productBean.loginUser.role == 'ADMIN'}"
+							styleClass="function-button btn-info btn-info-format"
+							value="Histories" />
+
+					</div>
+
+
+					<div class="sign-out-container">
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Sign out" />
+					</div>
+				</div>
+			</p:sidebar>
+			<div class="ui-g content">
+				<div
+					class="ui-g-12 flex-container height-100vh width-100pc full-right">
+					<div class="page-title product-title">
+						<p:commandButton icon="fa fa-fw fa-bars" styleClass="ham-but"
+							oncomplete="PF('sidebar1').show()" />
+					</div>
+					<div class="page-title product-title">
+						<p:outputLabel value="Histories" />
+					</div>
+
+					<div class="x_panel">
+						<div class="flex-container space-around x_content">
+							<p:dataTable reflow="true" rows="15" paginatorPosition="both"
+								rowIndexVar="rowIndex"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+								<p:column headerText="No.">
+									<h:outputText value="#{rowIndex + 1}" />
+								</p:column>
+								<p:column headerText="User">
+									<p:commandLink />
+								</p:column>
+								<p:column headerText="Time">
+									<div class="text-center">
+										<h:outputText />
+									</div>
+								</p:column>
+							</p:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:if>
+
+	</h:form>
+
+	<p:growl id="growl" showDetail="true" sticky="true" />
+	<h:outputScript library="js" name="script.js"></h:outputScript>
+	<h:outputScript library="js" name="jquery.toast.js"></h:outputScript>
+</h:body>
+</html>

@@ -1,6 +1,6 @@
 package entities;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="log")
 @Data
-
+@Builder
 public class Log {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -33,30 +34,10 @@ public class Log {
 	@JoinColumn(name="end_user")
 	private User user;
 	
-	@Column(name="create_date")
-	private LocalDate createDate;
+	@Column(name="log_time")
+	private Date logTime;
 	
-	@Column(name="old_data")
-	private String oldData;
+	@Column(name="note")
+	private String note;
 	
-	@Column(name="new_data")
-	private String newData;
-	
-	@Column(name="be_product")
-	private boolean beProduct;
-	
-	@Column(name="be_user")
-	private boolean beUser;
-	
-	@Column(name="be_type_product")
-	private boolean beTypeProduct;
-	
-	@Column(name="be_order")
-	private boolean beOrder;
-	
-	@Column(name="be_order_detail")
-	private boolean beOrderDetail;
-	
-	@Column(name="be_bot")
-	private boolean beBot;
 }

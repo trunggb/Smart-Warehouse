@@ -122,6 +122,9 @@ public class ProductBean implements Serializable {
 	public void onClickOrderButton() {
 		PrimeFaces.current().executeScript("top.redirectTo('order.xhtml')");
 	}
+	public void onClickHistoryButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('history.xhtml')");
+	}
 	
 	public void onClickLogoutButton() {
 		userBean.setLoginUser(null);

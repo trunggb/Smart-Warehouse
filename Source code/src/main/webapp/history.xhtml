@@ -18,7 +18,8 @@
 <h:body styleClass="content-all">
 
 	<h:form>
-		<c:if test="#{not empty logBean.loginUser and logBean.loginUser.role == 'ADMIN'}">
+		<c:if
+			test="#{not empty logBean.loginUser and logBean.loginUser.role == 'ADMIN'}">
 			<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
 				<div
 					class="menu-container height-100vh flex-container space-around left-menu"
@@ -43,11 +44,11 @@
 
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
-							value="Products" />
+							value="Products" action="#{logBean.onClickProductButton}" />
 
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
-							value="Orders" />
+							value="Orders" action="#{logBean.onClickOrderButton}" />
 
 						<p:commandButton
 							rendered="#{productBean.loginUser.role == 'ADMIN'}"
@@ -60,7 +61,7 @@
 					<div class="sign-out-container">
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
-							value="Sign out" />
+							value="Sign out" action="#{logBean.onClickLogoutButton}" />
 					</div>
 				</div>
 			</p:sidebar>
@@ -78,17 +79,30 @@
 					<div class="x_panel">
 						<div class="flex-container space-around x_content">
 							<p:dataTable reflow="true" rows="15" paginatorPosition="both"
-								rowIndexVar="rowIndex"
+								rowIndexVar="rowIndex" value="#{logBean.logs}" var="log"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 								<p:column headerText="No.">
 									<h:outputText value="#{rowIndex + 1}" />
 								</p:column>
 								<p:column headerText="User">
-									<p:commandLink />
+									<h:outputText value="#{log.user.buildFullName()}" />
+								</p:column>
+								<p:column headerText="Action">
+									<div class="text-center">
+										<h:outputText value="#{log.action.toString()}" />
+									</div>
+								</p:column>
+								<p:column headerText="Note">
+									<div class="text-center">
+										<h:outputText value="#{log.note}" />
+									</div>
 								</p:column>
 								<p:column headerText="Time">
 									<div class="text-center">
-										<h:outputText />
+										<h:outputText value="#{log.logTime}">
+											<f:convertDateTime pattern="yyyy-MMM-dd hh:mm a"
+												timeZone="Asia/Ho_Chi_Minh" />
+										</h:outputText>
 									</div>
 								</p:column>
 							</p:dataTable>

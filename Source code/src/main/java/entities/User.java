@@ -75,7 +75,7 @@ public class User {
 	private Active active;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "log_id")
+	@JoinColumn(name = "user_id")
 	private List<Log> logs;
 
 	public String buildFullName() {

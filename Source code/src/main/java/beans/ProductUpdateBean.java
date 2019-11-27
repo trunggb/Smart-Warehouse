@@ -21,6 +21,7 @@ import entities.Product;
 import entities.ProductStatus;
 import lombok.Getter;
 import lombok.Setter;
+import services.LogService;
 import services.ProductService;
 
 @SuppressWarnings("deprecation")
@@ -42,6 +43,9 @@ public class ProductUpdateBean implements Serializable {
 
 	@EJB
 	ProductService productService;
+	
+	@EJB
+	LogService logService;
 
 	final static Logger logger = Logger.getLogger(ProductService.class);
 
@@ -68,6 +72,7 @@ public class ProductUpdateBean implements Serializable {
 
 	public void writeLog() {
 		Log log = Log.builder().action(Action.UPDATE).user(userBean.getLoginUser()).logTime(new Date()).note("<product> "+ product.getName()).build();
+		logService.add(log);
 	}
 
 	public void update() {

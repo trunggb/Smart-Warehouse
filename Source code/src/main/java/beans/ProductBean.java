@@ -2,13 +2,14 @@ package beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -17,12 +18,15 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
+import entities.Action;
+import entities.Log;
 import entities.Product;
 import entities.ProductStatus;
 import entities.User;
 import lombok.Getter;
 import lombok.Setter;
 import services.DialogService;
+import services.LogService;
 import services.ProductService;
 
 @SuppressWarnings("deprecation")
@@ -63,6 +67,9 @@ public class ProductBean implements Serializable {
 	
 	@Inject
 	DialogService dialogService;
+	
+	@EJB
+	LogService logService;
 
 	Logger logger = Logger.getLogger(ProductService.class);
 
@@ -87,9 +94,15 @@ public class ProductBean implements Serializable {
 		PrimeFaces.current().executeScript("PF('remove-dialog').show();");
 	}
 
+	public void writeLog() {
+		Log log = Log.builder().action(Action.DELETE).user(userBean.getLoginUser()).logTime(new Date()).note("<product> "+ productRemoved.getName()).build();
+		logService.add(log);
+	}
+	
 	public void removeProduct() {
 		productService.remove(this.productRemoved);
 		
+		writeLog();
 		PrimeFaces.current().executeScript("showSuccessMessage('Product removed succesfully!')");
 		PrimeFaces.current().executeScript("reloadPage()");
 	}

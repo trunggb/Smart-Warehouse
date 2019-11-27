@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -22,7 +23,9 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
+import entities.Action;
 import entities.Location;
+import entities.Log;
 import entities.Order;
 import entities.OrderDetail;
 import entities.OrderStatus;
@@ -32,6 +35,7 @@ import entities.User;
 import lombok.Getter;
 import lombok.Setter;
 import services.DialogService;
+import services.LogService;
 import services.OrderDetailService;
 import services.OrderService;
 import services.ProductService;
@@ -101,6 +105,9 @@ public class OrderBean implements Serializable {
 
 	@Inject
 	OrderDetailService orderDetailService;
+	
+	@EJB
+	LogService logService;
 
 	Logger logger = Logger.getLogger(ProductService.class);
 
@@ -190,6 +197,12 @@ public class OrderBean implements Serializable {
 			logger.warn("Can not find order with id " + orderId);
 		}
 	}
+
+//	public void writeLog() {
+//		Log log = Log.builder().action(Action.DELETE).user(userBean.getLoginUser()).logTime(new Date())
+//				.note("<order> " + ).build();
+//		logService.add(log);
+//	}
 
 	public void removeOrder() {
 		orderService.remove(removedOrder);

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="log")
+@NamedQuery(name = "findAllLog", query = "SELECT l FROM Log l order by l.id desc")
 @Data
 @Builder
 public class Log {
@@ -31,7 +33,7 @@ public class Log {
 	private Action action;
 	
 	@ManyToOne
-	@JoinColumn(name="end_user")
+	@JoinColumn(name="user_id")
 	private User user;
 	
 	@Column(name="log_time")

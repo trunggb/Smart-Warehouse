@@ -50,6 +50,9 @@ public class User {
 
 	@Column(name="password")
 	private String password;
+	
+	@Column(name="status")
+	private UserStatus status;
 
 	@Column(name="address")
 	private String address;
@@ -75,4 +78,8 @@ public class User {
 	public String buildFullName() {
 		return String.join(" ", this.firstName, this.lastName);
 	}
+	//
+	//ALTER TABLE end_user 
+	//ADD COLUMN status INT;
+	//
 }

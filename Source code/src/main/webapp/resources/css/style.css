@@ -29,7 +29,7 @@
 	border: none;
 	margin-left: 30%;
 	margin-right: 30%;
-	background-color: #06305fcc;
+	background-color: #dbdbdb;
 }
 
 .big-title {
@@ -57,7 +57,7 @@
 }
 
 .menu-container {
-	background-color: #06305fcc;
+	background-color: #dbdbdb;
 }
 
 .content-container {
@@ -84,8 +84,8 @@
 }
 
 .product-title {
-	padding-top: 10px;
-	padding-bottom: 20px;
+	padding-top: 100px;
+	padding-bottom: 100px;
 }
 
 .ui-confirm-dialog-severity {
@@ -113,10 +113,6 @@ body {
 	text-align: right;
 }
 
-.ui-datatable-even {
-	background-color: #38597f38 !important;
-}
-
 .ui-inputtextarea{
 	width: 100%;
 }
@@ -136,4 +132,11 @@ body {
 }
 .ui-selectonemenu {
     width: 90% !important;
+}
+.input-container input {
+    border-radius: 9px !important;
+}
+
+.product-title label {
+    font-size: 3rem !important;
 }

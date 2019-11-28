@@ -117,10 +117,6 @@ public class OrderBean implements Serializable {
 			this.loginUser = userBean.getLoginUser();
 			this.orders = orderService.findAll();
 			this.ordersNotProcessYet = orders.stream().filter(o -> !OrderStatus.PROCESSING.equals(o.getStatus())).collect(Collectors.toList());
-			this.availableReception = locationService.findAllReceptionPointAvailable();
-			for (Location location : availableReception) {
-				location.setOrder(new Order());
-			}
 			if (!loginUser.getRole().equals(Role.ADMIN)) {
 				this.orders = orders.stream().filter(order -> order.getUser().getEmail().equals(loginUser.getEmail()))
 						.collect(Collectors.toList());
@@ -208,19 +204,6 @@ public class OrderBean implements Serializable {
 	public void onClickLogoutButton() {
 		userBean.setLoginUser(null);
 		PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
-	}
-	
-	public void processOrder() {
-		availableReception = availableReception.stream().filter(distinctByKey(Location::getOrder)).collect(Collectors.toList());
-		for (Location location : availableReception) {
-			Optional<Order> optionalOrder = orderService.find(location.getOrder().getId());
-			if(optionalOrder.isPresent()) {
-				Order order = optionalOrder.get();
-				order.setStatus(OrderStatus.PROCESSING);
-				order.setReceptionPoint(location);
-				orderService.updateOrder(order);
-			}
-		}
 	}
 	
 	public static <T> Predicate<T> distinctByKey(

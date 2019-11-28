@@ -39,6 +39,10 @@ public class ProductBean implements Serializable {
 	@Getter
 	@Setter
 	private transient List<Product> products;
+	
+	@Getter
+	@Setter
+	private transient List<Product> productsFiltered;
 
 	@Getter
 	@Setter

@@ -31,7 +31,4 @@ public class Location {
 	@Column(name="col")
 	private String col;
 	
-	@OneToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
 }

@@ -19,10 +19,6 @@ public class LocationService extends GenericService<Location>{
 	public List<Location> findAllReceptionPoint(){
 		return findAll().stream().filter(loc -> loc.getCol().equals("R")).collect(Collectors.toList());
 	}
-	public List<Location> findAllReceptionPointAvailable(){
-		return findAllReceptionPoint().stream().filter(loc -> !Objects.nonNull(loc.getOrder())).collect(Collectors.toList());
-	}
-	
 	public boolean updateLocation(Location location) {
 		return this.update(location);
 	}

@@ -25,10 +25,10 @@
 						</div>
 					</div>
 					<div class="tab-container flex-container space-between">
-						<p:commandButton styleClass="function-button" value="Trucks" />
-						<p:commandButton styleClass="function-button" value="Products"
+						<p:commandButton styleClass="function-button" value="users" />
+						<p:commandButton styleClass="function-button" value="products"
 							action="#{orderBean.onClickProductButton}" />
-						<p:commandButton styleClass="function-button" value="Orders" />
+						<p:commandButton styleClass="function-button" value="orders" />
 					</div>
 
 					<div class="sign-out-container">
@@ -42,35 +42,33 @@
 					</div>
 					<div class="flex-container space-around">
 						<p:dataTable id="order-table" reflow="true" rows="10"
-							paginatorPosition="bottom" paginator="true"
+							paginatorPosition="both" paginator="true"
 							rowsPerPageTemplate="5,10,15" value="#{orderBean.orders}"
 							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							var="order">
-							<p:column>
+							<p:column sortBy="#{order.createdDate}">
 								<f:facet name="header">Created date</f:facet>
-								<h:outputText value="#{order.createdDate}">
-									<f:convertDateTime pattern="yyyy-MMM-dd hh:mm a"
-										timeZone="Asia/Ho_Chi_Minh" />
-								</h:outputText>
+								<h:commandLink action="#{orderBean.viewOrder(order.id)}">
+									<h:outputText value="#{order.createdDate}">
+										<f:convertDateTime pattern="yyyy-MMM-dd hh:mm a"
+											timeZone="Asia/Ho_Chi_Minh" />
+									</h:outputText>
+								</h:commandLink>
 							</p:column>
-							<p:column>
+							<p:column sortBy="#{order.user.buildFullName()}">
 								<f:facet name="header">Created by</f:facet>
 								<h:outputText value="#{order.user.buildFullName()}" />
 							</p:column>
-							<p:column>
+							<p:column sortBy="#{order.status}">
 								<f:facet name="header">Status</f:facet>
 								<h:outputText value="#{order.status.toString()}" />
 							</p:column>
 							<p:column>
 								<f:facet name="header">
 									<p:commandButton onclick="PF('create-order-dialog').show();"
-										value="Create" />
-									<p:commandButton onclick="PF('process-order-dialog').show();"
-										value="Process" />
+										icon="fa fa-fw fa-plus-square" />
 								</f:facet>
-								<p:commandButton icon="fa fa-search fa-xs"
-									action="#{orderBean.viewOrder(order.id)}" />
-								<p:commandButton icon="fa fa-fw fa-edit" />
+								<p:commandButton icon="fa fa-fw fa-cogs" />
 								<p:commandButton icon="fa fa-fw fa-trash"
 									action="#{orderBean.onClickRemoveButton(order.id)}" />
 							</p:column>
@@ -134,7 +132,6 @@
 
 			<div class="center-but">
 				<p:commandButton value="Process" type="submit"
-					action="#{orderBean.processOrder}"
 					onstart="PF('process-order-dialog').hide();" />
 			</div>
 		</h:form>

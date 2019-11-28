@@ -50,8 +50,4 @@ public class Order {
 	@JoinColumn(name = "order_id")
 	private List<OrderDetail> orderDetails;
 	
-	@OneToOne
-	@JoinColumn(name = "reception_point")
-	Location receptionPoint;
-	
 }

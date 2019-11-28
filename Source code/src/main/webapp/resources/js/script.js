@@ -4,7 +4,7 @@
 
 function redirectTo(page) {
     setTimeout(function () {
-        window.top.location.href = "/SmartWarehouse/" + page;
+        window.top.location.href = "/WarehouseManagement/" + page;
     }, 1000);
 }
 

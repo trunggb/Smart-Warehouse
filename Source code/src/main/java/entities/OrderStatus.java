@@ -1,8 +1,7 @@
 package entities;
 
 public enum OrderStatus {
-	IN_CREATED,
-	OUT_CREATED,
+	CREATED,
 	PROCESSING,
 	DONE,
 	FAILURE;

@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -82,7 +79,7 @@ public class OrderBean implements Serializable {
 	@Getter
 	@Setter
 	private String note;
-	
+
 	@Getter
 	@Setter
 	private List<Location> availableReception;
@@ -99,10 +96,9 @@ public class OrderBean implements Serializable {
 
 	@Inject
 	DialogService dialogService;
-	
+
 	@Inject
 	LocationService locationService;
-	
 
 	@Inject
 	OrderDetailService orderDetailService;
@@ -116,7 +112,8 @@ public class OrderBean implements Serializable {
 		} else {
 			this.loginUser = userBean.getLoginUser();
 			this.orders = orderService.findAll();
-			this.ordersNotProcessYet = orders.stream().filter(o -> !OrderStatus.PROCESSING.equals(o.getStatus())).collect(Collectors.toList());
+			this.ordersNotProcessYet = orders.stream().filter(o -> !OrderStatus.PROCESSING.equals(o.getStatus()))
+					.collect(Collectors.toList());
 			if (!loginUser.getRole().equals(Role.ADMIN)) {
 				this.orders = orders.stream().filter(order -> order.getUser().getEmail().equals(loginUser.getEmail()))
 						.collect(Collectors.toList());
@@ -155,7 +152,7 @@ public class OrderBean implements Serializable {
 
 		orderDetails = orderDetails.stream().filter(detail -> Objects.nonNull(detail.getProduct().getName()))
 				.collect(Collectors.toList());
-		Order order = Order.builder().createdDate(new Date()).user(loginUser).note(note).status(OrderStatus.IN_CREATED)
+		Order order = Order.builder().createdDate(new Date()).user(loginUser).note(note).status(OrderStatus.CREATED)
 				.orderDetails(orderDetails).build();
 
 		this.orderService.createOrder(order);
@@ -195,6 +192,10 @@ public class OrderBean implements Serializable {
 		}
 	}
 
+	public void onClickProcessOrder() {
+		System.out.println("Process Order");
+	}
+
 	public void removeOrder() {
 		orderService.remove(removedOrder);
 		PrimeFaces.current().executeScript("showSuccessMessage('Order removed succesfully!')");
@@ -205,11 +206,8 @@ public class OrderBean implements Serializable {
 		userBean.setLoginUser(null);
 		PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 	}
-	
-	public static <T> Predicate<T> distinctByKey(
-		    Function<? super T, ?> keyExtractor) {
-		   
-		    Map<Object, Boolean> seen = new ConcurrentHashMap<>(); 
-		    return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null; 
-		}
+
+	public void onClickUserButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('user.xhtml')");
+	}
 }

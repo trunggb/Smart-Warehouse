@@ -18,7 +18,7 @@
 
 	<h:form>
 
-		<c:if test="#{not empty productBean.loginUser}">
+		<c:if test="#{not empty userManagementBean.loginUser}">
 			<div class="ui-g">
 				<div
 					class="ui-g-3 menu-container height-100vh flex-container space-around">
@@ -28,56 +28,50 @@
 						</div>
 					</div>
 					<div class="tab-container flex-container space-between">
-						<p:commandButton styleClass="function-button" value="users"
-							action="#{productBean.onClickUserButton}" />
-						<p:commandButton styleClass="function-button" value="products" />
+						<p:commandButton styleClass="function-button" value="users" />
+						<p:commandButton styleClass="function-button" value="products"
+							action="#{userManagementBean.onClickProductButton}" />
 						<p:commandButton styleClass="function-button" value="orders"
-							action="#{productBean.onClickOrderButton}" />
+							action="#{userManagementBean.onClickOrderButton}" />
 					</div>
 
 					<div class="sign-out-container">
 						<p:commandButton styleClass="function-button" value="Sign out"
-							action="#{productBean.onClickLogoutButton}" />
+							action="#{userManagementBean.onClickLogoutButton}" />
 					</div>
 				</div>
 				<div class="ui-g-9 flex-container height-100vh">
 					<div class="page-title product-title">
-						<p:outputLabel styleClass="big-title">PRODUCT</p:outputLabel>
+						<p:outputLabel styleClass="big-title">USER</p:outputLabel>
 					</div>
 					<div class="flex-container space-around">
 						<p:dataTable reflow="true" rows="10" paginatorPosition="both"
 							paginator="true" rowsPerPageTemplate="5,10,15"
-							value="#{productBean.products}"
-							filteredValue="#{productBean.productsFiltered}"
+							value="#{userManagementBean.users}"
+							filteredValue="#{userManagementBean.usersFiltered}"
 							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							var="product">
-							<p:column sortBy="#{product.name}" filterBy="#{product.name}"
-								filterMatchMode="contains">
+							var="user">
+							<p:column sortBy="#{user.buildFullName()}"
+								filterBy="#{user.buildFullName()}" filterMatchMode="contains">
 								<f:facet name="header">Name</f:facet>
-								<h:commandLink value="#{product.name}"
-									action="#{productBean.viewProduct(product)}">
+								<h:commandLink value="#{user.buildFullName()}">
 									<f:ajax execute="@form" render="@form" />
 								</h:commandLink>
 							</p:column>
-							<p:column sortBy="#{product.amount}">
-								<f:facet name="header">Amount</f:facet>
-								<h:outputText value="#{product.amount}" />
+							<p:column sortBy="#{user.status}">
+								<f:facet name="header">Status</f:facet>
+								<h:outputText value="#{user.status}" />
 							</p:column>
-							<p:column sortBy="#{product.expiryDate}">
-								<f:facet name="header">Expiry date</f:facet>
-								<h:outputText value="#{product.expiryDate}">
-									<f:convertDateTime pattern="yyyy-MMM-dd" />
-								</h:outputText>
+							<p:column sortBy="#{user.role}">
+								<f:facet name="header">Role</f:facet>
+								<h:outputText value="#{user.role.toString()}" />
 							</p:column>
 							<p:column>
 								<f:facet name="header">
-									<p:commandButton action="#{productBean.addProduct()}"
-										icon="fa fa-fw fa-plus-square" />
+									<p:commandButton icon="fa fa-fw fa-plus-square" />
 								</f:facet>
-								<p:commandButton icon="fa fa-fw fa-edit"
-									action="#{productBean.updateProduct(product)}" />
-								<p:commandButton icon="fa fa-fw fa-trash"
-									action="#{productBean.onclickRemoveButton(product)}" />
+								<p:commandButton icon="fa fa-fw fa-edit" />
+								<p:commandButton icon="fa fa-fw fa-history" />
 							</p:column>
 						</p:dataTable>
 					</div>
@@ -86,17 +80,6 @@
 		</c:if>
 
 	</h:form>
-	<p:confirmDialog global="true" closeOnEscape="true"
-		widgetVar="remove-dialog" header="Confirmation"
-		message="Do you want to remove this product ?">
-		<h:form>
-			<p:commandButton value="No" type="button"
-				onclick="PF('remove-dialog').hide()" />
-			<p:commandButton value="Yes" type="submit"
-				action="#{productBean.removeProduct}"
-				onstart="PF('remove-dialog').hide();" />
-		</h:form>
-	</p:confirmDialog>
 	<p:growl id="growl" showDetail="true" sticky="true" />
 	<h:outputScript library="js" name="script.js"></h:outputScript>
 	<h:outputScript library="js" name="jquery.toast.js"></h:outputScript>

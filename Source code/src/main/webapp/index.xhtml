@@ -6,8 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Smart Warehouse</title>
+	<h:outputStylesheet library="css" name="jquery.toast.css"></h:outputStylesheet>
 	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
-	<h:outputScript library="js" name="script.js"></h:outputScript>
 	<h:outputStylesheet
 		name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
 </h:head>
@@ -22,12 +22,14 @@
 				<i class="fa fa-sign-in fa-3x" aria-hidden="true"></i>
 				<div class="ui-g-12 flex-container space-around input-container">
 					<p:inputText placeholder="Username" value="#{loginBean.userName}" />
-					<p:password placeholder="Password" value="#{loginBean.passWord}"/>
+					<p:password placeholder="Password" value="#{loginBean.passWord}" />
 				</div>
 				<p:commandButton styleClass="function-button" value="Sign in"
 					action="#{loginBean.onClickLoginButton}"></p:commandButton>
 			</div>
 		</div>
 	</h:form>
+	<h:outputScript library="js" name="script.js"></h:outputScript>
+	<h:outputScript library="js" name="jquery.toast.js"></h:outputScript>
 </h:body>
 </html>

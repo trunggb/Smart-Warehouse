@@ -50,6 +50,8 @@ public class LoginBean implements Serializable{
 		if(user.isPresent()) {
 			this.userBean.setLoginUser(user.get());
 			PrimeFaces.current().executeScript("top.redirectTo('product.xhtml')");
+		}else {
+			PrimeFaces.current().executeScript("showErrorMessage('Username or password invalid!')");
 		}
 	}
 	

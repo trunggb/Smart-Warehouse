@@ -26,7 +26,7 @@
 
 					<div>
 						<div class="user-icon">
-							<img src="#{productBean.loginUser.avatar}" alt="..."
+							<img src="./resources/images/1.jpg" alt="..."
 								class="ava-container" />
 						</div>
 
@@ -36,14 +36,14 @@
 					</div>
 
 					<div class="tab-container flex-container space-between">
-					
-						<p:commandButton
-							styleClass="function-button btn-info btn-info-format"
-							value="Users" />
 
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
 							value="Trucks" />
+							
+						<p:commandButton
+							styleClass="function-button btn-info btn-info-format"
+							value="Users" />
 
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
@@ -55,7 +55,7 @@
 							
 						<p:commandButton rendered="#{productBean.loginUser.role == 'ADMIN'}"
 							styleClass="function-button btn-info btn-info-format"
-							value="Histories" action="#{productBean.onClickHistoryButton}"/>
+							value="Histories"/>
 
 					</div>
 
@@ -77,14 +77,14 @@
 							
 						</div>
 						<div class="text-center top-label">
-							<p:outputLabel value="Products" />	
+							<p:outputLabel value="Users" />	
 						</div>
 						
 					</div>
 
 					<div class="x_panel">
 						<div class="x_title">
-							<p:commandButton action="#{productBean.addProduct()}"
+							<p:commandButton action="#{userBean.addUser()}"
 								value="Add++" />
 						</div>
 						<div class="flex-container space-around x_content">
@@ -98,18 +98,18 @@
 								<p:column headerText="No.">
 									<h:outputText value="#{rowIndex + 1}" />
 								</p:column>
-								<p:column filterBy="#{product.name}" headerText="Name"
+								<p:column filterBy="#{product.name}" headerText="User Name"
 									filterMatchMode="contains" sortBy="#{product.name}">
 									<p:commandLink value="#{product.name}"
 										action="#{productBean.viewProduct(product)}" />
 								</p:column>
-								<p:column sortBy="#{product.amount}" headerText="Amount">
+								<p:column sortBy="#{product.amount}" headerText="Phone">
 									<div class="text-center">
 										<h:outputText value="#{product.amount}" />
 									</div>
 								</p:column>
 								<p:column sortBy="#{product.expiryDate}"
-									headerText="Expiry date">
+									headerText="Address">
 									<div class="text-center">
 										<h:outputText value="#{product.expiryDate}">
 											<f:convertDateTime pattern="yyyy-MMM-dd" />

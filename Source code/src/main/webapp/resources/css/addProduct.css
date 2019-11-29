@@ -1,0 +1,16 @@
+body .ui-widget:not(.pi), body .ui-widget .ui-widget:not(.pi) {
+    font-family: "Open Sans","Helvetica Neue",sans-serif;
+    font-size: 14px;
+    top: 30px !important;
+}
+
+.ui-dialog-titlebar {
+    border: 1px solid #c8c8c8;
+    background-color: #f4f4f4;
+    color: #647586 !important;
+    padding: .571em 1em .571em 1em;
+    font-weight: 700;
+    border-bottom: 0 none;
+    text-align: center;
+
+}

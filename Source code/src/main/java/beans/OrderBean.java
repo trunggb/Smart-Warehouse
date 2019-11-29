@@ -23,9 +23,7 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
-import entities.Action;
 import entities.Location;
-import entities.Log;
 import entities.Order;
 import entities.OrderDetail;
 import entities.OrderStatus;
@@ -217,6 +215,9 @@ public class OrderBean implements Serializable {
 
 	public void onClickHistoryButton() {
 		PrimeFaces.current().executeScript("top.redirectTo('history.xhtml')");
+	}
+	public void onClickUserButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('user.xhtml')");
 	}
 
 	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {

@@ -9,22 +9,26 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
-import entities.Log;
+import entities.ProductStatus;
 import entities.Role;
 import entities.User;
+import entities.UserStatus;
 import lombok.Getter;
 import lombok.Setter;
+import services.DialogService;
 import services.LogService;
 import services.ProductService;
+import services.UserService;
 
 @SuppressWarnings("deprecation")
-@ManagedBean(name="logBean")
+@ManagedBean(name = "userManagementBean")
 @ViewScoped
-public class LogBean implements Serializable {
+public class UserManagementBean implements Serializable {
 	/**
 	 * 
 	 */
@@ -34,17 +38,31 @@ public class LogBean implements Serializable {
 	private UserBean userBean;
 
 	private static final long serialVersionUID = 4098294323352760786L;
-
+	
+	@Getter
+	@Setter
+	private transient List<User> users;
+	@Getter
+	@Setter
+	private transient List<User> usersFiltered;
+	
+	@Getter
+	@Setter
+	private transient List<String> allStatus;
+	
+	
 	@Getter
 	@Setter
 	private User loginUser;
-	
-	@Getter
-	@Setter
-	private List<Log> logs;
-	
+
+	@Inject
+	DialogService dialogService;
+
 	@EJB
 	LogService logService;
+	
+	@EJB
+	UserService userService;
 
 	Logger logger = Logger.getLogger(ProductService.class);
 
@@ -53,22 +71,36 @@ public class LogBean implements Serializable {
 		if (Objects.isNull(userBean.getLoginUser()) || userBean.getLoginUser().getRole() != Role.ADMIN) {
 			PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 		}
+		UserStatus[] statuses = UserStatus.values();
+		for (UserStatus status : statuses) {
+			allStatus.add(status.name());
+		}
 		this.loginUser = userBean.getLoginUser();
-		this.logs = logService.findAll();
+		this.users = userService.findAll();
+
 	}
-	
+
+
+	public void writeLog() {
+//		Log log = Log.builder().action(Action.DELETE).user(userBean.getLoginUser()).logTime(new Date())
+//				.note("<product> " + productRemoved.getName()).build();
+//		logService.add(log);
+	}
+
+
 	public void onClickOrderButton() {
 		PrimeFaces.current().executeScript("top.redirectTo('order.xhtml')");
 	}
-	public void onClickProductButton() {
-		PrimeFaces.current().executeScript("top.redirectTo('product.xhtml')");
+
+	public void onClickHistoryButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('history.xhtml')");
 	}
-	
+
 	public void onClickLogoutButton() {
 		userBean.setLoginUser(null);
 		PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 	}
-	public void onClickUserButton() {
-		PrimeFaces.current().executeScript("top.redirectTo('user.xhtml')");
+	public void onClickProductButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('product.xhtml')");
 	}
 }

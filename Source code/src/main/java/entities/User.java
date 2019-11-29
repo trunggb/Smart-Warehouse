@@ -72,7 +72,7 @@ public class User {
 	private Role role;
 
 	@Column(name = "active")
-	private Active active;
+	private UserStatus status;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "user_id")

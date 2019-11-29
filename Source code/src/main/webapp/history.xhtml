@@ -27,7 +27,7 @@
 
 					<div>
 						<div class="user-icon">
-							<img src="./resources/images/1.jpg" alt="..."
+							<img src="#{productBean.loginUser.avatar}" alt="..."
 								class="ava-container" />
 						</div>
 
@@ -54,6 +54,10 @@
 							rendered="#{productBean.loginUser.role == 'ADMIN'}"
 							styleClass="function-button btn-info btn-info-format"
 							value="Histories" />
+						<p:commandButton
+							rendered="#{productBean.loginUser.role == 'ADMIN'}"
+							styleClass="function-button btn-info btn-info-format"
+							value="Users" action="#{logBean.onClickUserButton}"/>
 
 					</div>
 

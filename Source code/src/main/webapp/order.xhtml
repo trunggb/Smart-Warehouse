@@ -22,7 +22,7 @@
 					class="menu-container height-100vh flex-container space-around left-menu" id="left-menu">
 					<div>
 						<div class="user-icon">
-							<img src="./resources/images/1.jpg" alt="..."
+							<img src="#{productBean.loginUser.avatar}" alt="..."
 								class="ava-container" />
 						</div>
 
@@ -30,7 +30,6 @@
 							<h2>#{productBean.loginUser.buildFullName()}</h2>
 						</div>
 					</div>
-
 					<div class="tab-container flex-container space-between">
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
@@ -47,7 +46,11 @@
 						<p:commandButton
 							rendered="#{productBean.loginUser.role == 'ADMIN'}"
 							styleClass="function-button btn-info btn-info-format"
-							value="Histories" />
+							value="Histories" action="#{orderBean.onClickHistoryButton}" />
+						<p:commandButton
+							rendered="#{productBean.loginUser.role == 'ADMIN'}"
+							styleClass="function-button btn-info btn-info-format"
+							value="Users" action="#{orderBean.onClickUserButton}" />
 					</div>
 
 					<div class="sign-out-container">
@@ -78,7 +81,6 @@
 							<p:commandButton onclick="PF('create-order-dialog').show();"
 								value="Create" />
 						</div>
-
 						<div class="flex-container space-around x_content">
 							<p:dataTable id="order-table" reflow="true" rows="10"
 								paginatorPosition="both" paginator="true"
@@ -100,7 +102,6 @@
 											</h:outputText>
 										</p:commandLink>
 									</div>
-
 								</p:column>
 								<p:column>
 									<f:facet name="header">Created by</f:facet>
@@ -114,21 +115,16 @@
 								</p:column>
 								<p:column>
 									<f:facet name="header">
-
 									</f:facet>
 									<div class="text-center">
 										<p:commandButton icon="fa fa-fw fa-edit" class="black" />
 										<p:commandButton icon="fa fa-fw fa-trash" class="red"
 											action="#{orderBean.onClickRemoveButton(order.id)}" />
 									</div>
-
 								</p:column>
 							</p:dataTable>
 						</div>
-
 					</div>
-
-
 				</div>
 			</div>
 		</c:if>

@@ -23,6 +23,7 @@ public class ProductAddBean implements Serializable{
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 4098294323352760786L;
 	@Setter
 	@Getter
@@ -30,6 +31,7 @@ public class ProductAddBean implements Serializable{
 	
 	@EJB
 	ProductService productService;
+	
 	
 	final static Logger logger = Logger.getLogger(ProductService.class);
 	
@@ -48,4 +50,5 @@ public class ProductAddBean implements Serializable{
 		PrimeFaces.current().executeScript("parent.showSuccessMessage('Product added succesfully!')");
 		PrimeFaces.current().executeScript("parent.reloadPage();");
 	}
+	
 }

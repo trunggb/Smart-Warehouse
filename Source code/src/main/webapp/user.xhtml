@@ -18,7 +18,8 @@
 <h:body styleClass="content-all">
 
 	<h:form>
-		<c:if test="#{not empty productBean.loginUser}">
+		<c:if
+			test="#{not empty userManagementBean.loginUser and userManagementBean.loginUser.role == 'ADMIN'}">
 			<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
 				<div
 					class="menu-container height-100vh flex-container space-around left-menu"
@@ -26,12 +27,12 @@
 
 					<div>
 						<div class="user-icon">
-							<img src="./resources/images/1.jpg" alt="..."
+							<img src="#{userManagementBean.loginUser.avatar}" alt="..."
 								class="ava-container" />
 						</div>
 
 						<div class="profile_info">
-							<h2>#{productBean.loginUser.buildFullName()}</h2>
+							<h2>#{userManagementBean.loginUser.buildFullName()}</h2>
 						</div>
 					</div>
 
@@ -40,22 +41,25 @@
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
 							value="Trucks" />
-							
-						<p:commandButton
-							styleClass="function-button btn-info btn-info-format"
-							value="Users" />
 
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
-							value="Products" />
+							value="Products"
+							action="#{userManagementBean.onClickProductButton}" />
 
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
-							value="Orders" action="#{productBean.onClickOrderButton}" />
-							
-						<p:commandButton rendered="#{productBean.loginUser.role == 'ADMIN'}"
+							value="Orders" action="#{userManagementBean.onClickOrderButton}" />
+
+						<p:commandButton
+							rendered="#{userManagementBean.loginUser.role == 'ADMIN'}"
 							styleClass="function-button btn-info btn-info-format"
-							value="Histories"/>
+							value="Histories"
+							action="#{userManagementBean.onClickHistoryButton}" />
+						<p:commandButton
+							rendered="#{userManagementBean.loginUser.role == 'ADMIN'}"
+							styleClass="function-button btn-info btn-info-format"
+							value="User" />
 
 					</div>
 
@@ -63,7 +67,8 @@
 					<div class="sign-out-container">
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
-							value="Sign out" action="#{productBean.onClickLogoutButton}" />
+							value="Sign out"
+							action="#{userManagementBean.onClickLogoutButton}" />
 					</div>
 				</div>
 			</p:sidebar>
@@ -71,64 +76,62 @@
 				<div
 					class="ui-g-12 flex-container height-100vh width-100pc full-right">
 					<div class="page-title product-title">
-						<div >
+						<div>
 							<p:commandButton icon="pi pi-bars bar-edit" styleClass="ham-but"
-							oncomplete="PF('sidebar1').show()" />
-							
+								oncomplete="PF('sidebar1').show()" />
+
 						</div>
 						<div class="text-center top-label">
-							<p:outputLabel value="Users" />	
+							<p:outputLabel value="Users" />
 						</div>
-						
+
 					</div>
 
 					<div class="x_panel">
 						<div class="x_title">
-							<p:commandButton action="#{userBean.addUser()}"
-								value="Add++" />
+							<p:commandButton value="Add++" />
 						</div>
 						<div class="flex-container space-around x_content">
 							<p:dataTable reflow="true" rows="15" paginatorPosition="both"
 								rowIndexVar="rowIndex"
-								filteredValue="#{productBean.productFiltered}" paginator="true"
-								rowsPerPageTemplate="10,15,20" value="#{productBean.products}"
-								widgetVar="productTable"
+								filteredValue="#{userManagementBean.usersFiltered}"
+								paginator="true" rowsPerPageTemplate="10,15,20"
+								value="#{userManagementBean.users}" widgetVar="userTable"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								var="product">
+								var="user">
 								<p:column headerText="No.">
 									<h:outputText value="#{rowIndex + 1}" />
 								</p:column>
-								<p:column filterBy="#{product.name}" headerText="User Name"
-									filterMatchMode="contains" sortBy="#{product.name}">
-									<p:commandLink value="#{product.name}"
-										action="#{productBean.viewProduct(product)}" />
+								<p:column filterBy="#{user.buildFullName()}" headerText="Name"
+									filterMatchMode="contains" sortBy="#{user.buildFullName()}">
+									<p:commandLink value="#{user.buildFullName()}" />
 								</p:column>
-								<p:column sortBy="#{product.amount}" headerText="Phone">
+								<p:column sortBy="#{user.phone}" headerText="Phone">
 									<div class="text-center">
-										<h:outputText value="#{product.amount}" />
+										<h:outputText value="#{user.phone}" />
 									</div>
 								</p:column>
-								<p:column sortBy="#{product.expiryDate}"
-									headerText="Address">
+								<p:column sortBy="#{user.lastAccessDate}"
+									headerText="Last access">
 									<div class="text-center">
-										<h:outputText value="#{product.expiryDate}">
+										<h:outputText value="#{user.lastAccessDate}">
 											<f:convertDateTime pattern="yyyy-MMM-dd" />
 										</h:outputText>
 									</div>
 
 								</p:column>
 
-								<p:column sortBy="#{product.status}" headerText="Status"
-									filterBy="#{product.status.name()}" filterMatchMode="in">
+								<p:column sortBy="#{user.status}" headerText="Status"
+									filterBy="#{user.status.name()}" filterMatchMode="in">
 									<f:facet name="filter">
 										<p:selectCheckboxMenu label="Status"
 											onchange="PF('productTable').filter()" scrollHeight="150"
 											styleClass="custom-filter">
-											<f:selectItems value="#{productBean.allStatus}" />
+											<f:selectItems value="#{userManagementBean.allStatus}" />
 										</p:selectCheckboxMenu>
 									</f:facet>
 									<div class="text-center">
-										<h:outputText value="#{product.status.toString()}" />
+										<h:outputText value="#{user.status.toString()}" />
 									</div>
 
 								</p:column>
@@ -139,10 +142,8 @@
 										Action
 									</f:facet>
 									<div class="text-center">
-										<p:commandButton icon="fa fa-fw fa-edit" styleClass="black"
-											action="#{productBean.updateProduct(product)}" />
-										<p:commandButton icon="fa fa-fw fa-trash" styleClass="red"
-											action="#{productBean.onclickRemoveButton(product)}" />
+										<p:commandButton icon="fa fa-fw fa-edit" styleClass="black" />
+										<p:commandButton icon="fa fa-fw fa-trash" styleClass="red" />
 									</div>
 
 								</p:column>

@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,7 +49,7 @@ public class UserManagementBean implements Serializable {
 	
 	@Getter
 	@Setter
-	private transient List<String> allStatus;
+	private transient List<String> allStatus = new ArrayList<>();
 	
 	
 	@Getter
@@ -70,13 +71,16 @@ public class UserManagementBean implements Serializable {
 	public void init() {
 		if (Objects.isNull(userBean.getLoginUser()) || userBean.getLoginUser().getRole() != Role.ADMIN) {
 			PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
+		} else {
+			UserStatus[] statuses = UserStatus.values();
+			for (UserStatus status : statuses) {
+				allStatus.add(status.name());
+			}
+			this.loginUser = userBean.getLoginUser();
+			this.users = userService.findAll();
 		}
-		UserStatus[] statuses = UserStatus.values();
-		for (UserStatus status : statuses) {
-			allStatus.add(status.name());
-		}
-		this.loginUser = userBean.getLoginUser();
-		this.users = userService.findAll();
+
+		
 
 	}
 

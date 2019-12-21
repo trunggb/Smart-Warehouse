@@ -125,7 +125,7 @@
 									filterBy="#{user.status.name()}" filterMatchMode="in">
 									<f:facet name="filter">
 										<p:selectCheckboxMenu label="Status"
-											onchange="PF('productTable').filter()" scrollHeight="150"
+											onchange="PF('userTable').filter()" scrollHeight="150"
 											styleClass="custom-filter">
 											<f:selectItems value="#{userManagementBean.allStatus}" />
 										</p:selectCheckboxMenu>

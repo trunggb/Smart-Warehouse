@@ -79,7 +79,10 @@
 								paginatorPosition="bottom" paginator="true"
 								rowsPerPageTemplate="5,10,15" value="#{orderBean.orders}"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								var="order">
+								var="order" rowIndexVar="rowIndex">
+								<p:column headerText="No.">
+									<h:outputText value="#{rowIndex + 1}" />
+								</p:column>
 								<p:column>
 									<f:facet name="header">Created date</f:facet>
 									<div class="text-center">

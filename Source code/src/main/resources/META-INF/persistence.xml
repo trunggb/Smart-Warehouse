@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="WarehouseManagement"
 		transaction-type="JTA">
-		<jta-data-source>java:/SmartWarehouseDS</jta-data-source>
+		<jta-data-source>java:/WarehouseManagementDS</jta-data-source>
 		<properties>
 			<!-- <property name="javax.persistence.schema-generation.database.action" 
 				value="drop-and-create" /> -->

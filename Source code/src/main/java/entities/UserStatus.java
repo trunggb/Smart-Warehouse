@@ -2,5 +2,6 @@ package entities;
 
 public enum UserStatus {
 	ACTIVE,
-	BLOCKED
+	BLOCKED,
+	INITIAL
 }

@@ -8,9 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -29,7 +33,7 @@ import entities.User;
 import lombok.Getter;
 import lombok.Setter;
 import services.DialogService;
-import services.LocationService;
+import services.LogService;
 import services.OrderDetailService;
 import services.OrderService;
 import services.ProductService;
@@ -98,10 +102,10 @@ public class OrderBean implements Serializable {
 	DialogService dialogService;
 
 	@Inject
-	LocationService locationService;
-
-	@Inject
 	OrderDetailService orderDetailService;
+	
+	@EJB
+	LogService logService;
 
 	Logger logger = Logger.getLogger(ProductService.class);
 
@@ -192,9 +196,11 @@ public class OrderBean implements Serializable {
 		}
 	}
 
-	public void onClickProcessOrder() {
-		System.out.println("Process Order");
-	}
+//	public void writeLog() {
+//		Log log = Log.builder().action(Action.DELETE).user(userBean.getLoginUser()).logTime(new Date())
+//				.note("<order> " + ).build();
+//		logService.add(log);
+//	}
 
 	public void removeOrder() {
 		orderService.remove(removedOrder);
@@ -207,7 +213,16 @@ public class OrderBean implements Serializable {
 		PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 	}
 
+	public void onClickHistoryButton() {
+		PrimeFaces.current().executeScript("top.redirectTo('history.xhtml')");
+	}
 	public void onClickUserButton() {
 		PrimeFaces.current().executeScript("top.redirectTo('user.xhtml')");
+	}
+
+	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+
+		Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+		return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
 	}
 }

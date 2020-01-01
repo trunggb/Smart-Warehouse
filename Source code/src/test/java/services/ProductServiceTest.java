@@ -36,36 +36,30 @@ public class ProductServiceTest {
 				.inDate(new Date())
 				.build();
 	}
-
-
 	@Test
 	public void testAdd_shouldReturnTrue_whenProductIsGiven() {
 		Mockito.doReturn(true).when((GenericService<Product>) productService).create(product);
 		boolean actual = productService.add(product);
 		assertTrue(actual);
 	}
-	
 	@Test
 	public void testAdd_shouldReturnFalse_whenProductIsNull() {
 		Mockito.doReturn(false).when((GenericService<Product>) productService).create(null);
 		boolean actual = productService.add(null);
 		assertFalse(actual);
 	}
-	
 	@Test
 	public void testUpdate_shouldReturnTrue_whenProductIsGiven() {
 		Mockito.doReturn(true).when((GenericService<Product>) productService).update(product);
 		boolean actual = productService.update(product);
 		assertTrue(actual);
 	}
-	
 	@Test
 	public void testUpdate_shouldReturnFalse_whenProductIsNull() {
 		Mockito.doReturn(false).when((GenericService<Product>) productService).update(null);
 		boolean actual = productService.update(null);
 		assertFalse(actual);
 	}
-	
 //	@Test
 //	public void testRemove_shouldReturnTrue_whenProductIsGiven() {
 //		Mockito.doReturn(true).when((GenericService<Product>) productService).delete(product);

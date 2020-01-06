@@ -33,9 +33,6 @@
 					<div class="tab-container flex-container space-between">
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
-							value="Users" />
-						<p:commandButton
-							styleClass="function-button btn-info btn-info-format"
 							value="Trucks" />
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
@@ -86,11 +83,9 @@
 								paginatorPosition="both" paginator="true"
 								rowsPerPageTemplate="5,10,15" value="#{orderBean.orders}"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								var="order">
+								var="order" rowIndexVar="rowIndex">
 								<p:column headerText="No.">
-									<div class="text-center">
-											<h:outputText value="#{rowIndex + 1}" />
-									</div>
+									<h:outputText value="#{rowIndex + 1}" />
 								</p:column>
 								<p:column>
 									<f:facet name="header">Created date</f:facet>

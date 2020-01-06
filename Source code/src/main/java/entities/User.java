@@ -1,6 +1,6 @@
 package entities;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -60,13 +60,13 @@ public class User {
 	private String avatar;
 
 	@Column(name = "create_date")
-	private LocalDate createDate;
+	private Date createDate;
 
 	@Column(name = "last_access_date")
-	private LocalDate lastAccessDate;
+	private Date lastAccessDate;
 
 	@Column(name = "last_logout_date")
-	private LocalDate lastLogoutDate;
+	private Date lastLogoutDate;
 
 	@Column(name = "role")
 	private Role role;

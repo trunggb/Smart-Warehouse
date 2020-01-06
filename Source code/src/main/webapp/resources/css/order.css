@@ -1,0 +1,18 @@
+.order-page div button span{
+    font-size: 1em !important;
+}
+
+.order-page {
+    padding-bottom: 14px !important;
+}
+
+.order-label{
+    padding-bottom: 5px !important;
+    /* font-size: 24px !important; */
+    margin-top: -37px !important;
+}
+
+.order-label label{
+    font-size: 24px !important;
+}
+

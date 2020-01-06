@@ -96,7 +96,9 @@
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								var="product">
 								<p:column headerText="No.">
-									<h:outputText value="#{rowIndex + 1}" />
+									<div class="text-center">
+										<h:outputText value="#{rowIndex + 1}" />
+									</div>
 								</p:column>
 								<p:column filterBy="#{product.name}" headerText="Name"
 									filterMatchMode="contains" sortBy="#{product.name}">

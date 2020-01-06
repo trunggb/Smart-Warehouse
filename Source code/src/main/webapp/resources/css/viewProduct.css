@@ -12,12 +12,12 @@ html , body{
 }
 
 body .ui-dialog .ui-dialog-titlebar {
-    border: 1px solid #e5e5e5;
-    background-color: #ffffff !important;
-    color: #333;
+    border: 1px solid #c8c8c8;
+    background-color: #f4f4f4;
+    padding: 1em !important;
     font-weight: 700;
     border-bottom: 0 none;
-    padding: 1.2em !important;
+    text-align: center;
 
 }
 

@@ -24,12 +24,14 @@ public class UserService extends GenericService<User> {
 	}
 
 	public Optional<User> findUserByUserName(String userName) {
-
 		TypedQuery<User> query = this.em.createNamedQuery("findUserByUserName", User.class);
 		query.setParameter("userName", userName);
 		try {
-			User ret =query.getSingleResult();
-			return Optional.of(ret);
+			List<User> users =query.getResultList();
+			if (users.isEmpty()){
+				return Optional.empty();
+			}
+			return Optional.of(users.get(0));
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return Optional.empty();

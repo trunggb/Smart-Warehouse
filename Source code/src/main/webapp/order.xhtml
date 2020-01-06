@@ -71,7 +71,7 @@
 										icon="fa fa-fw fa-plus-square" />
 								</f:facet>
 								<p:commandButton icon="fa fa-fw fa-cogs"
-									action="#{orderBean.onClickProcessOrder}" />
+									onclick="PF('process-order-dialog').show();" />
 								<p:commandButton icon="fa fa-fw fa-trash"
 									action="#{orderBean.onClickRemoveButton(order.id)}" />
 							</p:column>
@@ -119,20 +119,20 @@
 	</p:dialog>
 
 	<p:dialog widgetVar="process-order-dialog" header="Process Order"
-		closable="true" resizable="false" width="290px" modal="true">
+		closable="true" resizable="false" width="400px" modal="true">
 		<h:form id="process-order-form">
-			<p:repeat value="#{orderBean.availableReception}" var="location">
-				<div class="ui-g">
-					<div class="ui-g-12">
-						<p:selectOneMenu value="#{location.order.id}">
-							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItems value="#{orderBean.ordersNotProcessYet}" var="o"
-								itemLabel="#{o.createdDate}" itemValue="#{o.id}" />
-						</p:selectOneMenu>
-					</div>
+			<div class="ui-g">
+				<div class="ui-g-2">
+					<h:outputLabel value="Driver" />
 				</div>
-			</p:repeat>
-
+				<div class="ui-g-10">
+					<p:selectOneMenu>
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{orderBean.drivers}" var="d"
+							itemLabel="#{d.buildFullName()}" itemValue="#{d.id}" />
+					</p:selectOneMenu>
+				</div>
+			</div>
 			<div class="center-but">
 				<p:commandButton value="Process" type="submit"
 					onstart="PF('process-order-dialog').hide();" />

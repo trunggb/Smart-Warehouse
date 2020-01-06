@@ -19,70 +19,72 @@
 	<h:form>
 
 		<c:if test="#{not empty productBean.loginUser}">
-			<div class="ui-g">
-				<div
-					class="ui-g-3 menu-container height-100vh flex-container space-around">
-					<div class="ava-container">
-						<div class="user-icon">
-							<i class="fa fa-user fa-3x"></i>
+			<c:if test="#{productBean.loginUser.role != 'DRIVER'}">
+				<div class="ui-g">
+					<div
+						class="ui-g-3 menu-container height-100vh flex-container space-around">
+						<div class="ava-container">
+							<div class="user-icon">
+								<i class="fa fa-user fa-3x"></i>
+							</div>
+						</div>
+						<div class="tab-container flex-container space-between">
+							<p:commandButton styleClass="function-button" value="users"
+								action="#{productBean.onClickUserButton}" />
+							<p:commandButton styleClass="function-button" value="products" />
+							<p:commandButton styleClass="function-button" value="orders"
+								action="#{productBean.onClickOrderButton}" />
+						</div>
+
+						<div class="sign-out-container">
+							<p:commandButton styleClass="function-button" value="Sign out"
+								action="#{productBean.onClickLogoutButton}" />
 						</div>
 					</div>
-					<div class="tab-container flex-container space-between">
-						<p:commandButton styleClass="function-button" value="users"
-							action="#{productBean.onClickUserButton}" />
-						<p:commandButton styleClass="function-button" value="products" />
-						<p:commandButton styleClass="function-button" value="orders"
-							action="#{productBean.onClickOrderButton}" />
-					</div>
-
-					<div class="sign-out-container">
-						<p:commandButton styleClass="function-button" value="Sign out"
-							action="#{productBean.onClickLogoutButton}" />
-					</div>
-				</div>
-				<div class="ui-g-9 flex-container height-100vh">
-					<div class="page-title product-title">
-						<p:outputLabel styleClass="big-title">PRODUCT</p:outputLabel>
-					</div>
-					<div class="flex-container space-around">
-						<p:dataTable reflow="true" rows="10" paginatorPosition="both"
-							paginator="true" rowsPerPageTemplate="5,10,15"
-							value="#{productBean.products}"
-							filteredValue="#{productBean.productsFiltered}"
-							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							var="product">
-							<p:column sortBy="#{product.name}" filterBy="#{product.name}"
-								filterMatchMode="contains">
-								<f:facet name="header">Name</f:facet>
-								<h:commandLink value="#{product.name}"
-									action="#{productBean.viewProduct(product)}">
-									<f:ajax execute="@form" render="@form" />
-								</h:commandLink>
-							</p:column>
-							<p:column sortBy="#{product.amount}">
-								<f:facet name="header">Amount</f:facet>
-								<h:outputText value="#{product.amount}" />
-							</p:column>
-							<p:column sortBy="#{product.expiryDate}">
-								<f:facet name="header">Expiry date</f:facet>
-								<h:outputText value="#{product.expiryDate}">
-									<f:convertDateTime pattern="yyyy-MMM-dd" />
-								</h:outputText>
-							</p:column>
-							<p:column>
-								<f:facet name="header">
-									<p:commandButton action="#{productBean.addProduct()}"
-										icon="fa fa-fw fa-plus-square" />
-								</f:facet>
-								<p:commandButton icon="fa fa-fw fa-edit"
-									action="#{productBean.updateProduct(product)}" />
-								<p:commandButton icon="fa fa-fw fa-trash"
-									action="#{productBean.onclickRemoveButton(product)}" />
-							</p:column>
-						</p:dataTable>
+					<div class="ui-g-9 flex-container height-100vh">
+						<div class="page-title product-title">
+							<p:outputLabel styleClass="big-title">PRODUCT</p:outputLabel>
+						</div>
+						<div class="flex-container space-around">
+							<p:dataTable reflow="true" rows="10" paginatorPosition="both"
+								paginator="true" rowsPerPageTemplate="5,10,15"
+								value="#{productBean.products}"
+								filteredValue="#{productBean.productsFiltered}"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								var="product">
+								<p:column sortBy="#{product.name}" filterBy="#{product.name}"
+									filterMatchMode="contains">
+									<f:facet name="header">Name</f:facet>
+									<h:commandLink value="#{product.name}"
+										action="#{productBean.viewProduct(product)}">
+										<f:ajax execute="@form" render="@form" />
+									</h:commandLink>
+								</p:column>
+								<p:column sortBy="#{product.amount}">
+									<f:facet name="header">Amount</f:facet>
+									<h:outputText value="#{product.amount}" />
+								</p:column>
+								<p:column sortBy="#{product.expiryDate}">
+									<f:facet name="header">Expiry date</f:facet>
+									<h:outputText value="#{product.expiryDate}">
+										<f:convertDateTime pattern="yyyy-MMM-dd" />
+									</h:outputText>
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<p:commandButton action="#{productBean.addProduct()}"
+											icon="fa fa-fw fa-plus-square" />
+									</f:facet>
+									<p:commandButton icon="fa fa-fw fa-edit"
+										action="#{productBean.updateProduct(product)}" />
+									<p:commandButton icon="fa fa-fw fa-trash"
+										action="#{productBean.onclickRemoveButton(product)}" />
+								</p:column>
+							</p:dataTable>
+						</div>
 					</div>
 				</div>
-			</div>
+			</c:if>
 		</c:if>
 
 	</h:form>

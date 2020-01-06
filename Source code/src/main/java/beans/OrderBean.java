@@ -37,6 +37,7 @@ import services.LogService;
 import services.OrderDetailService;
 import services.OrderService;
 import services.ProductService;
+import services.UserService;
 
 @SuppressWarnings("deprecation")
 @ManagedBean(name = "orderBean")
@@ -52,6 +53,10 @@ public class OrderBean implements Serializable {
 	@ManagedProperty(value = "#{userBean}")
 	@Setter
 	private UserBean userBean;
+	
+	@Getter
+	@Setter
+	private List<User> drivers;
 
 	@Getter
 	@Setter
@@ -106,6 +111,9 @@ public class OrderBean implements Serializable {
 	
 	@EJB
 	LogService logService;
+	
+	@EJB
+	UserService userService;
 
 	Logger logger = Logger.getLogger(ProductService.class);
 
@@ -122,7 +130,8 @@ public class OrderBean implements Serializable {
 				this.orders = orders.stream().filter(order -> order.getUser().getEmail().equals(loginUser.getEmail()))
 						.collect(Collectors.toList());
 			}
-
+			List<User> users = userService.findAll();
+			this.drivers = users.stream().filter(x -> x.getRole() == Role.DRIVER).collect(Collectors.toList());
 			this.products = productService.findAll();
 			this.orderDetails = new ArrayList<>();
 			for (int i = 0; i < NUM_PROD; i++) {
@@ -137,6 +146,10 @@ public class OrderBean implements Serializable {
 	public void onClickProductButton() {
 		PrimeFaces.current().executeScript("top.redirectTo('product.xhtml')");
 		logger.debug("Get " + orders.size() + " orders from database");
+	}
+	
+	public void onClickProcessOrder() {
+		
 	}
 
 	public void onClickCreateOrder() {

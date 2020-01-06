@@ -33,7 +33,7 @@ public class Order {
 	private int id;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "by_user")
+	@JoinColumn(name = "user_name")
 	User user;
 	
 	@Column(name = "created_date")

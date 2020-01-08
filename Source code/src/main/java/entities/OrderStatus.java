@@ -1,10 +1,9 @@
 package entities;
 
 public enum OrderStatus {
-	IN_CREATED,
-	OUT_CREATED,
+	INITIAL,
 	PROCESSING,
-	DONE,
+	COMPLETE,
 	FAILURE;
 	
 	@Override

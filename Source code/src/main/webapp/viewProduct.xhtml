@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
 	<title>Product detail</title>
@@ -57,8 +58,9 @@
 			<p:outputLabel value="In date:" />
 		</div>
 		<div class="ui-g-8 width-80">
-			<p:calendar value="#{productViewBean.product.inDate}"
-				pattern="yyyy-MMM-dd" readonlyInput="true" />
+			<h:outputText value="#{productViewBean.product.inDate}">
+				<f:convertDateTime pattern="yyyy-MMM-dd" />
+			</h:outputText>
 		</div>
 	</div>
 	<div class="ui-g">
@@ -66,8 +68,10 @@
 			<p:outputLabel value="Out date:" />
 		</div>
 		<div class="ui-g-8 width-80">
-			<p:calendar value="#{productViewBean.product.outDate}"
-				pattern="yyyy-MMM-dd" readonlyInput="true" />
+			<h:outputText value="#{productViewBean.product.outDate}">
+				<f:convertDateTime pattern="yyyy-MMM-dd" />
+
+			</h:outputText>
 		</div>
 	</div>
 	<div class="ui-g">
@@ -75,8 +79,9 @@
 			<p:outputLabel value="Expiry date:" />
 		</div>
 		<div class="ui-g-8 width-80">
-			<p:calendar value="#{productViewBean.product.expiryDate}"
-				pattern="yyyy-MMM-dd" readonlyInput="true" />
+			<h:outputText value="#{productViewBean.product.expiryDate}">
+				<f:convertDateTime pattern="yyyy-MMM-dd" />
+			</h:outputText>
 		</div>
 	</div>
 </h:body>

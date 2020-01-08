@@ -80,7 +80,7 @@ public class ProductBean implements Serializable {
 		} else {
 			ProductStatus[] statuses = ProductStatus.values();
 			for (ProductStatus productStatus : statuses) {
-				allStatus.add(productStatus.name());
+				allStatus.add(productStatus.toString());
 			}
 			this.loginUser = userBean.getLoginUser();
 			products = productService.findAll();
@@ -96,7 +96,7 @@ public class ProductBean implements Serializable {
 
 	public void writeLog() {
 		Log log = Log.builder().action(Action.DELETE).user(userBean.getLoginUser()).logTime(new Date())
-				.note("<product> " + productRemoved.getName()).build();
+				.note("product " + productRemoved.getName()).build();
 		logService.add(log);
 	}
 
@@ -109,7 +109,6 @@ public class ProductBean implements Serializable {
 		} catch (Exception e) {
 			PrimeFaces.current().executeScript("showErrorMessage('This product still in order!')");
 		}
-
 	}
 
 	public void viewProduct(Product product) {

@@ -18,17 +18,35 @@
 			<from-outcome>viewProduct</from-outcome>
 			<to-view-id>viewProduct.xhtml</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{userManagementBean.viewUser}</from-action>
+			<from-outcome>viewUser</from-outcome>
+			<to-view-id>viewUser.xhtml</to-view-id>
+		</navigation-case>
+		
 		<navigation-case>
 			<from-action>#{productBean.updateProduct}</from-action>
 			<from-outcome>updateProduct</from-outcome>
 			<to-view-id>updateProduct.xhtml</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{userManagementBean.updateUser}</from-action>
+			<from-outcome>updateUser</from-outcome>
+			<to-view-id>updateUser.xhtml</to-view-id>
+		</navigation-case>
+		
 		<navigation-case>
 			<from-action>#{productBean.addProduct}</from-action>
 			<from-outcome>addProduct</from-outcome>
 			<to-view-id>addProduct.xhtml</to-view-id>
 		</navigation-case>
-		
+		<navigation-case>
+			<from-action>#{userManagementBean.addUser}</from-action>
+			<from-outcome>addUser</from-outcome>
+			<to-view-id>addUser.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-action>#{orderBean.viewOrder}</from-action>
 			<from-outcome>viewOrder</from-outcome>

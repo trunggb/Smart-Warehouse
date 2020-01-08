@@ -2,7 +2,9 @@ package beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
@@ -43,6 +45,11 @@ public class UserManagementBean implements Serializable {
 	@Getter
 	@Setter
 	private transient List<User> users;
+	
+	@Getter
+	@Setter
+	private transient User userRemoved;
+	
 	@Getter
 	@Setter
 	private transient List<User> usersFiltered;
@@ -74,14 +81,11 @@ public class UserManagementBean implements Serializable {
 		} else {
 			UserStatus[] statuses = UserStatus.values();
 			for (UserStatus status : statuses) {
-				allStatus.add(status.name());
+				allStatus.add(status.toString());
 			}
 			this.loginUser = userBean.getLoginUser();
 			this.users = userService.findAll();
 		}
-
-		
-
 	}
 
 
@@ -89,6 +93,47 @@ public class UserManagementBean implements Serializable {
 //		Log log = Log.builder().action(Action.DELETE).user(userBean.getLoginUser()).logTime(new Date())
 //				.note("<product> " + productRemoved.getName()).build();
 //		logService.add(log);
+	}
+	
+	public void addUser() {
+		Map<String, Object> options = dialogService.createDialogOption(700, 550);
+
+		PrimeFaces.current().dialog().openDynamic("addUser", options, null);
+	}
+	
+	public void viewUser(User user) {
+		Map<String, Object> options = dialogService.createDialogOption(700, 600);
+
+		Map<String, List<String>> params = new HashMap<>();
+		List<String> userId = new ArrayList<>(); // just send one id
+		userId.add(String.valueOf(user.getId()));
+		params.put("userId", userId);
+		PrimeFaces.current().dialog().openDynamic("viewUser", options, params);
+	}
+	
+	public void onClickRemoveButton(User user) {
+		this.userRemoved = user;
+		PrimeFaces.current().executeScript("PF('remove-dialog').show();");
+	}
+	public void removeUser() {
+		try {
+			userService.remove(this.userRemoved);
+			writeLog();
+			PrimeFaces.current().executeScript("showSuccessMessage('User removed succesfully!')");
+			PrimeFaces.current().executeScript("reloadPage()");
+		} catch (Exception e) {
+			PrimeFaces.current().executeScript("showErrorMessage('This user still handle some order!')");
+		}
+	}
+	
+	public void updateUser(User user) {
+		Map<String, Object> options = dialogService.createDialogOption(700, 600);
+
+		Map<String, List<String>> params = new HashMap<>();
+		List<String> userId = new ArrayList<>(); // just send one id
+		userId.add(String.valueOf(user.getId()));
+		params.put("userId", userId);
+		PrimeFaces.current().dialog().openDynamic("updateUser", options, params);
 	}
 
 

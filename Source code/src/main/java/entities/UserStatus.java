@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum UserStatus {
-	NOT,
-	IS_ACTIVE,
-	DISABLE;
+	ACTIVE,
+	INACTIVE,
+	BLOCKED;
 	
 	@Override
 	public String toString() {

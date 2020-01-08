@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
 
+import entities.Product;
 import entities.User;
 
 @Stateless
@@ -28,8 +30,11 @@ public class UserService extends GenericService<User> {
 		TypedQuery<User> query = this.em.createNamedQuery("findUserByUserName", User.class);
 		query.setParameter("userName", userName);
 		try {
-			User ret =query.getSingleResult();
-			return Optional.of(ret);
+			List<User> users =query.getResultList();
+			if(users.isEmpty()) {
+				return Optional.empty();
+			}
+			return Optional.of(users.get(0));
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return Optional.empty();
@@ -43,5 +48,26 @@ public class UserService extends GenericService<User> {
 		}else {
 			return Optional.empty();
 		}
+	}
+
+	public Optional<User> findUser(Integer userId) {
+		User user = this.getEm().find(User.class, userId);
+		if(user != null) {
+			return Optional.of(user);
+		}else {
+			return Optional.empty();
+		}
+	}
+	
+	public void remove(User user) {
+		Optional<User> removedUser = this.findUser(user.getId());
+		if(removedUser.isPresent()) {
+			this.em.remove(removedUser.get());
+		}else {
+			throw new EntityNotFoundException("Can not find user with id :" + user.getId());
+		}
+	}
+	public boolean updateUser(User user) {
+		return this.update(user);
 	}
 }

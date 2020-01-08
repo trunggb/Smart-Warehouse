@@ -19,7 +19,8 @@
 		<c:if test="#{not empty orderBean.loginUser}">
 			<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
 				<div
-					class="menu-container height-100vh flex-container space-around left-menu" id="left-menu">
+					class="menu-container height-100vh flex-container space-around left-menu"
+					id="left-menu">
 					<div>
 						<div class="user-icon">
 							<img src="#{productBean.loginUser.avatar}" alt="..."
@@ -31,9 +32,6 @@
 						</div>
 					</div>
 					<div class="tab-container flex-container space-between">
-						<p:commandButton
-							styleClass="function-button btn-info btn-info-format"
-							value="Trucks" />
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
 							value="Products" action="#{orderBean.onClickProductButton}" />
@@ -59,14 +57,14 @@
 			</p:sidebar>
 			<div class="ui-g content">
 
-				<div 
+				<div
 					class="ui-g-12 flex-container height-100vh width-100pc full-right">
 					<div class="page-title product-title order-page">
-						<div >
+						<div>
 							<p:commandButton icon="fa fa-fw fa-bars" styleClass="ham-but"
 								oncomplete="PF('sidebar1').show()" />
 						</div>
-						
+
 					</div>
 					<div class="text-center top-label order-label">
 						<p:outputLabel value="Orders" />
@@ -76,18 +74,18 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<p:commandButton onclick="PF('create-order-dialog').show();"
-								value="Create" />
+								icon="fa fa-fw fa-plus" />
 						</div>
 						<div class="flex-container space-around x_content">
 							<p:dataTable id="order-table" reflow="true" rows="10"
 								paginatorPosition="both" paginator="true"
 								rowsPerPageTemplate="5,10,15" value="#{orderBean.orders}"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								var="order" rowIndexVar="rowIndex">
+								var="order" rowIndexVar="rowIndex" widgetVar="orderTable" filteredValue="#{orderBean.orderFiltered}">
 								<p:column headerText="No.">
 									<h:outputText value="#{rowIndex + 1}" />
 								</p:column>
-								<p:column>
+								<p:column sortBy="#{order.createdDate}">
 									<f:facet name="header">Created date</f:facet>
 									<div class="text-center">
 										<p:commandLink action="#{orderBean.viewOrder(order.id)}">
@@ -102,8 +100,16 @@
 									<f:facet name="header">Created by</f:facet>
 									<h:outputText value="#{order.user.buildFullName()}" />
 								</p:column>
-								<p:column>
-									<f:facet name="header">Status</f:facet>
+								<p:column sortBy="#{order.status}"
+									filterBy="#{order.status.toString()}" filterMatchMode="in"
+									headerText="Status">
+									<f:facet name="filter">
+										<p:selectCheckboxMenu label="Status"
+											onchange="PF('orderTable').filter()" scrollHeight="150"
+											styleClass="custom-filter">
+											<f:selectItems value="#{orderBean.allStatus}" />
+										</p:selectCheckboxMenu>
+									</f:facet>
 									<div class="text-center">
 										<h:outputText value="#{order.status.toString()}" />
 									</div>
@@ -112,7 +118,8 @@
 									<f:facet name="header">
 									</f:facet>
 									<div class="text-center">
-										<p:commandButton icon="fa fa-fw fa-edit" class="black" />
+										<p:commandButton icon="fa fa-fw fa-cogs" class="black"
+											action="#{orderBean.onClickProcessOrder(order.id)}" />
 										<p:commandButton icon="fa fa-fw fa-trash" class="red"
 											action="#{orderBean.onClickRemoveButton(order.id)}" />
 									</div>

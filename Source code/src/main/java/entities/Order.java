@@ -29,26 +29,23 @@ import lombok.NoArgsConstructor;
 @Table(name = "product_order")
 public class Order {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name = "by_user")
-	User user;
-	
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	@Column(name = "created_date")
-	Date createdDate;
-	
+	private Date createdDate;
+
 	@Column(name = "note")
 	private String note;
-	
+
 	@Column(name = "status")
 	private OrderStatus status;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "order_id")
 	private List<OrderDetail> orderDetails;
 }
-
-
-

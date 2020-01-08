@@ -23,11 +23,14 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
+import entities.Action;
 import entities.Location;
+import entities.Log;
 import entities.Order;
 import entities.OrderDetail;
 import entities.OrderStatus;
 import entities.Product;
+import entities.ProductStatus;
 import entities.Role;
 import entities.User;
 import lombok.Getter;
@@ -37,6 +40,7 @@ import services.LogService;
 import services.OrderDetailService;
 import services.OrderService;
 import services.ProductService;
+import services.UserService;
 
 @SuppressWarnings("deprecation")
 @ManagedBean(name = "orderBean")
@@ -59,6 +63,10 @@ public class OrderBean implements Serializable {
 	@Getter
 	@Setter
 	private List<Order> ordersNotProcessYet;
+	
+	@Getter
+	@Setter
+	private transient List<Order> orderFiltered;
 
 	@Getter
 	@Setter
@@ -79,7 +87,7 @@ public class OrderBean implements Serializable {
 	@Getter
 	@Setter
 	private Order removedOrder;
-
+	
 	@Getter
 	@Setter
 	private String note;
@@ -91,6 +99,10 @@ public class OrderBean implements Serializable {
 	@Getter
 	@Setter
 	private Integer orderId;
+	
+	@Getter
+	@Setter
+	private List<String> allStatus = new ArrayList<>();
 
 	@Inject
 	OrderService orderService;
@@ -103,6 +115,9 @@ public class OrderBean implements Serializable {
 
 	@Inject
 	OrderDetailService orderDetailService;
+	
+	@EJB
+	UserService userService;
 	
 	@EJB
 	LogService logService;
@@ -121,6 +136,10 @@ public class OrderBean implements Serializable {
 			if (!loginUser.getRole().equals(Role.ADMIN)) {
 				this.orders = orders.stream().filter(order -> order.getUser().getEmail().equals(loginUser.getEmail()))
 						.collect(Collectors.toList());
+			}
+			OrderStatus[] statuses = OrderStatus.values();
+			for (OrderStatus orderStatus : statuses) {
+				allStatus.add(orderStatus.toString());
 			}
 
 			this.products = productService.findAll();
@@ -156,7 +175,8 @@ public class OrderBean implements Serializable {
 
 		orderDetails = orderDetails.stream().filter(detail -> Objects.nonNull(detail.getProduct().getName()))
 				.collect(Collectors.toList());
-		Order order = Order.builder().createdDate(new Date()).user(loginUser).note(note).status(OrderStatus.IN_CREATED)
+		User user = this.loginUser;
+		Order order = Order.builder().createdDate(new Date()).user(user).note(note).status(OrderStatus.INITIAL)
 				.orderDetails(orderDetails).build();
 
 		this.orderService.createOrder(order);
@@ -195,12 +215,25 @@ public class OrderBean implements Serializable {
 			logger.warn("Can not find order with id " + orderId);
 		}
 	}
+	
+	public void onClickProcessOrder(int orderId) {
+		Optional<Order> optionalOrder = orderService.find(orderId);
+		if (optionalOrder.isPresent()) {
+			Order processedOrder = optionalOrder.get();
+			processedOrder.setStatus(OrderStatus.PROCESSING);
+			orderService.updateOrder(processedOrder);
+			PrimeFaces.current().executeScript("showSuccessMessage('Order processed succesfully!')");
+			PrimeFaces.current().executeScript("reloadPage()");
+		} else {
+			logger.warn("Can not find order with id " + orderId);
+		}
+	}
 
-//	public void writeLog() {
+	public void writeLog() {
 //		Log log = Log.builder().action(Action.DELETE).user(userBean.getLoginUser()).logTime(new Date())
-//				.note("<order> " + ).build();
+//				.note("order  " + o).build();
 //		logService.add(log);
-//	}
+	}
 
 	public void removeOrder() {
 		orderService.remove(removedOrder);

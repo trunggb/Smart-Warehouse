@@ -71,7 +71,7 @@ public class ProductUpdateBean implements Serializable {
 	}
 
 	public void writeLog() {
-		Log log = Log.builder().action(Action.UPDATE).user(userBean.getLoginUser()).logTime(new Date()).note("<product> "+ product.getName()).build();
+		Log log = Log.builder().action(Action.UPDATE).user(userBean.getLoginUser()).logTime(new Date()).note("product "+ product.getName()).build();
 		logService.add(log);
 	}
 
@@ -83,7 +83,7 @@ public class ProductUpdateBean implements Serializable {
 			writeLog();
 		} else {
 			logger.info("Can not update products");
-			PrimeFaces.current().executeScript("parent.showErrorMessage('Product remove failed!')");
+			PrimeFaces.current().executeScript("parent.showErrorMessage('Product update failed!')");
 		}
 
 		PrimeFaces.current().executeScript("parent.reloadPage();");

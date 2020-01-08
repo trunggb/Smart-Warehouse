@@ -30,6 +30,7 @@ public abstract class GenericService <E>{
 		}
 		return false;
 	}
+	
 	public boolean delete(E entity) {
 		if(entity != null) {
 			em.remove(entity);

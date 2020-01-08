@@ -31,7 +31,7 @@ public class UserBean implements Serializable{
 	DialogService dialogService;
 	
 	public void addUser() {
-		Map<String, Object> options = dialogService.createDialogOption(700,550);
+		Map<String, Object> options = dialogService.createDialogOption(700,500);
 		
 		PrimeFaces.current().dialog().openDynamic("addUser", options, null);
 	}

@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-	<title>Add User</title>
+	<title>Update User</title>
 	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
 	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
 	<h:outputStylesheet library="css" name="jquery.toast.css"></h:outputStylesheet>
@@ -15,17 +15,18 @@
 </h:head>
 
 <h:body>
-	<h:form id="add-user-form">
+	<h:form id="update-user-form">
 		<div class="ui-g">
 			<div class="ui-g-3">
 				<p:outputLabel for="first-name" value="First Name:" />
 			</div>
 			<div class="ui-g-6 width-100">
-				<p:inputText id="first-name" value="#{userAddBean.user.firstName}"
+				<p:inputText id="first-name"
+					value="#{userUpdateBean.user.firstName}"
 					requiredMessage="First name  is required" required="true"
 					validatorMessage="First name must be atleast 2 character">
 					<f:validateLength maximum="100" minimum="2" />
-					<p:ajax event="blur" update="@this add-user-form:fname-err-msg" />
+					<p:ajax event="blur" update="@this update-user-form:fname-err-msg" />
 				</p:inputText>
 			</div>
 			<div class="ui-g-3">
@@ -39,11 +40,11 @@
 				<p:outputLabel for="last-name" value="Last Name:" />
 			</div>
 			<div class="ui-g-6 width-100">
-				<p:inputText id="last-name" value="#{userAddBean.user.lastName}"
+				<p:inputText id="last-name" value="#{userUpdateBean.user.lastName}"
 					requiredMessage="Last name  is required" required="true"
 					validatorMessage="Last name must be atleast 2 character">
 					<f:validateLength maximum="100" minimum="2" />
-					<p:ajax event="blur" update="@this add-user-form:lname-err-msg" />
+					<p:ajax event="blur" update="@this update-user-form:lname-err-msg" />
 				</p:inputText>
 			</div>
 			<div class="ui-g-3">
@@ -56,9 +57,10 @@
 			</div>
 			<div class="ui-g-6 width-100">
 				<p:inputText id="user-name" required="true"
-					value="#{userAddBean.user.userName}"
+					value="#{userUpdateBean.user.userName}"
 					requiredMessage="User name is required">
-					<p:ajax event="blur" update="@this add-user-form:username-err-msg"></p:ajax>
+					<p:ajax event="blur"
+						update="@this update-user-form:username-err-msg"></p:ajax>
 				</p:inputText>
 			</div>
 			<div class="ui-g-3">
@@ -72,7 +74,8 @@
 				<p:outputLabel value="Password:" for="user-password" />
 			</div>
 			<div class="ui-g-6 width-100">
-				<p:password id="user-password" value="#{userAddBean.user.password}">
+				<p:password id="user-password"
+					value="#{userUpdateBean.user.password}">
 				</p:password>
 			</div>
 			<div class="ui-g-3">
@@ -86,12 +89,12 @@
 				<p:outputLabel for="user-email" value="Email:" />
 			</div>
 			<div class="ui-g-6 width-100">
-				<p:inputText id="user-email" value="#{userAddBean.user.email}"
+				<p:inputText id="user-email" value="#{userUpdateBean.user.email}"
 					validatorMessage="Invalid email format"
 					requiredMessage="Email is required">
 					<f:validateRegex
 						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-					<p:ajax event="blur" update="@this add-user-form:email-err-msg" />
+					<p:ajax event="blur" update="@this update-user-form:email-err-msg" />
 				</p:inputText>
 			</div>
 			<div class="ui-g-3">
@@ -105,9 +108,9 @@
 			</div>
 			<div class="ui-g-6 width-100">
 				<p:inputText type="tel" id="user-phone"
-					value="#{userAddBean.user.phone}"
+					value="#{userUpdateBean.user.phone}"
 					requiredMessage="Phone number is required" required="true">
-					<p:ajax event="blur" update="@this add-user-form:phone-err-msg" />
+					<p:ajax event="blur" update="@this update-user-form:phone-err-msg" />
 				</p:inputText>
 			</div>
 			<div class="ui-g-3">
@@ -120,7 +123,27 @@
 				<p:outputLabel for="user-address" value="Address:" />
 			</div>
 			<div class="ui-g-6 width-100">
-				<p:inputText id="user-address" value="#{userAddBean.user.address}" />
+				<p:inputText id="user-address"
+					value="#{userUpdateBean.user.address}" />
+			</div>
+		</div>
+		<div class="ui-g">
+			<div class="ui-g-3">
+				<p:outputLabel value="Status:" for="user-status-radio" />
+			</div>
+			<div class="ui-g-6">
+				<p:selectOneRadio id="user-status-radio" required="true"
+					requiredMessage="Status is required"
+					value="#{userUpdateBean.user.status}">
+					<f:selectItems value="#{userUpdateBean.getUserStatus()}"
+						var="userStatus" itemValue="#{userStatus}"
+						itemLabel="#{userStatus.toString()}" />
+					<p:ajax event="change" update="@this update-user-form:status-err-msg" />
+				</p:selectOneRadio>
+			</div>
+			<div class="ui-g-3">
+				<h:message for="user-status-radio" styleClass="error-msg"
+					id="status-err-msg" />
 			</div>
 		</div>
 
@@ -129,9 +152,9 @@
 				<p:outputLabel for="user-avatar" value="Avatar:" />
 			</div>
 			<div class="ui-g-6 width-100">
-				<p:inputText id="user-avatar" value="#{userAddBean.user.avatar}"
+				<p:inputText id="user-avatar" value="#{userUpdateBean.user.avatar}"
 					validatorMessage="Invalid avatar url format">
-					<p:ajax event="blur" update="@this add-user-form:avatar-err-msg"></p:ajax>
+					<p:ajax event="blur" update="@this update-user-form:avatar-err-msg"></p:ajax>
 					<f:validator validatorId="imgValidator" />
 				</p:inputText>
 			</div>
@@ -147,11 +170,12 @@
 			</div>
 			<div class="ui-g-6">
 				<p:selectOneRadio id="user-role-radio" required="true"
-					requiredMessage="Role is required" value="#{userAddBean.user.role}">
-					<f:selectItems value="#{userAddBean.getUserRoles()}"
+					requiredMessage="Role is required"
+					value="#{userUpdateBean.user.role}">
+					<f:selectItems value="#{userUpdateBean.getUserRoles()}"
 						var="userRoles" itemValue="#{userRoles}"
 						itemLabel="#{userRoles.toString()}" />
-					<p:ajax event="change" update="@this add-user-form:role-err-msg" />
+					<p:ajax event="change" update="@this update-user-form:role-err-msg" />
 				</p:selectOneRadio>
 			</div>
 			<div class="ui-g-3">
@@ -160,8 +184,8 @@
 			</div>
 		</div>
 		<div class="center-but">
-			<p:commandButton value="Add" type="submit"
-				action="#{userAddBean.addUser}" update="@form" />
+			<p:commandButton value="Update" type="submit"
+				action="#{userUpdateBean.updateUser}" update="@form" />
 		</div>
 	</h:form>
 	<h:outputScript library="js" name="jquery.toast.js"></h:outputScript>

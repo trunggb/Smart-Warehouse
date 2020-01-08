@@ -40,10 +40,6 @@
 
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
-							value="Trucks" />
-
-						<p:commandButton
-							styleClass="function-button btn-info btn-info-format"
 							value="Products"
 							action="#{userManagementBean.onClickProductButton}" />
 
@@ -89,7 +85,8 @@
 
 					<div class="x_panel">
 						<div class="x_title">
-							<p:commandButton value="Add++" />
+							<p:commandButton icon="fa fa-fw fa-plus"
+								action="#{userManagementBean.addUser()}" />
 						</div>
 						<div class="flex-container space-around x_content">
 							<p:dataTable reflow="true" rows="15" paginatorPosition="both"
@@ -104,7 +101,8 @@
 								</p:column>
 								<p:column filterBy="#{user.buildFullName()}" headerText="Name"
 									filterMatchMode="contains" sortBy="#{user.buildFullName()}">
-									<p:commandLink value="#{user.buildFullName()}" />
+									<p:commandLink value="#{user.buildFullName()}"
+										action="#{userManagementBean.viewUser(user)}" />
 								</p:column>
 								<p:column sortBy="#{user.phone}" headerText="Phone">
 									<div class="text-center">
@@ -122,7 +120,7 @@
 								</p:column>
 
 								<p:column sortBy="#{user.status}" headerText="Status"
-									filterBy="#{user.status.name()}" filterMatchMode="in">
+									filterBy="#{user.status.toString()}" filterMatchMode="in">
 									<f:facet name="filter">
 										<p:selectCheckboxMenu label="Status"
 											onchange="PF('userTable').filter()" scrollHeight="150"
@@ -137,13 +135,13 @@
 								</p:column>
 								<p:column>
 									<f:facet name="header">
-										<!-- <p:commandButton action="#{productBean.addProduct()}"
-											value="Add" /> -->
 										Action
 									</f:facet>
 									<div class="text-center">
-										<p:commandButton icon="fa fa-fw fa-edit" styleClass="black" />
-										<p:commandButton icon="fa fa-fw fa-trash" styleClass="red" />
+										<p:commandButton icon="fa fa-fw fa-edit" styleClass="black" 
+										action="#{userManagementBean.updateUser(user)}"/>
+										<p:commandButton icon="fa fa-fw fa-trash" styleClass="red"
+											action="#{userManagementBean.onClickRemoveButton(user)}" />
 									</div>
 
 								</p:column>
@@ -158,12 +156,12 @@
 
 	<p:confirmDialog global="true" closeOnEscape="true"
 		widgetVar="remove-dialog" header="Confirmation"
-		message="Do you want to remove this product ?">
+		message="Do you want to remove this user ?">
 		<h:form>
 			<p:commandButton value="No" type="button"
 				onclick="PF('remove-dialog').hide()" />
 			<p:commandButton value="Yes" type="submit"
-				action="#{productBean.removeProduct}"
+				action="#{userManagementBean.removeUser}"
 				onstart="PF('remove-dialog').hide();" />
 		</h:form>
 	</p:confirmDialog>

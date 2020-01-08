@@ -37,11 +37,6 @@
 
 					<div class="tab-container flex-container space-between">
 					
-
-						<p:commandButton
-							styleClass="function-button btn-info btn-info-format"
-							value="Trucks" />
-
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
 							value="Products" />
@@ -85,7 +80,7 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<p:commandButton action="#{productBean.addProduct()}"
-								value="Add++" />
+								icon="fa fa-fw fa-plus" />
 						</div>
 						<div class="flex-container space-around x_content">
 							<p:dataTable reflow="true" rows="15" paginatorPosition="both"
@@ -121,7 +116,7 @@
 								</p:column>
 
 								<p:column sortBy="#{product.status}" headerText="Status"
-									filterBy="#{product.status.name()}" filterMatchMode="in">
+									filterBy="#{product.status.toString()}" filterMatchMode="in">
 									<f:facet name="filter">
 										<p:selectCheckboxMenu label="Status"
 											onchange="PF('productTable').filter()" scrollHeight="150"
@@ -136,8 +131,6 @@
 								</p:column>
 								<p:column>
 									<f:facet name="header">
-										<!-- <p:commandButton action="#{productBean.addProduct()}"
-											value="Add" /> -->
 										Action
 									</f:facet>
 									<div class="text-center">
@@ -146,7 +139,6 @@
 										<p:commandButton icon="fa fa-fw fa-trash" styleClass="red"
 											action="#{productBean.onclickRemoveButton(product)}" />
 									</div>
-
 								</p:column>
 							</p:dataTable>
 						</div>

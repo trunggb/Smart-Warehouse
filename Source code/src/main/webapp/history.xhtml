@@ -40,10 +40,6 @@
 
 						<p:commandButton
 							styleClass="function-button btn-info btn-info-format"
-							value="Trucks" />
-
-						<p:commandButton
-							styleClass="function-button btn-info btn-info-format"
 							value="Products" action="#{logBean.onClickProductButton}" />
 
 						<p:commandButton
@@ -57,7 +53,7 @@
 						<p:commandButton
 							rendered="#{productBean.loginUser.role == 'ADMIN'}"
 							styleClass="function-button btn-info btn-info-format"
-							value="Users" action="#{logBean.onClickUserButton}"/>
+							value="Users" action="#{logBean.onClickUserButton}" />
 
 					</div>
 

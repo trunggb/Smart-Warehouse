@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>User detail</title>
+	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
+	<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+	<h:outputStylesheet name="components.css" library="primefaces" />
+	<h:outputStylesheet library="css" name="viewProduct.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="First Name:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{userViewBean.user.firstName}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Last Name:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{userViewBean.user.lastName}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="User Name:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{userViewBean.user.userName}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Email:" />
+		</div>
+		<div class="ui-g-8">
+			<h:outputText value="#{userViewBean.user.email}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Phone:" />
+		</div>
+		<div class="ui-g-8 ">
+			<h:outputText value="#{userViewBean.user.phone}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Address:" />
+		</div>
+		<div class="ui-g-8 width-80">
+			<h:outputText value="#{userViewBean.user.address}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Avatar:" />
+		</div>
+		<div class="ui-g-8 width-80">
+			<h:outputText value="#{userViewBean.user.avatar}" />
+		</div>
+	</div>
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Created date:" />
+		</div>
+		<div class="ui-g-8 width-80">
+			<h:outputText value="#{userViewBean.user.createDate}">
+				<f:convertDateTime pattern="yyyy-MMM-dd" />
+			</h:outputText>
+		</div>
+	</div>
+
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Last access date:" />
+		</div>
+		<div class="ui-g-8 width-80">
+			<h:outputText value="#{userViewBean.user.lastAccessDate}">
+				<f:convertDateTime pattern="yyyy-MMM-dd" />
+			</h:outputText>
+		</div>
+	</div>
+
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Last logout date:" />
+		</div>
+		<div class="ui-g-8 width-80">
+			<h:outputText value="#{userViewBean.user.lastLogoutDate}">
+				<f:convertDateTime pattern="yyyy-MMM-dd" />
+			</h:outputText>
+		</div>
+	</div>
+
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Role:" />
+		</div>
+		<div class="ui-g-8 width-80">
+			<h:outputText value="#{userViewBean.user.role.toString()}" />
+		</div>
+	</div>
+
+	<div class="ui-g">
+		<div class="ui-g-4">
+			<p:outputLabel value="Status:" />
+		</div>
+		<div class="ui-g-8 width-80">
+			<h:outputText value="#{userViewBean.user.status.toString()}" />
+		</div>
+	</div>
+</h:body>
+
+</html>

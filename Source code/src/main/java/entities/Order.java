@@ -32,12 +32,12 @@ public class Order {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_name")
-	User user;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 	@Column(name = "created_date")
-	Date createdDate;
+	private Date createdDate;
 	
 	@Column(name = "note")
 	private String note;

@@ -534,3 +534,8 @@ body .ui-button.ui-state-focus {
 	color: black;
 	background: #c7c5bf;
 }
+
+.ui-state-hover {
+	color: #204d74 !important;
+	background-color: #bfbebe !important
+}

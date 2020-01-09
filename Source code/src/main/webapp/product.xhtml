@@ -29,11 +29,16 @@
 							</div>
 						</div>
 						<div class="tab-container flex-container space-between">
-							<p:commandButton styleClass="function-button" value="users"
-								action="#{productBean.onClickUserButton}" />
-							<p:commandButton styleClass="function-button" value="products" />
+							<c:if test="#{productBean.loginUser.role == 'ADMIN'}">
+								<p:commandButton styleClass="function-button" value="users"
+									action="#{productBean.onClickUserButton}" />
+							</c:if>
+							<p:commandButton styleClass="function-button" value="products"
+								disabled="true" />
+
 							<p:commandButton styleClass="function-button" value="orders"
 								action="#{productBean.onClickOrderButton}" />
+
 						</div>
 
 						<div class="sign-out-container">
@@ -46,7 +51,7 @@
 							<p:outputLabel styleClass="big-title">PRODUCT</p:outputLabel>
 						</div>
 						<div class="flex-container space-around">
-							<p:dataTable reflow="true" rows="10" paginatorPosition="both"
+							<p:dataTable reflow="true" rows="5" paginatorPosition="both"
 								paginator="true" rowsPerPageTemplate="5,10,15"
 								value="#{productBean.products}"
 								filteredValue="#{productBean.productsFiltered}"

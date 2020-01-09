@@ -33,8 +33,8 @@ public class Order {
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "create_by")
+	private User creator;
 	
 	@Column(name = "created_date")
 	private Date createdDate;
@@ -44,6 +44,10 @@ public class Order {
 	
 	@Column(name = "status")
 	private OrderStatus status;
+	
+	@ManyToOne
+	@JoinColumn(name = "delivery_by")
+	private User shipper;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "order_id")

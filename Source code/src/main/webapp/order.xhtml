@@ -25,11 +25,17 @@
 						</div>
 					</div>
 					<div class="tab-container flex-container space-between">
-						<p:commandButton styleClass="function-button" value="users"
-							action="#{orderBean.onClickUserButton}" />
-						<p:commandButton styleClass="function-button" value="products"
-							action="#{orderBean.onClickProductButton}" />
-						<p:commandButton styleClass="function-button" value="orders" />
+						<c:if test="#{orderBean.loginUser.role == 'ADMIN'}">
+							<p:commandButton styleClass="function-button" value="users"
+								action="#{orderBean.onClickUserButton}" />
+						</c:if>
+						<c:if test="#{orderBean.loginUser.role != 'DRIVER'}">
+							<p:commandButton styleClass="function-button" value="products"
+								action="#{orderBean.onClickProductButton}" />
+						</c:if>
+
+						<p:commandButton styleClass="function-button" value="orders" disabled="true"/>
+
 					</div>
 
 					<div class="sign-out-container">
@@ -42,11 +48,16 @@
 						<p:outputLabel styleClass="big-title">ORDER</p:outputLabel>
 					</div>
 					<div class="flex-container space-around">
-						<p:dataTable id="order-table" reflow="true" rows="10"
+						<p:dataTable id="order-table" reflow="true" rows="5"
 							paginatorPosition="both" paginator="true"
+							filteredValue="#{orderBean.orderFiltered}"
 							rowsPerPageTemplate="5,10,15" value="#{orderBean.orders}"
+							rowIndexVar="rowIndex"
 							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							var="order">
+							<p:column headerText="No.">
+								<h:outputText value="#{rowIndex + 1}" />
+							</p:column>
 							<p:column sortBy="#{order.createdDate}">
 								<f:facet name="header">Created date</f:facet>
 								<h:commandLink action="#{orderBean.viewOrder(order.id)}">
@@ -57,23 +68,45 @@
 									<f:ajax execute="@form" render="@form" />
 								</h:commandLink>
 							</p:column>
-							<p:column sortBy="#{order.user.buildFullName()}">
-								<f:facet name="header">Created by</f:facet>
-								<h:outputText value="#{order.user.buildFullName()}" />
+							<p:column filterBy="#{order.creator.buildFullName()}"
+								sortBy="#{order.creator.buildFullName()}"
+								filterMatchMode="contains" headerText="Created by">
+								<h:outputText value="#{order.creator.buildFullName()}" />
 							</p:column>
-							<p:column sortBy="#{order.status}">
-								<f:facet name="header">Status</f:facet>
+							<p:column filterBy="#{order.shipper.buildFullName()}"
+								sortBy="#{order.shipper.buildFullName()}"
+								filterMatchMode="contains" headerText="Delivery by">
+								<h:outputText value="#{order.shipper.buildFullName()}" />
+							</p:column>
+							<p:column sortBy="#{order.status}"
+								filterBy="#{order.status.toString()}" filterMatchMode="in"
+								headerText="Status">
+								<f:facet name="filter">
+									<p:selectCheckboxMenu label="Status"
+										onchange="PF('orderTable').filter()" scrollHeight="150"
+										styleClass="custom-filter">
+										<f:selectItems value="#{orderBean.allStatus}" />
+									</p:selectCheckboxMenu>
+								</f:facet>
 								<h:outputText value="#{order.status.toString()}" />
 							</p:column>
 							<p:column>
 								<f:facet name="header">
-									<p:commandButton onclick="PF('create-order-dialog').show();"
-										icon="fa fa-fw fa-plus-square" />
+									<c:if test="#{orderBean.loginUser.role != 'DRIVER'}">
+										<p:commandButton onclick="PF('create-order-dialog').show();"
+											icon="fa fa-fw fa-plus-square" />
+									</c:if>
 								</f:facet>
-								<p:commandButton icon="fa fa-fw fa-cogs"
-									onclick="PF('process-order-dialog').show();" />
-								<p:commandButton icon="fa fa-fw fa-trash"
-									action="#{orderBean.onClickRemoveButton(order.id)}" />
+								<c:if test="#{orderBean.loginUser.role != 'DRIVER'}">
+									<p:commandButton icon="fa fa-fw fa-cogs"
+										action="#{orderBean.onClickProcessOrder(order.id)}" />
+									<p:commandButton icon="fa fa-fw fa-trash"
+										action="#{orderBean.onClickRemoveButton(order.id)}" />
+								</c:if>
+								<c:if test="#{orderBean.loginUser.role == 'DRIVER'}">
+									<p:commandButton icon="fa fa-fw fa-check" action="#{orderBean.onClickCheckButton(order.id)}"/>
+									<p:commandButton icon="fa fa-fw fa-times" action="#{orderBean.onClickTimesButton(order.id)}"/>
+								</c:if>
 							</p:column>
 						</p:dataTable>
 					</div>
@@ -126,7 +159,7 @@
 					<h:outputLabel value="Driver" />
 				</div>
 				<div class="ui-g-10">
-					<p:selectOneMenu>
+					<p:selectOneMenu value="#{orderBean.driver.id}">
 						<f:selectItem itemLabel="" itemValue="" />
 						<f:selectItems value="#{orderBean.drivers}" var="d"
 							itemLabel="#{d.buildFullName()}" itemValue="#{d.id}" />
@@ -134,8 +167,7 @@
 				</div>
 			</div>
 			<div class="center-but">
-				<p:commandButton value="Process" type="submit"
-					onstart="PF('process-order-dialog').hide();" />
+				<p:commandButton value="Process" action="#{orderBean.processOrder}" />
 			</div>
 		</h:form>
 	</p:dialog>

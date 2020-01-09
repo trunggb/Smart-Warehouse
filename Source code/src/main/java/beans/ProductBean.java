@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
 import entities.Product;
+import entities.Role;
 import entities.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -62,7 +63,7 @@ public class ProductBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		if(Objects.isNull(userBean.getLoginUser())) {
+		if(Objects.isNull(userBean.getLoginUser()) || userBean.getLoginUser().getRole() == Role.DRIVER) {
 			PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 		}else {
 			this.loginUser = userBean.getLoginUser();

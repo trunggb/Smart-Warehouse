@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
+import entities.Role;
 import entities.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,7 +56,7 @@ public class UserManagementBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		if(Objects.isNull(userBean.getLoginUser())) {
+		if(Objects.isNull(userBean.getLoginUser()) || userBean.getLoginUser().getRole() != Role.ADMIN) {
 			PrimeFaces.current().executeScript("top.redirectTo('index.xhtml')");
 		}
 		this.loginUser = userBean.getLoginUser();

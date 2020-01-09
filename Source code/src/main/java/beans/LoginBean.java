@@ -49,7 +49,7 @@ public class LoginBean implements Serializable{
 		Optional<User> user = userService.checkValidUser(userName, encrypted);
 		if(user.isPresent()) {
 			this.userBean.setLoginUser(user.get());
-			PrimeFaces.current().executeScript("top.redirectTo('product.xhtml')");
+			PrimeFaces.current().executeScript("top.redirectTo('order.xhtml')");
 		}
 	}
 	

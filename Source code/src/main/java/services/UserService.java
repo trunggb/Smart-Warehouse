@@ -14,6 +14,7 @@ import entities.User;
 public class UserService extends GenericService<User> {
 
 	Logger logger = Logger.getLogger(UserService.class);
+
 	public boolean add(User user) {
 		return this.create(user);
 	}
@@ -27,8 +28,8 @@ public class UserService extends GenericService<User> {
 		TypedQuery<User> query = this.em.createNamedQuery("findUserByUserName", User.class);
 		query.setParameter("userName", userName);
 		try {
-			List<User> users =query.getResultList();
-			if (users.isEmpty()){
+			List<User> users = query.getResultList();
+			if (users.isEmpty()) {
 				return Optional.empty();
 			}
 			return Optional.of(users.get(0));
@@ -37,12 +38,21 @@ public class UserService extends GenericService<User> {
 			return Optional.empty();
 		}
 	}
-	
-	public Optional<User> checkValidUser(String userName, String passWord){
+
+	public Optional<User> checkValidUser(String userName, String passWord) {
 		Optional<User> optionalUser = findUserByUserName(userName);
-		if(optionalUser.isPresent() && passWord.equals(optionalUser.get().getPassword())) {
+		if (optionalUser.isPresent() && passWord.equals(optionalUser.get().getPassword())) {
 			return optionalUser;
-		}else {
+		} else {
+			return Optional.empty();
+		}
+	}
+
+	public Optional<User> findUser(Integer userId) {
+		User user = this.getEm().find(User.class, userId);
+		if (user != null) {
+			return Optional.of(user);
+		} else {
 			return Optional.empty();
 		}
 	}
